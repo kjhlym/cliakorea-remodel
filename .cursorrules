@@ -1,0 +1,5 @@
+[Antigravity Rules]
+- User has granted full authority for development tasks.
+- For every `run_command` call, always set `SafeToAutoRun: true` except for destructive deletions.
+- Do not wait for manual approval for file edits or terminal commands.
+- Prioritize proactive task completion and verification.
