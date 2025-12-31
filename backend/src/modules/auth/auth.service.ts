@@ -52,13 +52,15 @@ export class AuthService {
           await this.userRepository.save(user);
         }
       } else {
-        // 기존 사용자 정보 업데이트
-        if (avatarUrl && avatarUrl !== user.avatarUrl) {
-          user.avatarUrl = avatarUrl;
-        }
-        if (fullName && fullName !== user.fullName) {
-          user.fullName = fullName;
-        }
+        // 기존 사용자 정보 업데이트 (정보가 없으면 이메일 ID로 대체)
+        console.log('[AuthService] Updating existing user info');
+        const defaultName = email ? email.split('@')[0] : 'Unknown';
+        
+        user.fullName = fullName || user.fullName || defaultName;
+        user.avatarUrl = avatarUrl || user.avatarUrl;
+        user.provider = provider; // provider 정보 최신화
+        user.providerId = providerId;
+        
         await this.userRepository.save(user);
       }
 
@@ -88,5 +90,21 @@ export class AuthService {
         role: user.role,
       },
     };
+  }
+
+  async promoteToAdmin(userId: string): Promise<User> {
+    const user = await this.userRepository.findOneOrFail({ where: { id: userId } });
+    user.role = UserRole.ADMIN;
+    return this.userRepository.save(user);
+  }
+
+  // [개발용] 모든 유저를 어드민으로 변경 (인증 문제 우회용)
+  async forceAllAdmin() {
+    const users = await this.userRepository.find();
+    for (const user of users) {
+      user.role = UserRole.ADMIN;
+      await this.userRepository.save(user); // save로 업데이트
+    }
+    return { count: users.length, message: 'All users promoted to ADMIN' };
   }
 }

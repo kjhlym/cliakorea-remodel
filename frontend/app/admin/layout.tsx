@@ -4,25 +4,29 @@ import { useAuth } from "@/lib/context/AuthContext";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import Link from "next/link";
-import { LayoutDashboard, Users, FileText, MessageSquare, Settings, LogOut } from "lucide-react";
+import { LayoutDashboard, Users, FileText, MessageSquare, Settings, LogOut, Image as ImageIcon } from "lucide-react";
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
-  const { user, logout } = useAuth();
+  const { user, isLoading, logout } = useAuth();
   const router = useRouter();
 
   useEffect(() => {
-    // 실제 운영 환경에서는 서버 사이드에서도 체크해야 함
-    if (user && user.role !== "admin") {
-      router.push("/");
+    if (!isLoading) {
+      if (!user || user.role !== "admin") {
+        router.push("/");
+      }
     }
-  }, [user, router]);
+  }, [user, isLoading, router]);
 
-  if (!user || user.role !== "admin") {
+  // 로딩 중이거나, 유저 정보가 아직 확인되지 않았을 때
+  if (isLoading || !user || user.role !== "admin") {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gray-50">
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
-          <p className="text-gray-500 font-bold">관리자 권한 확인 중...</p>
+          <p className="text-gray-500 font-bold">
+            {isLoading ? "사용자 확인 중..." : "접근 권한 확인 중..."}
+          </p>
         </div>
       </div>
     );
@@ -32,6 +36,8 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     { icon: <LayoutDashboard className="w-5 h-5" />, label: "대시보드", href: "/admin" },
     { icon: <FileText className="w-5 h-5" />, label: "신청 내역", href: "/admin/applications" },
     { icon: <MessageSquare className="w-5 h-5" />, label: "상담 내역", href: "/admin/consultations" },
+    { icon: <ImageIcon className="w-5 h-5" />, label: "팝업 관리", href: "/admin/popups" },
+    { icon: <Settings className="w-5 h-5" />, label: "교육 일정", href: "/admin/schedules" },
     { icon: <Users className="w-5 h-5" />, label: "회원 관리", href: "/admin/users" },
   ];
 

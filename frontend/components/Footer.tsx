@@ -8,7 +8,7 @@ export default function Footer() {
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
           {/* 연락처 정보 */}
-          <div>
+          <div className="flex flex-col items-center text-center">
             <h3 className="text-lg font-bold mb-4">연락처</h3>
             <div className="space-y-2 text-gray-300">
               <p>
@@ -28,9 +28,9 @@ export default function Footer() {
           </div>
 
           {/* 소셜 미디어 */}
-          <div>
+          <div className="flex flex-col items-center text-center">
             <h3 className="text-lg font-bold mb-4">소셜 미디어</h3>
-            <div className="flex gap-4">
+            <div className="flex gap-4 justify-center">
               <a
                 href="https://facebook.com"
                 target="_blank"
@@ -53,7 +53,7 @@ export default function Footer() {
           </div>
 
           {/* 빠른 링크 */}
-          <div>
+          <div className="flex flex-col items-center text-center">
             <h3 className="text-lg font-bold mb-4">빠른 링크</h3>
             <ul className="space-y-2 text-gray-300">
               <li>

@@ -1,12 +1,14 @@
 // API 클라이언트 설정
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001/api';
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001';
 
 // 공통 fetch 함수
 async function fetchAPI<T>(
   endpoint: string,
   options?: RequestInit,
 ): Promise<T> {
-  const url = `${API_BASE_URL}${endpoint}`;
+  // Ensure endpoint starts with /
+  const path = endpoint.startsWith('/') ? endpoint : `/${endpoint}`;
+  const url = `${API_BASE_URL}${path}`;
   
   const response = await fetch(url, {
     ...options,
@@ -86,6 +88,36 @@ export const consultationAPI = {
     return fetchAPI('/consultations', {
       method: 'POST',
       body: JSON.stringify(data),
+    });
+  },
+};
+
+// 일정 관리 API
+export const scheduleAPI = {
+  getSchedules: async (year?: number, month?: number) => {
+    const params = new URLSearchParams();
+    if (year) params.append('year', year.toString());
+    if (month) params.append('month', month.toString());
+    return fetchAPI(`/schedules?${params.toString()}`);
+  },
+  
+  createSchedule: async (data: any) => {
+    return fetchAPI('/schedules', {
+      method: 'POST',
+      body: JSON.stringify(data),
+    });
+  },
+  
+  updateSchedule: async (id: number, data: any) => {
+    return fetchAPI(`/schedules/${id}`, {
+      method: 'PATCH',
+      body: JSON.stringify(data),
+    });
+  },
+  
+  deleteSchedule: async (id: number) => {
+    return fetchAPI(`/schedules/${id}`, {
+      method: 'DELETE',
     });
   },
 };

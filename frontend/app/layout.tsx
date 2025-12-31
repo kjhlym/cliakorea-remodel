@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { AuthProvider } from "@/lib/context/AuthContext";
 import LoginModal from "@/components/LoginModal";
+import { Toaster } from "react-hot-toast";
+import PopupProvider from "@/components/PopupProvider";
 
 export const metadata: Metadata = {
   title: "어린이리더십강사협회 | CLIA",
@@ -19,6 +21,8 @@ export default function RootLayout({
         <AuthProvider>
           {children}
           <LoginModal />
+          <PopupProvider />
+          <Toaster position="top-right" />
         </AuthProvider>
       </body>
     </html>

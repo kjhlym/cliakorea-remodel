@@ -22,16 +22,25 @@ export default function ConsultationPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/consultations`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || "http://localhost:3001"}/consultations`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({
+          ...formData,
+          message: formData.content, // content를 message로 맵핑
+        }),
       });
+      
       if (response.ok) {
         setIsSubmitted(true);
+      } else {
+        const errorData = await response.json();
+        console.error("Consultation submit failed:", errorData);
+        alert(`신청 중 오류가 발생했습니다: ${errorData.message || "다시 시도해주세요."}`);
       }
     } catch (error) {
       console.error("Consultation request failed", error);
+      alert("서버와 통신 중 오류가 발생했습니다.");
     }
   };
 

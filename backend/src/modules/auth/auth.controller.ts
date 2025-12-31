@@ -20,12 +20,14 @@ export class AuthController {
     try {
       console.log('[AuthController] googleAuthRedirect user:', req.user);
       const { accessToken, user } = await this.authService.login(req.user);
-      return res.redirect(`${process.env.FRONTEND_URL}/auth/callback?token=${accessToken}`);
+      const frontendUrl = process.env.FRONTEND_URL || 'http://localhost:3000';
+      return res.redirect(`${frontendUrl}/auth/callback?token=${accessToken}`);
     } catch (error) {
       console.error('[AuthController] Error in googleAuthRedirect:', error);
       const logPath = path.join(process.cwd(), 'auth_error.log');
       fs.appendFileSync(logPath, `[${new Date().toISOString()}] CONTROLLER Error: ${error.message}\nStack: ${error.stack}\nUser: ${JSON.stringify(req.user)}\n\n`);
-      return res.redirect(`${process.env.FRONTEND_URL}/login?error=auth_failed`);
+      const frontendUrl = process.env.FRONTEND_URL || 'http://localhost:3000';
+      return res.redirect(`${frontendUrl}/login?error=auth_failed`);
     }
   }
 
@@ -43,12 +45,14 @@ export class AuthController {
         throw new Error('User not found in request');
       }
       const { accessToken } = await this.authService.login(req.user);
-      return res.redirect(`${process.env.FRONTEND_URL}/auth/callback?token=${accessToken}`);
+      const frontendUrl = process.env.FRONTEND_URL || 'http://localhost:3000';
+      return res.redirect(`${frontendUrl}/auth/callback?token=${accessToken}`);
     } catch (error) {
       console.error('[AuthController] Error in kakaoAuthRedirect:', error);
       const logPath = path.join(process.cwd(), 'auth_error.log');
       fs.appendFileSync(logPath, `[${new Date().toISOString()}] KAKAO CONTROLLER Error: ${error.message}\nStack: ${error.stack}\nUser: ${JSON.stringify(req.user)}\n\n`);
-      return res.redirect(`${process.env.FRONTEND_URL}/login?error=auth_failed&message=${encodeURIComponent(error.message)}`);
+      const frontendUrl = process.env.FRONTEND_URL || 'http://localhost:3000';
+      return res.redirect(`${frontendUrl}/login?error=auth_failed&message=${encodeURIComponent(error.message)}`);
     }
   }
 
@@ -61,7 +65,8 @@ export class AuthController {
   @UseGuards(AuthGuard('naver'))
   async naverAuthRedirect(@Req() req, @Res() res: Response) {
     const { accessToken } = await this.authService.login(req.user);
-    return res.redirect(`${process.env.FRONTEND_URL}/auth/callback?token=${accessToken}`);
+    const frontendUrl = process.env.FRONTEND_URL || 'http://localhost:3000';
+    return res.redirect(`${frontendUrl}/auth/callback?token=${accessToken}`);
   }
 
   // 현재 사용자 정보 확인 (Me)
@@ -70,5 +75,18 @@ export class AuthController {
   getProfile(@Req() req) {
     console.log('[AuthController /auth/me] User from JWT:', req.user);
     return req.user;
+  }
+
+  // [개발용] 본인 계정을 어드민으로 승격
+  @Get('promote-me')
+  @UseGuards(AuthGuard('jwt'))
+  async promoteMe(@Req() req) {
+    return this.authService.promoteToAdmin(req.user.id);
+  }
+
+  // [개발용] 모든 계정을 어드민으로 승격 (인증 불필요 - 비상용)
+  @Get('dev/force-admin')
+  async forceAdmin() {
+    return this.authService.forceAllAdmin();
   }
 }

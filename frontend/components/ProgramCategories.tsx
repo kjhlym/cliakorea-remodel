@@ -58,10 +58,50 @@ const programCategories = [
   },
 ];
 
-export default function ProgramCategories() {
+export default function ProgramCategories({ standalone = true }: { standalone?: boolean }) {
+  const content = (
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 gap-6">
+      {programCategories.map((program) => (
+        <Link
+          key={program.id}
+          href={program.href}
+          className="group relative bg-white rounded-3xl p-6 shadow-sm hover:shadow-xl transition-all duration-500 border border-gray-100 flex flex-col items-start text-left"
+        >
+          {/* 아이콘 컨테이너 */}
+          <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${program.gradient} text-white flex items-center justify-center mb-5 shadow-lg group-hover:scale-110 transition-transform duration-500`}>
+            {program.icon}
+          </div>
+          
+          <span className="text-[10px] font-bold text-gray-400 mb-1 uppercase tracking-tight">
+            {program.englishName}
+          </span>
+          <h4 className="text-lg font-black text-gray-900 mb-3 group-hover:text-blue-600 transition-colors leading-tight">
+            {program.name}
+          </h4>
+          <p className="text-gray-500 text-xs leading-relaxed mb-6">
+            {program.description}
+          </p>
+          
+          {/* 화살표 가이드 */}
+          <div className="mt-auto flex items-center gap-2 text-blue-600 font-bold text-xs">
+            <span>자세히 보기</span>
+            <svg className="w-3 h-3 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+            </svg>
+          </div>
+
+          {/* 하단 투명 장식 */}
+          <div className={`absolute -bottom-2 -right-2 w-20 h-20 bg-gradient-to-br ${program.gradient} opacity-[0.03] rounded-full blur-2xl group-hover:opacity-10 transition-opacity`} />
+        </Link>
+      ))}
+    </div>
+  );
+
+  if (!standalone) return content;
+
   return (
     <section className="py-24 bg-gray-50 overflow-hidden">
-      <div className="container mx-auto px-4">
+      <div className="container mx-auto px-4 lg:px-20">
         <div className="text-center max-w-3xl mx-auto mb-16">
           <h2 className="text-sm font-bold text-blue-600 tracking-widest uppercase mb-3">
             Our Programs
@@ -71,42 +111,7 @@ export default function ProgramCategories() {
           </h3>
           <div className="h-1 w-20 bg-blue-600 mx-auto rounded-full" />
         </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {programCategories.map((program) => (
-            <Link
-              key={program.id}
-              href={program.href}
-              className="group relative bg-white rounded-3xl p-8 shadow-sm hover:shadow-2xl transition-all duration-500 border border-gray-100 flex flex-col items-center text-center"
-            >
-              {/* 아이콘 컨테이너 */}
-              <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${program.gradient} text-white flex items-center justify-center mb-6 shadow-lg group-hover:scale-110 transition-transform duration-500`}>
-                {program.icon}
-              </div>
-              
-              <span className="text-xs font-bold text-gray-400 mb-2 uppercase tracking-tight">
-                {program.englishName}
-              </span>
-              <h4 className="text-xl font-bold text-gray-900 mb-4 group-hover:text-blue-600 transition-colors">
-                {program.name}
-              </h4>
-              <p className="text-gray-500 text-sm leading-relaxed mb-8">
-                {program.description}
-              </p>
-              
-              {/* 화살표 가이드 */}
-              <div className="mt-auto flex items-center gap-2 text-blue-600 font-bold text-sm">
-                <span>자세히 보기</span>
-                <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                </svg>
-              </div>
-
-              {/* 하단 투명 장식 */}
-              <div className={`absolute -bottom-2 -right-2 w-24 h-24 bg-gradient-to-br ${program.gradient} opacity-[0.03] rounded-full blur-2xl group-hover:opacity-10 transition-opacity`} />
-            </Link>
-          ))}
-        </div>
+        {content}
       </div>
     </section>
   );
