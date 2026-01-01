@@ -9,7 +9,7 @@ export const databaseConfig = (): TypeOrmModuleOptions => {
     host: process.env.DATABASE_HOST || 'localhost',
     port: parseInt(process.env.DATABASE_PORT || '5432', 10),
     username: process.env.DATABASE_USERNAME || 'postgres',
-    password: process.env.DATABASE_PASSWORD || 'postgres',
+    password: process.env.DATABASE_PASSWORD || '6371',
     database: process.env.DATABASE_NAME || 'cliakorea',
     // 개발 환경에서는 소스 파일 경로, 프로덕션에서는 빌드된 파일 경로 사용
     entities: isProduction

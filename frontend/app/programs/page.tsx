@@ -15,7 +15,8 @@ function ProgramsContent() {
 
   useEffect(() => {
     const tab = searchParams.get("tab");
-    if (tab) {
+    const validTabs = ["children", "youth", "parent", "special", "instructor"];
+    if (tab && validTabs.includes(tab)) {
       setActiveTab(tab);
     }
   }, [searchParams]);
@@ -44,7 +45,8 @@ function ProgramsContent() {
         }
       ],
       color: "blue",
-      icon: <Star className="w-12 h-12 text-blue-600" />
+      icon: <Star className="w-12 h-12 text-blue-600" />,
+      image: "/images/program-children.png"
     },
     youth: {
       title: "청소년 리더십 프로그램",
@@ -61,7 +63,8 @@ function ProgramsContent() {
         }
       ],
       color: "purple",
-      icon: <Target className="w-12 h-12 text-purple-600" />
+      icon: <Target className="w-12 h-12 text-purple-600" />,
+      image: "/images/program-youth.png"
     },
     parent: {
       title: "부모 리더십 프로그램",
@@ -78,7 +81,8 @@ function ProgramsContent() {
         }
       ],
       color: "teal",
-      icon: <Heart className="w-12 h-12 text-teal-600" />
+      icon: <Heart className="w-12 h-12 text-teal-600" />,
+      image: "/images/about-vision.png"
     },
     special: {
       title: "특화 프로그램",
@@ -95,7 +99,8 @@ function ProgramsContent() {
         }
       ],
       color: "orange",
-      icon: <Lightbulb className="w-12 h-12 text-orange-600" />
+      icon: <Lightbulb className="w-12 h-12 text-orange-600" />,
+      image: "/images/main-banner-02.png"
     },
     instructor: {
       title: "강사양성 프로그램",
@@ -113,7 +118,8 @@ function ProgramsContent() {
         }
       ],
       color: "indigo",
-      icon: <Briefcase className="w-12 h-12 text-indigo-600" />
+      icon: <Briefcase className="w-12 h-12 text-indigo-600" />,
+      image: "/images/main-banner-03.png"
     }
   };
 
@@ -161,15 +167,34 @@ function ProgramsContent() {
         <div className="container mx-auto px-4 py-16">
           <div className="max-w-5xl mx-auto">
             {/* 타이틀 및 설명 */}
-            <div className="text-center mb-16 animate-fade-in">
-              <div className="flex justify-center mb-6">{activeContent.icon}</div>
-              <h2 className="text-3xl md:text-4xl font-black text-gray-900 mb-4">
-                {activeContent.title}
-              </h2>
-              <p className="text-xl font-bold text-blue-600 mb-6">{activeContent.subtitle}</p>
-              <p className="text-gray-600 text-lg leading-relaxed max-w-3xl mx-auto">
-                {activeContent.description}
-              </p>
+            <div className="flex flex-col md:flex-row gap-8 lg:gap-12 items-center mb-16 animate-fade-in">
+               <div className="w-full md:w-1/2">
+                  <div className="aspect-[4/3] relative rounded-[2rem] overflow-hidden shadow-2xl group">
+                    <img 
+                      src={(activeContent as any).image} 
+                      alt={activeContent.title} 
+                      className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-700" 
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
+                  </div>
+               </div>
+               <div className="w-full md:w-1/2 text-left">
+                  <div className="flex items-center gap-4 mb-6">
+                     <div className={`p-3 rounded-xl bg-${activeContent.color}-100`}>
+                       {activeContent.icon}
+                     </div>
+                     <span className={`px-4 py-1.5 rounded-full bg-${activeContent.color}-50 text-${activeContent.color}-600 font-bold text-sm tracking-widest uppercase border border-${activeContent.color}-100`}>
+                        {tabs.find(t => t.id === activeTab)?.label}
+                     </span>
+                  </div>
+                  <h2 className="text-3xl md:text-4xl lg:text-5xl font-black text-gray-900 mb-6 leading-tight">
+                    {activeContent.title}
+                  </h2>
+                  <p className={`text-xl font-bold text-${activeContent.color}-600 mb-6`}>{activeContent.subtitle}</p>
+                  <p className="text-gray-600 text-lg leading-relaxed">
+                    {activeContent.description}
+                  </p>
+               </div>
             </div>
 
             {/* 특징 카드 그리드 */}

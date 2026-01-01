@@ -56,7 +56,7 @@ export default function AboutPage() {
             <div className="relative">
               <div className="aspect-square rounded-[3rem] overflow-hidden shadow-2xl">
                 <img 
-                  src="http://cliakorea.kr/banner/item/40.jpg" 
+                  src="/images/about-vision.png" 
                   alt="협회 비전" 
                   className="w-full h-full object-cover"
                 />

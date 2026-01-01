@@ -6,19 +6,19 @@ import Image from "next/image";
 // cliakorea.kr 실제 배너 이미지
 const carouselImages = [
   {
-    src: "http://cliakorea.kr/banner/item/40.jpg",
+    src: "/images/main-banner-01.png",
     alt: "어린이 리더십 강사협회 메인 배너 1",
     title: "미래를 이끄는 리더십",
     subtitle: "창의적인 교육으로 어린이의 잠재력을 깨웁니다.",
   },
   {
-    src: "http://cliakorea.kr/banner/item/120.jpg",
+    src: "/images/main-banner-02.png",
     alt: "어린이 리더십 강사협회 메인 배너 2",
     title: "글로벌 인재 양성",
     subtitle: "세계로 뻗어나가는 당당한 리더를 꿈꿉니다.",
   },
   {
-    src: "http://cliakorea.kr/banner/item/80.jpg",
+    src: "/images/main-banner-03.png",
     alt: "어린이 리더십 강사협회 메인 배너 3",
     title: "전문 강사 커뮤니티",
     subtitle: "최고의 강사진과 함께하는 성장의 발판이 되어드립니다.",
