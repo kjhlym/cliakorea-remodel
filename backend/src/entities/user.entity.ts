@@ -16,6 +16,7 @@ export enum AuthProvider {
   GOOGLE = 'google',
   KAKAO = 'kakao',
   NAVER = 'naver',
+  ADMIN = 'admin',
 }
 
 @Entity('users')

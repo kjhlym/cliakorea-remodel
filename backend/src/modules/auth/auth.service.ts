@@ -1,8 +1,8 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { User, UserRole } from '../../entities/user.entity';
+import { User, UserRole, AuthProvider } from '../../entities/user.entity';
 import * as fs from 'fs';
 import * as path from 'path';
 
@@ -96,6 +96,38 @@ export class AuthService {
     const user = await this.userRepository.findOneOrFail({ where: { id: userId } });
     user.role = UserRole.ADMIN;
     return this.userRepository.save(user);
+  }
+
+  // Admin 로그인 (ID/PW 방식)
+  async adminLogin(adminId: string, password: string) {
+    // 하드코딩된 admin 계정 확인
+    if (adminId !== 'cliaadmin' || password !== 'clia2026') {
+      throw new UnauthorizedException('잘못된 관리자 계정 정보입니다.');
+    }
+
+    // admin 사용자 찾기 또는 생성
+    let adminUser = await this.userRepository.findOne({
+      where: { email: 'admin@cliakorea.kr' }
+    });
+
+    if (!adminUser) {
+      // admin 사용자가 없으면 생성
+      adminUser = this.userRepository.create({
+        email: 'admin@cliakorea.kr',
+        fullName: '시스템 관리자',
+        avatarUrl: null,
+        provider: AuthProvider.ADMIN,
+        providerId: 'admin',
+        role: UserRole.ADMIN,
+      });
+      await this.userRepository.save(adminUser);
+    } else {
+      // 기존 admin 사용자의 역할을 admin으로 확실히 설정
+      adminUser.role = UserRole.ADMIN;
+      await this.userRepository.save(adminUser);
+    }
+
+    return this.login(adminUser);
   }
 
   // [개발용] 모든 유저를 어드민으로 변경 (인증 문제 우회용)

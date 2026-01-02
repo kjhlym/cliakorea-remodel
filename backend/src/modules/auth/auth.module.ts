@@ -8,7 +8,6 @@ import { AuthController } from './auth.controller';
 import { User } from '../../entities/user.entity';
 import { GoogleStrategy } from './strategies/google.strategy';
 import { KakaoStrategy } from './strategies/kakao.strategy';
-import { NaverStrategy } from './strategies/naver.strategy';
 import { JwtStrategy } from './strategies/jwt.strategy';
 import { EncryptionService } from './encryption.service';
 // KakaoStrategy, NaverStrategy 추가 완료
@@ -28,7 +27,7 @@ import { EncryptionService } from './encryption.service';
       }),
     }),
   ],
-  providers: [AuthService, GoogleStrategy, KakaoStrategy, NaverStrategy, JwtStrategy, EncryptionService],
+  providers: [AuthService, GoogleStrategy, KakaoStrategy, JwtStrategy, EncryptionService],
   controllers: [AuthController],
   exports: [AuthService, EncryptionService],
 })

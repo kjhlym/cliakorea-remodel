@@ -1,4 +1,4 @@
-import { Controller, Get, UseGuards, Req, Res } from '@nestjs/common';
+import { Controller, Get, Post, UseGuards, Req, Res, Body } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { AuthService } from './auth.service';
 import { Response } from 'express';
@@ -57,16 +57,10 @@ export class AuthController {
   }
 
   // Naver Login
-  @Get('naver')
-  @UseGuards(AuthGuard('naver'))
-  async naverAuth() {}
-
-  @Get('naver/callback')
-  @UseGuards(AuthGuard('naver'))
-  async naverAuthRedirect(@Req() req, @Res() res: Response) {
-    const { accessToken } = await this.authService.login(req.user);
-    const frontendUrl = process.env.FRONTEND_URL || 'http://localhost:3000';
-    return res.redirect(`${frontendUrl}/auth/callback?token=${accessToken}`);
+  // Admin 로그인 (ID/PW 방식)
+  @Post('admin/login')
+  async adminLogin(@Body() loginDto: { adminId: string; password: string }) {
+    return this.authService.adminLogin(loginDto.adminId, loginDto.password);
   }
 
   // 현재 사용자 정보 확인 (Me)
