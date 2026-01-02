@@ -1,0 +1,28 @@
+services:
+  - type: web
+    name: cliakorea-backend
+    env: node
+    plan: free
+    buildCommand: cd backend && npm install && npm run build
+    startCommand: cd backend && npm run start:prod
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 3001
+      - key: JWT_SECRET
+        generateValue: true
+      - key: FRONTEND_URL
+        value: https://cliakorea-frontend.vercel.app
+    healthCheckPath: /
+    autoDeploy: true
+    branch: main
+    rootDir: ./
+    buildFilter:
+      paths:
+        - backend/**
+        - package.json
+    disk:
+      name: cliakorea-data
+      mountPath: /opt/render/project/src/backend/uploads
+      sizeGB: 1

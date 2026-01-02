@@ -1,0 +1,17 @@
+{
+  "version": 2,
+  "name": "cliakorea-frontend",
+  "buildCommand": "cd frontend && npm install && npm run build",
+  "outputDirectory": "frontend/.next",
+  "installCommand": "cd frontend && npm install",
+  "framework": "nextjs",
+  "env": {
+    "NEXT_PUBLIC_API_URL": "https://cliakorea-api.onrender.com"
+  },
+  "functions": {
+    "frontend/app/**/*.tsx": {
+      "maxDuration": 30
+    }
+  },
+  "regions": ["icn1"]
+}
