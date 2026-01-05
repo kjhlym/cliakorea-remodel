@@ -47,6 +47,9 @@ export class Board {
   @Column({ nullable: true })
   authorName: string; // 작성자 이름 (탈퇴한 사용자 대비)
 
+  @Column({ type: 'jsonb', nullable: true, default: [] })
+  attachments: { name: string; url: string }[];
+
   @CreateDateColumn()
   createdAt: Date;
 

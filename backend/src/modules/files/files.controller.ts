@@ -3,10 +3,11 @@ import {
   Post,
   UseInterceptors,
   UploadedFile,
+  UploadedFiles,
   UseGuards,
 } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { FileInterceptor } from '@nestjs/platform-express';
+import { FileInterceptor, FilesInterceptor } from '@nestjs/platform-express';
 import { R2Service } from './r2.service';
 import { AuthGuard } from '@nestjs/passport';
 import { join } from 'path';
@@ -29,12 +30,31 @@ export class FilesController {
     }
   }))
   async uploadFile(@UploadedFile() file: Express.Multer.File) {
+    return this.saveFile(file);
+  }
+
+  @Post('uploads')
+  @UseGuards(AuthGuard('jwt'))
+  @UseInterceptors(FilesInterceptor('files', 10, {
+    limits: {
+      fileSize: 10 * 1024 * 1024, // 10MB
+    }
+  }))
+  async uploadFiles(@UploadedFiles() files: Array<Express.Multer.File>) {
+    const results = await Promise.all(files.map(file => this.saveFile(file)));
+    return { 
+      urls: results.map(u => u.url),
+      files: results 
+    };
+  }
+
+  private async saveFile(file: Express.Multer.File) {
     const r2Configured = this.configService.get('R2_ACCESS_KEY_ID') && 
                         this.configService.get('R2_ENDPOINT');
 
+    let url: string;
     if (r2Configured) {
-      const url = await this.r2Service.uploadFile(file);
-      return { url };
+      url = await this.r2Service.uploadFile(file);
     } else {
       // 로컬 스토리지 폴백
       const uploadDir = join(process.cwd(), 'uploads');
@@ -49,8 +69,8 @@ export class FilesController {
       fs.writeFileSync(filePath, file.buffer);
       
       const backendUrl = this.configService.get('BACKEND_URL') || 'http://localhost:3001';
-      const url = `${backendUrl}/uploads/${fileName}`;
-      return { url };
+      url = `${backendUrl}/uploads/${fileName}`;
     }
+    return { url, name: file.originalname };
   }
 }

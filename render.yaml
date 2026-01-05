@@ -2,6 +2,7 @@ services:
   - type: web
     name: cliakorea-backend
     env: node
+    region: singapore
     plan: free
     buildCommand: cd backend && npm install && npm run build
     startCommand: cd backend && npm run start:prod
@@ -10,19 +11,44 @@ services:
         value: production
       - key: PORT
         value: 3001
+      - key: DATABASE_HOST
+        sync: false
+      - key: DATABASE_PORT
+        value: 5432
+      - key: DATABASE_USERNAME
+        sync: false
+      - key: DATABASE_PASSWORD
+        sync: false
+      - key: DATABASE_NAME
+        sync: false
       - key: JWT_SECRET
         generateValue: true
+      - key: JWT_EXPIRES_IN
+        value: 7d
       - key: FRONTEND_URL
-        value: https://cliakorea-frontend.vercel.app
-    healthCheckPath: /
-    autoDeploy: true
-    branch: main
-    rootDir: ./
-    buildFilter:
-      paths:
-        - backend/**
-        - package.json
-    disk:
-      name: cliakorea-data
-      mountPath: /opt/render/project/src/backend/uploads
-      sizeGB: 1
+        sync: false
+      - key: GOOGLE_CLIENT_ID
+        sync: false
+      - key: GOOGLE_CLIENT_SECRET
+        sync: false
+      - key: GOOGLE_CALLBACK_URL
+        sync: false
+      - key: KAKAO_CLIENT_ID
+        sync: false
+      - key: KAKAO_CALLBACK_URL
+        sync: false
+      - key: NAVER_CLIENT_ID
+        sync: false
+      - key: NAVER_CLIENT_SECRET
+        sync: false
+      - key: NAVER_CALLBACK_URL
+        sync: false
+      - key: AWS_REGION
+        sync: false
+      - key: AWS_ACCESS_KEY_ID
+        sync: false
+      - key: AWS_SECRET_ACCESS_KEY
+        sync: false
+      - key: AWS_S3_BUCKET_NAME
+        sync: false
+    healthCheckPath: /health

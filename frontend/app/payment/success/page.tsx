@@ -1,10 +1,10 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { CheckCircle, XCircle } from "lucide-react";
 
-export default function PaymentSuccessPage() {
+function PaymentSuccessContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [status, setStatus] = useState<"loading" | "success" | "error">("loading");
@@ -25,7 +25,7 @@ export default function PaymentSuccessPage() {
       try {
         const rawUrl = process.env.NEXT_PUBLIC_API_URL;
         const apiUrl = (rawUrl && rawUrl !== "undefined") ? rawUrl : "http://localhost:3001";
-        
+
         const response = await fetch(`${apiUrl}/credits/confirm`, {
           method: "POST",
           headers: {
@@ -42,7 +42,7 @@ export default function PaymentSuccessPage() {
           const data = await response.json();
           setStatus("success");
           setMessage(`${data.payment.credits}개의 크레딧이 충전되었습니다!`);
-          
+
           // 3초 후 홈으로 리다이렉트
           setTimeout(() => {
             router.push("/");
@@ -100,5 +100,21 @@ export default function PaymentSuccessPage() {
         )}
       </div>
     </div>
+  );
+}
+
+export default function PaymentSuccessPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-50">
+        <div className="bg-white rounded-3xl shadow-2xl p-12 max-w-md w-full text-center">
+          <div className="animate-spin rounded-full h-16 w-16 border-b-4 border-blue-600 mx-auto mb-6"></div>
+          <h2 className="text-2xl font-black text-gray-900 mb-2">결제 처리 중...</h2>
+          <p className="text-gray-500">잠시만 기다려 주세요.</p>
+        </div>
+      </div>
+    }>
+      <PaymentSuccessContent />
+    </Suspense>
   );
 }

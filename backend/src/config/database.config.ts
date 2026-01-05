@@ -12,11 +12,9 @@ export const databaseConfig = (): TypeOrmModuleOptions => {
     password: process.env.DATABASE_PASSWORD || '6371',
     database: process.env.DATABASE_NAME || 'cliakorea',
     // 개발 환경에서는 소스 파일 경로, 프로덕션에서는 빌드된 파일 경로 사용
-    entities: isProduction
-      ? [join(__dirname, '..', '**', '*.entity.js')]
-      : [join(__dirname, '..', '**', '*.entity.ts')],
+    entities: [join(__dirname, '..', '**', '*.entity.{ts,js}')],
     migrations: [join(__dirname, '..', 'migrations', '*.{ts,js}')],
-    synchronize: !isProduction, // 프로덕션에서는 false
+    synchronize: true, // 강제로 동기화 활성화
     logging: process.env.NODE_ENV === 'development',
     autoLoadEntities: true, // 엔티티 자동 로드 활성화
   };

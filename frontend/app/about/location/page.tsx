@@ -9,7 +9,6 @@ import { MapPin, Phone, Mail, Clock, Navigation, Map as MapIcon } from "lucide-r
 declare global {
   interface Window {
     kakao: any;
-    google: any;
   }
 }
 
@@ -19,75 +18,70 @@ const LOCATION = {
   address: "서울시 노원구 동일로 182길 47-23 104호",
 };
 
+const KAKAO_KEY = "b27692e44c793331e6decc7a6de3b0ab";
+
 export default function LocationPage() {
   const kakaoMapRef = useRef<HTMLDivElement>(null);
-  const googleMapRef = useRef<HTMLDivElement>(null);
-  const [activeMap, setActiveMap] = useState<"kakao" | "google">("kakao");
   const [isKakaoLoaded, setIsKakaoLoaded] = useState(false);
-  const [isGoogleLoaded, setIsGoogleLoaded] = useState(false);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    
+    // 이미 로드되어 있는지 확인
+    if ((window as any).kakao && (window as any).kakao.maps) {
+      setIsKakaoLoaded(true);
+    }
+  }, []);
 
   // 카카오맵 초기화
   useEffect(() => {
-    if (activeMap === "kakao" && isKakaoLoaded && kakaoMapRef.current) {
-      const initKakaoMap = () => {
-        if (!window.kakao || !window.kakao.maps) return;
+    const initMap = () => {
+      const kakao = (window as any).kakao;
+      if (!kakao || !kakao.maps) return;
 
-        const options = {
-          center: new window.kakao.maps.LatLng(LOCATION.lat, LOCATION.lng),
-          level: 3,
-        };
+      // autoload=false가 없으면 바로 실행 가능하지만, 
+      // 만약의 경우를 대비해 load 함수 내에서 실행
+      const container = kakaoMapRef.current;
+      if (!container) return;
 
-        const map = new window.kakao.maps.Map(kakaoMapRef.current, options);
-        const markerPosition = new window.kakao.maps.LatLng(LOCATION.lat, LOCATION.lng);
-        const marker = new window.kakao.maps.Marker({ position: markerPosition });
-        marker.setMap(map);
+      // 기존 맵 내용 삭제
+      container.innerHTML = '';
 
-        const infowindow = new window.kakao.maps.InfoWindow({
-          content: '<div style="padding:10px;font-size:14px;font-weight:bold;">어린이리더십강사협회</div>',
-        });
-        infowindow.open(map, marker);
+      const options = {
+        center: new kakao.maps.LatLng(LOCATION.lat, LOCATION.lng),
+        level: 3,
       };
 
-      window.kakao.maps.load(initKakaoMap);
-    }
-  }, [activeMap, isKakaoLoaded]);
+      const map = new kakao.maps.Map(container, options);
+      const markerPosition = new kakao.maps.LatLng(LOCATION.lat, LOCATION.lng);
+      const marker = new kakao.maps.Marker({ position: markerPosition });
+      marker.setMap(map);
 
-  // 구글맵 초기화
-  useEffect(() => {
-    if (activeMap === "google" && isGoogleLoaded && googleMapRef.current) {
-      if (!window.google || !window.google.maps) return;
-
-      const map = new window.google.maps.Map(googleMapRef.current, {
-        center: { lat: LOCATION.lat, lng: LOCATION.lng },
-        zoom: 17,
-      });
-
-      const marker = new window.google.maps.Marker({
-        position: { lat: LOCATION.lat, lng: LOCATION.lng },
-        map: map,
-        title: "어린이리더십강사협회",
-      });
-
-      const infowindow = new window.google.maps.InfoWindow({
-        content: '<div style="color:black; padding:5px; font-weight:bold;">어린이리더십강사협회</div>',
+      const infowindow = new kakao.maps.InfoWindow({
+        content: '<div style="padding:10px;font-size:14px;font-weight:bold;white-space:nowrap;color:black;">어린이리더십강사협회</div>',
       });
       infowindow.open(map, marker);
+    };
+
+    if (isKakaoLoaded) {
+      // 스크립트 로드 후 객체가 인식될 때까지 약간의 여유를 둠
+      const timer = setTimeout(initMap, 500);
+      return () => clearTimeout(timer);
     }
-  }, [activeMap, isGoogleLoaded]);
+  }, [isKakaoLoaded]);
 
   return (
     <>
       <Script
-        src={`//dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.NEXT_PUBLIC_KAKAO_MAP_API_KEY}&autoload=false`}
-        strategy="lazyOnload"
-        onLoad={() => setIsKakaoLoaded(true)}
+        src={`https://dapi.kakao.com/v2/maps/sdk.js?appkey=${KAKAO_KEY}&libraries=services,clusterer,drawing&autoload=false`}
+        strategy="afterInteractive"
+        onLoad={() => {
+          const kakao = (window as any).kakao;
+          if (kakao && kakao.maps) {
+            kakao.maps.load(() => setIsKakaoLoaded(true));
+          }
+        }}
       />
-      <Script
-        src={`https://maps.googleapis.com/maps/api/js?key=${process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}`}
-        strategy="lazyOnload"
-        onLoad={() => setIsGoogleLoaded(true)}
-      />
-
       <div className="min-h-screen flex flex-col bg-white">
         <Header />
 
@@ -159,30 +153,6 @@ export default function LocationPage() {
                     <Navigation className="w-6 h-6" />
                     오시는 길
                   </h2>
-                  
-                  {/* 지도 전환 탭 */}
-                  <div className="flex bg-white/20 p-1 rounded-xl backdrop-blur-sm">
-                    <button
-                      onClick={() => setActiveMap("kakao")}
-                      className={`px-4 py-2 rounded-lg text-sm font-bold transition-all ${
-                        activeMap === "kakao"
-                          ? "bg-white text-blue-600 shadow-lg"
-                          : "text-white hover:bg-white/10"
-                      }`}
-                    >
-                      카카오맵
-                    </button>
-                    <button
-                      onClick={() => setActiveMap("google")}
-                      className={`px-4 py-2 rounded-lg text-sm font-bold transition-all ${
-                        activeMap === "google"
-                          ? "bg-white text-blue-600 shadow-lg"
-                          : "text-white hover:bg-white/10"
-                      }`}
-                    >
-                      구글맵
-                    </button>
-                  </div>
                 </div>
 
                 <div className="p-8">
@@ -192,51 +162,19 @@ export default function LocationPage() {
                       ref={kakaoMapRef}
                       style={{ 
                         width: '100%', 
-                        height: '100%', 
-                        display: activeMap === "kakao" ? "block" : "none" 
+                        height: '100%'
                       }}
                     />
-                    
-                    {/* 구글맵 컨테이너 */}
-                    <div
-                      ref={googleMapRef}
-                      style={{ 
-                        width: '100%', 
-                        height: '100%', 
-                        display: activeMap === "google" ? "block" : "none" 
-                      }}
-                    />
-
-                    {/* API 키 안내 메시지 (디버깅용, 키 없을 때만 표시 옵션 고려 가능) */}
-                    {((activeMap === "kakao" && !process.env.NEXT_PUBLIC_KAKAO_MAP_API_KEY) || 
-                      (activeMap === "google" && !process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY)) && (
-                      <div className="absolute inset-0 flex items-center justify-center bg-gray-100/90 z-10">
-                         <div className="text-center p-6">
-                           <MapIcon className="w-12 h-12 text-gray-400 mx-auto mb-2"/>
-                           <p className="text-gray-500 font-bold">API 키 설정이 필요합니다.</p>
-                           <p className="text-sm text-gray-400">환경 변수를 확인해 주세요.</p>
-                         </div>
-                      </div>
-                    )}
                   </div>
 
-                  <div className="flex flex-wrap justify-center gap-4">
+                  <div className="flex justify-center">
                     <a
                       href={`https://map.kakao.com/link/search/${LOCATION.address}`}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="px-6 py-3 bg-[#FAE100] text-[#371D1E] rounded-2xl font-bold hover:shadow-lg transition-all flex items-center gap-2"
+                      className="px-8 py-4 bg-[#FAE100] text-[#371D1E] rounded-2xl font-black hover:shadow-xl transition-all shadow-md flex items-center gap-2"
                     >
                       카카오맵에서 크게 보기
-                    </a>
-                    <a
-                      href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(LOCATION.address)}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="px-6 py-3 bg-white border-2 border-gray-200 text-gray-700 rounded-2xl font-bold hover:border-blue-500 hover:text-blue-600 hover:shadow-lg transition-all flex items-center gap-2"
-                    >
-                      <img src="https://www.google.com/favicon.ico" alt="G" className="w-4 h-4" />
-                      구글맵에서 크게 보기
                     </a>
                   </div>
                 </div>

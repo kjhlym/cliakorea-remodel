@@ -18,6 +18,7 @@ import { BoardCategory } from '../../entities/board.entity';
 import { RolesGuard } from '../auth/roles.guard';
 import { Roles } from '../auth/roles.decorator';
 import { UserRole } from '../../entities/user.entity';
+import { CreateBoardDto, UpdateBoardDto } from './dto/board.dto';
 
 @Controller('boards')
 export class BoardController {
@@ -44,7 +45,7 @@ export class BoardController {
   @Post()
   @UseGuards(AuthGuard('jwt'), RolesGuard)
   @Roles(UserRole.ADMIN)
-  async create(@Body() createBoardDto: any) {
+  async create(@Body() createBoardDto: CreateBoardDto) {
     return await this.boardService.create(createBoardDto);
   }
 
@@ -53,7 +54,7 @@ export class BoardController {
   @Roles(UserRole.ADMIN)
   async update(
     @Param('id', ParseUUIDPipe) id: string,
-    @Body() updateBoardDto: any,
+    @Body() updateBoardDto: UpdateBoardDto,
   ) {
     return await this.boardService.update(id, updateBoardDto);
   }

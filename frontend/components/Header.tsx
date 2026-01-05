@@ -28,11 +28,12 @@ const menuItems: MenuItem[] = [
   { name: "자료실", href: "/resources" },
   {
     name: "게시판",
-    href: "/notice",
+    href: "/board",
     submenu: [
       { name: "공지사항", href: "/notice" },
-      { name: "협회활동", href: "/activities" },
-      { name: "자유게시판", href: "/free" },
+      { name: "협회활동", href: "/board" },
+      { name: "갤러리", href: "/board/gallery" },
+      { name: "자유게시판", href: "/board" },
       { name: "협회교육일정", href: "/board/schedule" },
     ],
   },
@@ -49,19 +50,8 @@ export default function Header() {
       <div className="container mx-auto px-4">
         <div className="flex h-20 items-center justify-between">
           {/* 로고 영역 */}
-          <Link href="/" className="flex items-center gap-3">
-            <div className="flex items-center">
-              <div className="h-8 w-8 rounded-lg bg-blue-600 rotate-12 flex items-center justify-center -mr-2 shadow-lg">
-                <span className="text-white font-black text-lg -rotate-12">C</span>
-              </div>
-              <div className="h-8 w-8 rounded-lg bg-indigo-500 -rotate-3 flex items-center justify-center shadow-lg">
-                <span className="text-white font-black text-lg rotate-3">L</span>
-              </div>
-            </div>
-            <div className="flex flex-col ml-1">
-              <span className="text-xl font-black text-gray-900 leading-none">CLIA</span>
-              <span className="text-[10px] text-gray-400 font-bold uppercase tracking-tighter">Instructor Association</span>
-            </div>
+          <Link href="/" className="flex items-center">
+            <img src="/clialogo.png" alt="CLIA Logo" className="h-12 w-auto object-contain" />
           </Link>
 
           {/* 데스크톱 메뉴 */}

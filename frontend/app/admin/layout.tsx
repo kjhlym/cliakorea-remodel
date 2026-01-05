@@ -36,7 +36,11 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     { icon: <LayoutDashboard className="w-5 h-5" />, label: "대시보드", href: "/admin" },
     { icon: <FileText className="w-5 h-5" />, label: "신청 내역", href: "/admin/applications" },
     { icon: <MessageSquare className="w-5 h-5" />, label: "상담 내역", href: "/admin/consultations" },
+    { icon: <FileText className="w-5 h-5" />, label: "공지사항 관리", href: "/admin/notices" },
+    { icon: <MessageSquare className="w-5 h-5" />, label: "자유게시판 관리", href: "/admin/free" },
     { icon: <ImageIcon className="w-5 h-5" />, label: "팝업 관리", href: "/admin/popups" },
+    { icon: <ImageIcon className="w-5 h-5" />, label: "갤러리 관리", href: "/admin/gallery" },
+    { icon: <FileText className="w-5 h-5" />, label: "자료실 관리", href: "/admin/resources" },
     { icon: <Settings className="w-5 h-5" />, label: "교육 일정", href: "/admin/schedules" },
     { icon: <Users className="w-5 h-5" />, label: "회원 관리", href: "/admin/users" },
   ];
@@ -46,9 +50,9 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
       {/* 사이드바 */}
       <aside className="w-64 bg-white border-r border-gray-100 flex flex-col sticky top-0 h-screen">
         <div className="p-8 border-b border-gray-50">
-          <Link href="/" className="flex items-center gap-2">
-            <span className="text-2xl font-black text-blue-600">CLIA</span>
-            <span className="text-[10px] font-bold text-gray-400 uppercase tracking-tighter">Admin Portal</span>
+          <Link href="/" className="flex flex-col items-center gap-1">
+            <img src="/clialogo.png" alt="CLIA Logo" className="h-10 w-auto object-contain" />
+            <span className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Admin Portal</span>
           </Link>
         </div>
 

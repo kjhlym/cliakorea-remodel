@@ -15,6 +15,8 @@ import { CreditTransaction } from './entities/credit-transaction.entity';
 import { RefundRequest } from './entities/refund-request.entity';
 import { Schedule } from './entities/schedule.entity';
 import { Popup } from './entities/popup.entity';
+import { Gallery } from './entities/gallery.entity';
+import { Resource } from './entities/resource.entity';
 import { BoardModule } from './modules/board/board.module';
 import { ApplicationModule } from './modules/application/application.module';
 import { ConsultationModule } from './modules/consultation/consultation.module';
@@ -27,6 +29,8 @@ import { PricingPlansModule } from './modules/pricing-plans/pricing-plans.module
 import { ScheduleModule } from './modules/schedule/schedule.module';
 import { PopupModule } from './modules/popup/popup.module';
 import { AdminModule } from './modules/admin/admin.module';
+import { GalleryModule } from './modules/gallery/gallery.module';
+import { ResourceModule } from './modules/resource/resource.module';
 import { APP_INTERCEPTOR } from '@nestjs/core';
 import { AuditInterceptor } from './modules/auth/audit.interceptor';
 
@@ -37,7 +41,7 @@ import { AuditInterceptor } from './modules/auth/audit.interceptor';
       envFilePath: '.env',
     }),
     TypeOrmModule.forRoot(databaseConfig()),
-    TypeOrmModule.forFeature([User, Board, Application, Consultation, AuditLog, PricingPlan, Payment, CreditTransaction, RefundRequest, Schedule, Popup]),
+    TypeOrmModule.forFeature([User, Board, Application, Consultation, AuditLog, PricingPlan, Payment, CreditTransaction, RefundRequest, Schedule, Popup, Gallery, Resource]),
     AuthModule,
     UsersModule,
     FilesModule,
@@ -50,6 +54,8 @@ import { AuditInterceptor } from './modules/auth/audit.interceptor';
     ScheduleModule,
     AdminModule,
     PopupModule,
+    GalleryModule,
+    ResourceModule,
   ],
   controllers: [AppController],
   providers: [
@@ -58,6 +64,7 @@ import { AuditInterceptor } from './modules/auth/audit.interceptor';
       provide: APP_INTERCEPTOR,
       useClass: AuditInterceptor,
     },
+    // Dependency tree update trigger
   ],
 })
 export class AppModule {}

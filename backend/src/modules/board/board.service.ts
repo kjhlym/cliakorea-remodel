@@ -59,6 +59,7 @@ export class BoardService {
     category: BoardCategory;
     authorId?: string;
     authorName?: string;
+    attachments?: { name: string; url: string }[];
   }) {
     const board = this.boardRepository.create(createBoardDto);
     return await this.boardRepository.save(board);

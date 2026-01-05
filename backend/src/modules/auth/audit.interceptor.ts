@@ -26,7 +26,7 @@ export class AuditInterceptor implements NestInterceptor {
       return next.handle().pipe(
         tap(async () => {
           const auditLog = this.auditLogRepository.create({
-            userId: user?.userId || 'anonymous',
+            userId: user?.id || 'anonymous',
             action: `${method} ${path}`,
             method,
             path,
