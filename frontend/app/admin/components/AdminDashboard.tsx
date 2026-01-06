@@ -20,7 +20,6 @@ export default function AdminDashboard() {
     { label: '전체 회원', value: stats.totalUsers, icon: <Users className="w-6 h-6 text-blue-500" />, color: 'bg-blue-50' },
     { label: '신청 건수', value: stats.totalApplications, icon: <FileText className="w-6 h-6 text-orange-500" />, color: 'bg-orange-50' },
     { label: '상담 건수', value: stats.totalConsultations, icon: <MessageSquare className="w-6 h-6 text-green-500" />, color: 'bg-green-50' },
-    { label: '누적 매출', value: `₩${stats.totalRevenue.toLocaleString()}`, icon: <CreditCard className="w-6 h-6 text-purple-500" />, color: 'bg-purple-50' },
   ];
 
   return (
@@ -31,7 +30,7 @@ export default function AdminDashboard() {
       </div>
 
       {/* 통계 카드 */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {statCards.map((card) => (
           <div key={card.label} className="bg-white p-6 rounded-3xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
             <div className="flex items-center justify-between mb-4">

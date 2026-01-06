@@ -59,7 +59,7 @@ export default function HeroSection() {
 
   return (
     <section 
-      className="relative w-full h-[80vh] min-h-[600px] overflow-hidden bg-gray-900 group"
+      className="relative w-full h-[56vh] min-h-[420px] overflow-hidden bg-gray-900 group"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
     >
@@ -76,11 +76,13 @@ export default function HeroSection() {
               src={image.src}
               alt={image.alt}
               fill
-              className="object-cover brightness-50"
+              className="object-cover object-center brightness-75"
               priority={index === 0}
+              sizes="100vw"
+              quality={100}
             />
             {/* 오버레이 효과 */}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/30" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-black/20" />
           </div>
         ))}
       </div>
@@ -88,29 +90,29 @@ export default function HeroSection() {
       {/* 콘텐츠 영역 (텍스트 제어) */}
       <div className="relative z-10 h-full container mx-auto px-4 flex flex-col justify-center items-center text-center">
         <div 
-          className="max-w-4xl backdrop-blur-md bg-white/10 p-8 md:p-12 rounded-2xl border border-white/20 shadow-2xl animate-fade-in"
+          className="max-w-4xl backdrop-blur-md bg-white/10 p-5 md:p-8 rounded-2xl border border-white/20 shadow-2xl animate-fade-in"
           key={currentIndex} // 인덱스 변경 시 리렌더링으로 애니메이션 유도
         >
-          <span className="inline-block px-4 py-1 mb-4 bg-blue-600/80 text-white text-sm font-bold uppercase tracking-widest rounded-full backdrop-blur-sm">
+          <span className="inline-block px-3 py-0.5 mb-3 bg-blue-600/80 text-white text-xs font-bold uppercase tracking-widest rounded-full backdrop-blur-sm">
             Children Leadership Instructor Association
           </span>
-          <h1 className="text-4xl md:text-6xl lg:text-7xl font-extrabold text-white mb-6 leading-tight drop-shadow-lg">
+          <h1 className="text-3xl md:text-4xl lg:text-5xl font-extrabold text-white mb-4 leading-tight drop-shadow-lg">
             {carouselImages[currentIndex].title}
           </h1>
-          <p className="text-xl md:text-2xl text-gray-100 mb-10 font-medium drop-shadow-md">
+          <p className="text-base md:text-lg text-gray-100 mb-6 font-medium drop-shadow-md">
             {carouselImages[currentIndex].subtitle}
           </p>
-          <div className="flex flex-col sm:flex-row gap-5 justify-center">
+          <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <a
               href="/programs"
-              className="group relative px-10 py-4 bg-white text-blue-900 rounded-full font-bold text-lg hover:bg-blue-50 transition-all duration-300 shadow-xl overflow-hidden"
+              className="group relative px-7 py-2.5 bg-white text-blue-900 rounded-full font-bold text-base hover:bg-blue-50 transition-all duration-300 shadow-xl overflow-hidden"
             >
               <span className="relative z-10">프로그램 구경하기</span>
               <div className="absolute inset-0 bg-blue-100/50 transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-500" />
             </a>
             <a
               href="/instructor-training"
-              className="px-10 py-4 bg-transparent border-2 border-white/80 text-white rounded-full font-bold text-lg hover:bg-white/10 transition-all duration-300 backdrop-blur-sm"
+              className="px-7 py-2.5 bg-transparent border-2 border-white/80 text-white rounded-full font-bold text-base hover:bg-white/10 transition-all duration-300 backdrop-blur-sm"
             >
               강사 지원 안내
             </a>
@@ -141,7 +143,7 @@ export default function HeroSection() {
       </div>
 
       {/* 인디케이터 (네비게이션 점) */}
-      <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex gap-4 z-20">
+      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-3 z-20">
         {carouselImages.map((_, index) => (
           <button
             key={index}

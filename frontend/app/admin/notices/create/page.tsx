@@ -96,10 +96,10 @@ export default function CreateNoticePage() {
         >
           <ChevronLeft className="w-5 h-5 text-gray-500" />
         </Link>
-        <h1 className="text-2xl font-black text-gray-900">새 공지사항 작성</h1>
+        <h1 className="text-xl md:text-2xl font-black text-gray-900">새 공지사항 작성</h1>
       </div>
 
-      <div className="bg-white rounded-xl border border-gray-200 shadow-sm p-8">
+      <div className="bg-white rounded-xl border border-gray-200 shadow-sm p-4 md:p-8">
         <form onSubmit={handleSubmit} className="space-y-6">
           <div>
             <label className="block text-sm font-bold text-gray-700 mb-2">제목</label>

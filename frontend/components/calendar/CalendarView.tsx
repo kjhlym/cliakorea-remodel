@@ -110,20 +110,21 @@ export default function CalendarView() {
       </div>
 
       {/* Calendar Grid */}
-      <div className="border-t border-l border-gray-200 bg-white">
+      <div className="border-t border-l border-gray-200 bg-white shadow-sm text-sm md:text-base selection:bg-none">
         {/* Header Row */}
         <div className="grid grid-cols-7 text-center">
-            {['일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일'].map((day, index) => (
+            {['일', '월', '화', '수', '목', '금', '토'].map((day, index) => (
                 <div 
                     key={day} 
                     className={`
-                        py-3 font-bold border-r border-b border-gray-200
+                        py-2 md:py-3 font-bold border-r border-b border-gray-200
                         ${index === 0 ? 'bg-[#D30000] text-white' : ''}
                         ${index === 6 ? 'bg-[#0066CC] text-white' : ''}
                         ${index !== 0 && index !== 6 ? 'bg-gray-100 text-gray-700' : ''}
                     `}
                 >
-                    {day}
+                    <span className="md:hidden">{day}</span>
+                    <span className="hidden md:inline">{day}요일</span>
                 </div>
             ))}
         </div>
@@ -139,14 +140,14 @@ export default function CalendarView() {
                     <div 
                         key={index} 
                         className={`
-                            min-h-[120px] p-2 border-r border-b border-gray-200 relative
+                            min-h-[80px] md:min-h-[120px] p-1 md:p-2 border-r border-b border-gray-200 relative
                             ${!day ? 'bg-gray-50' : 'bg-white'}
                         `}
                     >
                         {day && (
                             <>
                                 <span className={`
-                                    text-lg font-bold block mb-2
+                                    text-sm md:text-lg font-bold block mb-1 md:mb-2
                                     ${isSunday ? 'text-red-600' : ''}
                                     ${isSaturday ? 'text-blue-600' : ''}
                                     ${!isSunday && !isSaturday ? 'text-gray-700' : ''}
@@ -157,9 +158,10 @@ export default function CalendarView() {
                                     {daySchedules?.map(schedule => (
                                         <div 
                                             key={schedule.id}
-                                            className="text-xs text-gray-600 bg-gray-50 p-1 rounded border border-gray-100 truncate"
+                                            className="text-[10px] md:text-xs text-gray-600 bg-gray-50 px-1 py-0.5 md:p-1 rounded border border-gray-100 truncate"
                                         >
-                                            {schedule.title}
+                                            <span className="md:hidden block truncate">{schedule.title}</span>
+                                            <span className="hidden md:block truncate">{schedule.title}</span>
                                         </div>
                                     ))}
                                 </div>
@@ -171,7 +173,7 @@ export default function CalendarView() {
             
             {/* Fill remaining cells to complete the row */}
             {Array.from({ length: (7 - (days.length % 7)) % 7 }).map((_, i) => (
-                 <div key={`empty-${i}`} className="min-h-[120px] border-r border-b border-gray-200 bg-gray-50"></div>
+                 <div key={`empty-${i}`} className="min-h-[80px] md:min-h-[120px] border-r border-b border-gray-200 bg-gray-50"></div>
             ))}
         </div>
       </div>

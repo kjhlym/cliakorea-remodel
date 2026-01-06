@@ -31,9 +31,7 @@ const menuItems: MenuItem[] = [
     href: "/board",
     submenu: [
       { name: "공지사항", href: "/notice" },
-      { name: "협회활동", href: "/board" },
       { name: "갤러리", href: "/board/gallery" },
-      { name: "자유게시판", href: "/board" },
       { name: "협회교육일정", href: "/board/schedule" },
     ],
   },
@@ -134,10 +132,10 @@ export default function Header() {
             ) : (
               <button
                 onClick={openLoginModal}
-                className="hidden md:flex items-center gap-2 px-6 py-2.5 bg-blue-900 text-white rounded-full text-sm font-bold hover:bg-blue-800 transition-all shadow-lg hover:shadow-blue-900/20"
+                className="flex items-center gap-1 md:gap-2 px-3 md:px-6 py-2 md:py-2.5 bg-blue-900 text-white rounded-full text-xs md:text-sm font-bold hover:bg-blue-800 transition-all shadow-lg hover:shadow-blue-900/20 whitespace-nowrap"
               >
-                <LogIn className="w-4 h-4" />
-                시작하기
+                <LogIn className="w-3 h-3 md:w-4 md:h-4" />
+                <span>시작하기</span>
               </button>
             )}
 

@@ -163,16 +163,16 @@ export default function PopupManager() {
 
   return (
     <div className="space-y-6">
-      <div className="flex justify-between items-center">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-black text-gray-900">팝업 관리</h1>
-          <p className="text-sm text-gray-500 font-medium">메인 페이지에 노출될 팝업 광고를 관리합니다.</p>
+          <h1 className="text-xl md:text-2xl font-black text-gray-900">팝업 관리</h1>
+          <p className="text-xs md:text-sm text-gray-500 font-medium mt-1">메인 페이지에 노출될 팝업 광고를 관리합니다.</p>
         </div>
         <button
           onClick={() => { resetForm(); setIsModalOpen(true); }}
-          className="flex items-center gap-2 px-6 py-3 bg-blue-600 text-white rounded-2xl font-bold hover:bg-blue-700 transition-all shadow-lg shadow-blue-100"
+          className="flex items-center justify-center gap-2 px-6 py-2.5 md:py-3 bg-blue-600 text-white rounded-xl md:rounded-2xl font-bold hover:bg-blue-700 transition-all shadow-lg shadow-blue-100 text-sm md:text-base"
         >
-          <Plus className="w-5 h-5" />
+          <Plus className="w-4 h-4 md:w-5 md:h-5" />
           새 팝업 추가
         </button>
       </div>

@@ -15,7 +15,7 @@ function ProgramsContent() {
 
   useEffect(() => {
     const tab = searchParams.get("tab");
-    const validTabs = ["children", "youth", "parent", "special", "instructor"];
+    const validTabs = ["children", "youth", "special"];
     if (tab && validTabs.includes(tab)) {
       setActiveTab(tab);
     }
@@ -24,26 +24,50 @@ function ProgramsContent() {
   const tabs = [
     { id: "children", label: "어린이 리더십" },
     { id: "youth", label: "청소년 리더십" },
-    { id: "parent", label: "부모 리더십" },
-    { id: "special", label: "특화 프로그램" },
-    { id: "instructor", label: "강사양성" },
+    { id: "special", label: "환경 리더" },
   ];
 
-  const content = {
+  interface ProgramContent {
+    title: string;
+    subtitle: string;
+    description: string;
+    color: string;
+    icon: React.ReactNode;
+    image: string;
+    features: { title: string; items: string[] }[];
+    tableData?: { headers: string[]; rows: string[][] };
+    additionalFeatures?: { title: string; desc: string }[];
+    isInstructor?: boolean;
+  }
+
+  const content: Record<string, ProgramContent> = {
     children: {
       title: "어린이 리더십 프로그램",
       subtitle: "미래인재 핵심역량 4C를 키우는 리더십 교육",
       description: "어린이들이 스스로의 잠재력을 발견하고, 타인과 소통하며 협력하는 미래의 리더로 성장하도록 돕습니다.",
-      features: [
-        {
-          title: "미래인재 핵심역량 4C",
-          items: ["Communication (소통)", "Collaboration (협업)", "Critical Thinking (비판적 사고)", "Creativity (창의성)"]
-        },
-        {
-          title: "일반과정 12차시",
-          items: ["자아존중감 향상", "셀프 리더십", "소통과 배려", "비전 수립"]
-        }
+      additionalFeatures: [
+        { title: "Communication (소통)", desc: "경청과 공감을 바탕으로 자신의 생각을 명확히 표현하며 긍정적 관계를 맺는 능력" },
+        { title: "Collaboration (협업)", desc: "공동의 목표를 위해 친구들과 배려하고 협력하며 함께 성과를 만들어가는 태도" },
+        { title: "Critical Thinking (비판적 사고)", desc: "주어진 상황을 스스로 분석하고 논리적으로 판단하여 올바른 결정을 내리는 힘" },
+        { title: "Creativity (창의성)", desc: "새로운 관점으로 세상을 바라보고 독창적인 아이디어로 문제를 해결하는 능력" }
       ],
+      features: [], // 테이블 데이터 사용
+      tableData: {
+        headers: ["차시", "대주제", "키워드(덕목)", "제 목", "기대 효과"],
+        rows: [
+          ["1", "리더와 리더십", "솔선수범, 책임", "나는 리더!\n나의 리더십 찾기", "리더의 특성과 역할\n나의 리더십 탐구"],
+          ["2", "자기이해", "존중, 사랑", "나를 찾아가는 길", "내 안에 숨은 그림\n소중한 나.너.우리"],
+          ["3", "의사소통", "공감, 경청", "소통도 연습이 필요해", "마음으로 듣고 말하기\n공감과 이해"],
+          ["4", "다양성", "배려, 존중", "다른건 틀린게 아니야", "선입견 편견 깨기\n다름을 인정하기"],
+          ["5", "갈등관리", "배려, 소통", "술술 풀어봐요", "갈등 관리\n서로의 마음 이해"],
+          ["6", "의사결정", "결단, 합리성", "함께 결정해요", "나의 결정, 우리의 결정\n합리적 결정과 수용"],
+          ["7", "창의적 문제해결", "창의성, 문제해결능력", "반짝반짝 풀어가요", "창의적 사고\n발상의 전환"],
+          ["8", "팀빌딩", "협력, 소통", "나, 너, 우리", "나의 역할 찾기\n공동의 목표"],
+          ["9", "스피치", "자신감, 용기", "리더의 스피치", "바른 태도와 목소리\n자신감 향상"],
+          ["10", "토의토론", "경청, 설득력", "생각을 나누고 모으기", "생각하는 훈련\n논리적인 언어"],
+          ["11", "꿈과 희망, 비전", "통찰, 실천", "비전을 찾아 떠나요", "미래의 꿈\n비전 설정"]
+        ]
+      },
       color: "blue",
       icon: <Star className="w-12 h-12 text-blue-600" />,
       image: "/images/program-children.png"
@@ -52,75 +76,46 @@ function ProgramsContent() {
       title: "청소년 리더십 프로그램",
       subtitle: "진로와 인성을 아우르는 입체적 리더십",
       description: "청소년기에 필요한 진로 탐색과 올바른 인성 함양을 통해, 자신의 삶을 주도적으로 이끄는 리더로 육성합니다.",
-      features: [
-        {
-          title: "진로 리더십",
-          items: ["자신의 흥미와 적성 탐색", "주도적인 진로 설계", "직업 세계의 이해", "꿈을 향한 로드맵 작성"]
-        },
-        {
-          title: "창의 인성 리더십",
-          items: ["타인 존중과 공감 능력", "공동체 의식 함양", "창의적 문제 해결", "갈등 관리 및 소통"]
-        }
-      ],
+      features: [], // 테이블 데이터 사용
+      tableData: {
+        headers: ["차시", "대주제", "키워드", "제 목", "기대 효과"],
+        rows: [
+          ["1", "리더와 리더십\n(인물탐구)", "영향력, 태도,\n솔선수범", "함께하는 리더", "공동체 내에서 리더의 선택과 행동에\n대해 책임지는 태도 형성"],
+          ["2", "팀빌딩", "소통, 협력, 배려", "팀으로 빛나다", "팀워크와 협동심, 타인에 대한 배려와\n신뢰감 증진"],
+          ["3", "셀프리더십\n(자기이해)", "습관, 실천,\n주도성", "나만의 토핑 리더십", "자기이해를 바탕으로 소통과 책임감을\n가진 주도적 리더로 성장"],
+          ["4", "의사소통", "존중, 경청, 공감", "유쾌한 티키타카", "효과적인 의사소통, 경청, 협상, 갈등\n해결 등 다양한 사회적 기술 향상"],
+          ["5", "토의토론", "수용, 자신감,\n존중", "Do Learn (두런)", "발표, 토론, 팀활동 등에서 타인에 대한\n존중과 수용의 자세 향상"],
+          ["6", "갈등관리", "합리성, 공감, 수용", "터놓고 말해요", "갈등의 의미 이해하고, 공동체 안에서\n발생하는 문제상황에 대한 역량 강화"],
+          ["7", "다양성", "다름, 배려, 존중", "다름!\n그래서 아름다움", "글로벌 시민으로서 다양한 가치관을\n존중하는 마음가짐 형성"],
+          ["8", "협상", "역지사지, 경청,\n자기효능감", "다리를 잇다", "자신의 의견을 표현하고, 상대방과의\n갈등을 조율하는 과정에서\n자기효능감 향상"],
+          ["9", "창의적\n문제해결", "창의성, 도전,\n유연성", "생각발전소", "문제해결, 전략적 사고, 변화에 대한\n유연한 대응 등 핵심역량 강화"],
+          ["10", "비전", "목표, 희망,\n비전", "포지티브 모멘텀", "자신의 목표를 구체적으로 설정하고,\n실천 능력 향상"]
+        ]
+      },
       color: "purple",
       icon: <Target className="w-12 h-12 text-purple-600" />,
       image: "/images/program-youth.png"
     },
-    parent: {
-      title: "부모 리더십 프로그램",
-      subtitle: "자녀와 함께 성장하는 부모를 위한 코칭",
-      description: "부모가 변하면 아이도 변합니다. 올바른 양육 가치관을 정립하고 자녀의 든든한 멘토가 되어주세요.",
-      features: [
-        {
-          title: "교육 대상",
-          items: ["초/중/고등학생 자녀를 둔 학부모", "어린이집/유치원 자녀 학부모", "관공서/기업체 학부모 연수", "좋은 부모를 꿈꾸는 예비 부모"]
-        },
-        {
-          title: "주요 교육 내용",
-          items: ["자녀와의 효과적인 소통법", "감정 코칭 및 훈육", "자기주도학습 지도", "부모의 자존감 회복"]
-        }
-      ],
-      color: "teal",
-      icon: <Heart className="w-12 h-12 text-teal-600" />,
-      image: "/images/about-vision.png"
-    },
+
     special: {
-      title: "특화 프로그램",
-      subtitle: "시대의 흐름을 읽는 특별한 교육",
-      description: "변화하는 사회 환경에 맞춰 필요한 역량을 기를 수 있는 주제별 특화 프로그램을 제공합니다.",
-      features: [
-        {
-          title: "기업가정신 (Entrepreneurship)",
-          items: ["도전정신과 혁신적 사고", "문제 해결 능력 함양", "스타트업 생태계 이해", "모의 창업 프로젝트"]
-        },
-        {
-          title: "청소년 의회 프로그램",
-          items: ["민주주의 의사결정 과정 체험", "토론과 협상 능력", "조례 제정 및 정책 제안", "리더십 실전 훈련"]
-        }
-      ],
-      color: "orange",
-      icon: <Lightbulb className="w-12 h-12 text-orange-600" />,
-      image: "/images/main-banner-02.png"
+      title: "환경 리더 프로그램",
+      subtitle: "생각을 넘어 행동하는 환경리더 되기",
+      description: "환경 위기를 인식하고, 일상 속 지속 가능한 실천 능력을 함양하여 지구를 지키는 리더로 성장합니다.",
+      features: [], // 테이블 데이터 사용
+      tableData: {
+        headers: ["차시", "대주제", "키워드", "제 목", "활 동"],
+        rows: [
+          ["1", "리더와 환경", "책임, 공감", "내가 먼저 시작하는 환경리더", "환경위기 시계 만들기\n생존 가방 꾸리기"],
+          ["2", "탄소중립", "배려, 양심", "지구가 아파요", "탄소밸런스 활동 - 카드맞추기\n북극곰 구하기 젠가"],
+          ["3", "제로 웨이스트", "협동, 진정성", "찾아보자, 다함께", "탄소중립 캘린더 만들기"],
+          ["4", "생활 속 실천", "실천, 긍정", "지구를 위한 한걸음", "0.5도를 지키는 환경식단\n실천포스터 만들기"]
+        ]
+      },
+      color: "green",
+      icon: <Lightbulb className="w-12 h-12 text-green-600" />,
+      image: "/images/environment.png"
     },
-    instructor: {
-      title: "강사양성 프로그램",
-      subtitle: "전문성을 갖춘 교육 전문가로의 도약",
-      description: "체계적인 커리큘럼과 실습을 통해 현장에서 바로 통하는 전문 강사를 양성합니다.",
-      isInstructor: true,
-      features: [
-        {
-          title: "운영 과정",
-          items: ["어린이 리더십 강사 과정", "자기주도학습 지도사 과정", "진로 코칭 전문가 과정"]
-        },
-        {
-          title: "자격 및 혜택",
-          items: ["민간자격증 취득 지원", "협회 인증 강사 위촉", "강의 파견 및 취업 지원", "강사 역량 강화 워크숍"]
-        }
-      ],
-      color: "indigo",
-      icon: <Briefcase className="w-12 h-12 text-indigo-600" />,
-      image: "/images/main-banner-03.png"
-    }
+
   };
 
   const activeContent = content[activeTab as keyof typeof content];
@@ -198,27 +193,80 @@ function ProgramsContent() {
             </div>
 
             {/* 특징 카드 그리드 */}
-            <div className="grid md:grid-cols-2 gap-8 mb-16">
-              {activeContent.features.map((feature, idx) => (
-                <div 
-                  key={idx}
-                  className="bg-white rounded-3xl p-8 shadow-xl border border-gray-100 hover:scale-[1.02] transition-transform duration-300"
-                >
-                  <h3 className={`text-2xl font-black mb-6 flex items-center gap-2 text-${activeContent.color}-600`}>
-                    <BookOpen className="w-6 h-6" />
-                    {feature.title}
-                  </h3>
-                  <ul className="space-y-4">
-                    {feature.items.map((item, itemIdx) => (
-                      <li key={itemIdx} className="flex items-start gap-3 text-gray-700 font-medium">
-                        <CheckCircle2 className={`w-5 h-5 text-${activeContent.color}-500 shrink-0 mt-0.5`} />
-                        <span>{item}</span>
-                      </li>
-                    ))}
-                  </ul>
+            {/* 4C 등 추가 설명 섹션 */}
+            {(activeContent as any).additionalFeatures && (
+               <div className="mb-12">
+                 <h3 className="text-2xl font-black text-gray-900 mb-6 flex items-center gap-2">
+                    <Star className="w-6 h-6 text-yellow-500 fill-yellow-500" />
+                    미래인재 핵심역량 4C
+                 </h3>
+                 <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+                   {(activeContent as any).additionalFeatures.map((item: any, idx: number) => (
+                     <div key={idx} className="bg-white p-6 rounded-2xl border border-gray-100 shadow-lg hover:-translate-y-1 transition-transform duration-300">
+                       <div className="w-14 h-14 mx-auto bg-blue-50 rounded-2xl flex items-center justify-center text-blue-600 mb-4 font-black text-2xl shadow-inner">
+                          {item.title.charAt(0)}
+                       </div>
+                       <h4 className="font-bold text-gray-900 mb-2 text-center text-sm md:text-base break-keep">{item.title}</h4>
+                       <p className="text-xs md:text-sm text-gray-600 text-center break-keep leading-relaxed">{item.desc}</p>
+                     </div>
+                   ))}
+                 </div>
+               </div>
+            )}
+
+            {/* 특징 카드 그리드 OR 테이블 */}
+            {(activeContent as any).tableData ? (
+              <div className="mb-16 overflow-hidden rounded-3xl border border-gray-200 shadow-xl bg-white">
+                <div className="overflow-x-auto">
+                  <table className="w-full text-left border-collapse min-w-[800px]">
+                    <thead>
+                      <tr className={`bg-${activeContent.color}-50 text-${activeContent.color}-900`}>
+                        {(activeContent as any).tableData.headers.map((header: string, idx: number) => (
+                          <th key={idx} className="p-4 md:p-5 text-sm md:text-lg font-black border-b border-gray-200 whitespace-nowrap text-center">
+                            {header}
+                          </th>
+                        ))}
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-gray-100">
+                      {(activeContent as any).tableData.rows.map((row: string[], rowIdx: number) => (
+                        <tr key={rowIdx} className="hover:bg-gray-50 transition-colors">
+                          {row.map((cell, cellIdx) => (
+                            <td key={cellIdx} className={`p-4 text-sm md:text-base text-gray-700 leading-relaxed align-middle ${cellIdx === 0 ? 'text-center font-bold text-gray-400 bg-gray-50/50' : 'text-center'}`}>
+                              {cell.split('\n').map((line, i) => (
+                                <span key={i} className="block">{line}</span>
+                              ))}
+                            </td>
+                          ))}
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
                 </div>
-              ))}
-            </div>
+              </div>
+            ) : (
+              <div className="grid md:grid-cols-2 gap-8 mb-16">
+                {activeContent.features.map((feature, idx) => (
+                  <div 
+                    key={idx}
+                    className="bg-white rounded-3xl p-8 shadow-xl border border-gray-100 hover:scale-[1.02] transition-transform duration-300"
+                  >
+                    <h3 className={`text-2xl font-black mb-6 flex items-center gap-2 text-${activeContent.color}-600`}>
+                      <BookOpen className="w-6 h-6" />
+                      {feature.title}
+                    </h3>
+                    <ul className="space-y-4">
+                      {feature.items.map((item, itemIdx) => (
+                        <li key={itemIdx} className="flex items-start gap-3 text-gray-700 font-medium">
+                          <CheckCircle2 className={`w-5 h-5 text-${activeContent.color}-500 shrink-0 mt-0.5`} />
+                          <span>{item}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                ))}
+              </div>
+            )}
 
             {/* 강사양성일 경우 추가 버튼 */}
             {(activeContent as any).isInstructor && (

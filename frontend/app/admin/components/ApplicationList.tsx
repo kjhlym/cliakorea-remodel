@@ -43,28 +43,84 @@ export default function ApplicationList() {
 
   return (
     <div className="space-y-6">
-      <h1 className="text-2xl font-black text-gray-900">신청 내역 관리</h1>
+      <h1 className="text-xl md:text-2xl font-black text-gray-900">신청 내역 관리</h1>
       
       <div className="bg-white rounded-3xl border border-gray-100 shadow-sm overflow-hidden">
-        <table className="w-full text-left">
+        {/* 모바일 카드 뷰 */}
+        <div className="md:hidden divide-y divide-gray-50">
+          {data.map((app: any) => (
+            <div key={app.id} className="p-4 bg-white flex flex-col gap-4">
+               <div>
+                  <div className="flex items-center justify-between mb-2">
+                     <div>
+                        <div className="font-bold text-gray-900 text-lg">{app.applicantName}</div>
+                        <div className="text-xs text-gray-400">{app.applicantEmail}</div>
+                     </div>
+                     <span className={`px-2 py-0.5 rounded-full text-[10px] font-black uppercase ${
+                        app.status === 'completed' ? 'bg-green-100 text-green-600' :
+                        app.status === 'approved' ? 'bg-blue-100 text-blue-600' :
+                        app.status === 'pending' ? 'bg-orange-100 text-orange-600' :
+                        app.status === 'rejected' ? 'bg-red-100 text-red-600' : 'bg-gray-100 text-gray-600'
+                      }`}>
+                        {app.status === 'pending' ? '대기 중' :
+                         app.status === 'approved' ? '승인됨' :
+                         app.status === 'rejected' ? '거절됨' :
+                         app.status === 'completed' ? '완료됨' : app.status}
+                      </span>
+                  </div>
+                  
+                  <div className="p-3 bg-gray-50 rounded-xl space-y-2 text-sm">
+                     <div className="flex justify-between">
+                        <span className="text-gray-500 font-bold">프로그램</span>
+                        <span className="text-gray-900 font-medium text-right">{app.programName}</span>
+                     </div>
+                     <div className="flex justify-between">
+                        <span className="text-gray-500 font-bold">신청일</span>
+                        <span className="text-gray-900">{new Date(app.createdAt).toLocaleDateString()}</span>
+                     </div>
+                     <div className="flex justify-between">
+                        <span className="text-gray-500 font-bold">연락처</span>
+                        <span className="text-gray-900">{app.applicantPhone || '-'}</span>
+                     </div>
+                  </div>
+               </div>
+
+               <div>
+                 <label className="block text-xs font-bold text-gray-400 mb-1">상태 변경</label>
+                 <select 
+                    className="w-full p-2 border border-gray-200 rounded-xl text-sm font-bold bg-white focus:ring-2 focus:ring-blue-500 outline-none"
+                    value={app.status}
+                    onChange={(e) => handleStatusChange(app.id, e.target.value)}
+                  >
+                    <option value="pending">대기중</option>
+                    <option value="approved">승인</option>
+                    <option value="completed">완료</option>
+                    <option value="rejected">거절</option>
+                  </select>
+               </div>
+            </div>
+          ))}
+        </div>
+
+        <table className="w-full text-left hidden md:table">
           <thead className="bg-gray-50 border-b border-gray-100">
             <tr>
-              <th className="px-6 py-4 text-xs font-bold text-gray-400 uppercase tracking-wider">신청자</th>
-              <th className="px-6 py-4 text-xs font-bold text-gray-400 uppercase tracking-wider">프로그램</th>
-              <th className="px-6 py-4 text-xs font-bold text-gray-400 uppercase tracking-wider">연락처</th>
-              <th className="px-6 py-4 text-xs font-bold text-gray-400 uppercase tracking-wider">상태</th>
-              <th className="px-6 py-4 text-xs font-bold text-gray-400 uppercase tracking-wider">신청일</th>
-              <th className="px-6 py-4 text-xs font-bold text-gray-400 uppercase tracking-wider">작업</th>
+              <th className="px-6 py-4 text-xs font-bold text-gray-400 uppercase tracking-wider whitespace-nowrap">신청자</th>
+              <th className="px-6 py-4 text-xs font-bold text-gray-400 uppercase tracking-wider whitespace-nowrap">프로그램</th>
+              <th className="px-6 py-4 text-xs font-bold text-gray-400 uppercase tracking-wider whitespace-nowrap">연락처</th>
+              <th className="px-6 py-4 text-xs font-bold text-gray-400 uppercase tracking-wider whitespace-nowrap">상태</th>
+              <th className="px-6 py-4 text-xs font-bold text-gray-400 uppercase tracking-wider whitespace-nowrap">신청일</th>
+              <th className="px-6 py-4 text-xs font-bold text-gray-400 uppercase tracking-wider whitespace-nowrap">작업</th>
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-50">
             {data.map((app: any) => (
               <tr key={app.id} className="hover:bg-gray-50 transition-colors">
-                <td className="px-6 py-4">
+                <td className="px-6 py-4 whitespace-nowrap">
                   <div className="font-bold text-gray-900">{app.applicantName}</div>
                   <div className="text-[10px] text-gray-400">{app.applicantEmail}</div>
                 </td>
-                <td className="px-6 py-4">
+                <td className="px-6 py-4 whitespace-nowrap">
                   <div className="text-sm font-medium text-gray-700">{app.programName}</div>
                   <div className="text-[10px] text-gray-400">
                     {app.programType === 'children' ? '어린이 리더십' :
@@ -73,9 +129,9 @@ export default function ApplicationList() {
                      app.programType === 'specialized' ? '특화 프로그램' : app.programType}
                   </div>
                 </td>
-                <td className="px-6 py-4 text-sm text-gray-500">{app.applicantPhone || '-'}</td>
+                <td className="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">{app.applicantPhone || '-'}</td>
                 <td className="px-6 py-4">
-                  <span className={`px-3 py-1 rounded-full text-[10px] font-black uppercase ${
+                  <span className={`px-3 py-1 rounded-full text-[10px] font-black uppercase whitespace-nowrap ${
                     app.status === 'completed' ? 'bg-green-100 text-green-600' :
                     app.status === 'approved' ? 'bg-blue-100 text-blue-600' :
                     app.status === 'pending' ? 'bg-orange-100 text-orange-600' :
@@ -87,8 +143,8 @@ export default function ApplicationList() {
                      app.status === 'completed' ? '완료됨' : app.status}
                   </span>
                 </td>
-                <td className="px-6 py-4 text-sm text-gray-400">{new Date(app.createdAt).toLocaleDateString()}</td>
-                <td className="px-6 py-4">
+                <td className="px-6 py-4 text-sm text-gray-400 whitespace-nowrap">{new Date(app.createdAt).toLocaleDateString()}</td>
+                <td className="px-6 py-4 whitespace-nowrap">
                   <select 
                     className="text-xs font-bold border-gray-100 rounded-lg focus:ring-blue-500"
                     value={app.status}

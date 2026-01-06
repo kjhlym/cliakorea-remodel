@@ -1,16 +1,54 @@
 "use client";
 
 import Link from "next/link";
+import { useState } from "react";
+import { ChevronDown } from "lucide-react";
 
 export default function Footer() {
+  const [openSections, setOpenSections] = useState<string[]>([]);
+
+  const toggleSection = (title: string) => {
+    setOpenSections((prev) =>
+      prev.includes(title)
+        ? prev.filter((t) => t !== title)
+        : [...prev, title]
+    );
+  };
+
+  const isSectionOpen = (title: string) => openSections.includes(title);
+
+  const FooterSection = ({ title, children }: { title: string, children: React.ReactNode }) => (
+    <div className="flex flex-col items-center text-center border-b md:border-none border-gray-800 last:border-none py-4 md:py-0">
+      <button 
+        onClick={() => toggleSection(title)}
+        className="flex items-center justify-center gap-2 text-base md:text-lg font-bold mb-2 md:mb-4 w-full md:w-auto md:pointer-events-none hover:text-blue-400 md:hover:text-white transition-colors"
+      >
+        {title}
+        <ChevronDown 
+          className={`w-4 h-4 md:hidden transition-transform duration-300 ${isSectionOpen(title) ? "rotate-180" : ""}`} 
+        />
+      </button>
+      <div 
+        className={`space-y-2 text-gray-300 transition-all duration-300 overflow-hidden md:h-auto md:opacity-100 md:visible ${
+          isSectionOpen(title) 
+            ? "max-h-40 opacity-100" 
+            : "max-h-0 opacity-0 md:max-h-none"
+        }`}
+      >
+        <div className="pt-2 md:pt-0">
+          {children}
+        </div>
+      </div>
+    </div>
+  );
+
   return (
-    <footer className="bg-gray-900 text-white py-12">
+    <footer className="bg-gray-900 text-white py-8 md:py-12 text-sm md:text-base">
       <div className="container mx-auto px-4">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
-          {/* 연락처 정보 */}
-          <div className="flex flex-col items-center text-center">
-            <h3 className="text-lg font-bold mb-4">연락처</h3>
-            <div className="space-y-2 text-gray-300">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-0 md:gap-8 mb-6 md:mb-8">
+          
+          <FooterSection title="연락처">
+            <div className="space-y-2">
               <p>
                 <span className="font-semibold">대표전화:</span>
               </p>
@@ -25,37 +63,29 @@ export default function Footer() {
                 </a>
               </p>
             </div>
-          </div>
+          </FooterSection>
 
-          {/* 소셜 미디어 */}
-          <div className="flex flex-col items-center text-center">
-            <h3 className="text-lg font-bold mb-4">소셜 미디어</h3>
-            <div className="flex gap-4 justify-center">
-              <a
-                href="https://facebook.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center hover:bg-blue-700 transition-colors"
-                aria-label="Facebook"
+          <FooterSection title="오시는 길">
+             <div className="space-y-2">
+              <p>
+                서울 성북구 길음동 1276
+              </p>
+              <p>
+                길음 삼부컨버니언아파트 상가 
+                <br />
+                102동 지층 53호
+              </p>
+              <Link 
+                href="/about/location" 
+                className="inline-block mt-1 md:mt-2 text-xs md:text-sm text-blue-400 hover:text-blue-300 underline"
               >
-                <span className="text-white font-bold">f</span>
-              </a>
-              <a
-                href="https://instagram.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-10 h-10 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center hover:opacity-90 transition-opacity"
-                aria-label="Instagram"
-              >
-                <span className="text-white text-xl">📷</span>
-              </a>
+                지도 보기 &rarr;
+              </Link>
             </div>
-          </div>
+          </FooterSection>
 
-          {/* 빠른 링크 */}
-          <div className="flex flex-col items-center text-center">
-            <h3 className="text-lg font-bold mb-4">빠른 링크</h3>
-            <ul className="space-y-2 text-gray-300">
+          <FooterSection title="빠른 링크">
+            <ul className="space-y-2">
               <li>
                 <Link href="/about" className="hover:text-white">
                   협회소개
@@ -72,7 +102,8 @@ export default function Footer() {
                 </Link>
               </li>
             </ul>
-          </div>
+          </FooterSection>
+
         </div>
 
         {/* 저작권 */}
@@ -83,4 +114,3 @@ export default function Footer() {
     </footer>
   );
 }
-

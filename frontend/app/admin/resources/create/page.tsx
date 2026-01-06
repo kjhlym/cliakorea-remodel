@@ -126,10 +126,10 @@ export default function CreateResourcePage() {
         <Link href="/admin/resources" className="p-2 hover:bg-gray-100 rounded-full transition-colors">
           <ChevronLeft className="w-5 h-5 text-gray-500" />
         </Link>
-        <h1 className="text-2xl font-black text-gray-900">새 자료 등록</h1>
+        <h1 className="text-xl md:text-2xl font-black text-gray-900">새 자료 등록</h1>
       </div>
 
-      <div className="bg-white rounded-2xl border border-gray-200 shadow-sm p-8">
+      <div className="bg-white rounded-2xl border border-gray-200 shadow-sm p-4 md:p-8">
         <form onSubmit={handleSubmit} className="space-y-8">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
@@ -237,7 +237,7 @@ export default function CreateResourcePage() {
                                   <FileText className="w-4 h-4 text-blue-500" />
                                 </div>
                                 <div>
-                                  <p className="text-sm font-bold text-gray-700 truncate max-w-[200px] md:max-w-xs">{file.name}</p>
+                                  <p className="text-sm font-bold text-gray-700 truncate max-w-[150px] md:max-w-xs">{file.name}</p>
                                   <p className="text-[10px] text-gray-400 font-medium">{(file.size / 1024).toFixed(1)} KB</p>
                                 </div>
                             </div>

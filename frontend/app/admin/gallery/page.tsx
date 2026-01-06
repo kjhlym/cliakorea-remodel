@@ -64,11 +64,11 @@ export default function AdminGalleryPage() {
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-black text-gray-900">갤러리 관리</h1>
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <h1 className="text-xl md:text-2xl font-black text-gray-900">갤러리 관리</h1>
         <Link
           href="/admin/gallery/create"
-          className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg font-bold hover:bg-blue-700 transition-colors"
+          className="flex items-center justify-center gap-2 px-6 py-2.5 md:py-2 bg-blue-600 text-white rounded-xl md:rounded-lg font-bold hover:bg-blue-700 transition-colors text-sm md:text-base"
         >
           <Plus className="w-4 h-4" />
           사진 등록
@@ -76,28 +76,56 @@ export default function AdminGalleryPage() {
       </div>
 
       <div className="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
-        <table className="w-full text-left">
+        {/* 모바일 카드 뷰 */}
+        <div className="md:hidden divide-y divide-gray-100">
+            {galleries.map(item => (
+                <div key={item.id} className="p-4 bg-white flex gap-4">
+                   <div className="w-20 h-20 bg-gray-100 rounded-lg overflow-hidden shrink-0">
+                      <img src={item.images?.[0] || item.imageUrl} alt="" className="w-full h-full object-cover"/>
+                   </div>
+                   <div className="flex-grow min-w-0 flex flex-col justify-between">
+                      <div>
+                         <div className="flex justify-between items-start">
+                           <span className="text-[10px] bg-gray-100 text-gray-500 px-2 py-0.5 rounded-full font-bold">{item.category}</span>
+                           <button 
+                             onClick={() => handleDelete(item.id)}
+                             className="text-red-500 hover:bg-red-50 p-1 rounded-lg"
+                           >
+                             <Trash2 className="w-4 h-4"/>
+                           </button>
+                         </div>
+                         <h3 className="font-bold text-gray-900 mt-1 truncate">{item.title}</h3>
+                      </div>
+                      <div className="text-xs text-gray-400">
+                        {item.eventDate ? new Date(item.eventDate).toLocaleDateString() : '-'}
+                      </div>
+                   </div>
+                </div>
+            ))}
+        </div>
+
+        <table className="w-full text-left hidden md:table">
             <thead className="bg-gray-50 border-b border-gray-100">
                 <tr>
-                    <th className="p-4 text-xs font-bold text-gray-500 uppercase">이미지</th>
-                    <th className="p-4 text-xs font-bold text-gray-500 uppercase">제목</th>
-                    <th className="p-4 text-xs font-bold text-gray-500 uppercase">분류</th>
-                    <th className="p-4 text-xs font-bold text-gray-500 uppercase">행사일</th>
-                    <th className="p-4 text-xs font-bold text-gray-500 uppercase text-right">작업</th>
+                    <th className="p-4 text-xs font-bold text-gray-500 uppercase whitespace-nowrap">이미지</th>
+                    <th className="p-4 text-xs font-bold text-gray-500 uppercase whitespace-nowrap">제목</th>
+                    <th className="p-4 text-xs font-bold text-gray-500 uppercase whitespace-nowrap">분류</th>
+                    <th className="p-4 text-xs font-bold text-gray-500 uppercase whitespace-nowrap">행사일</th>
+                    <th className="p-4 text-xs font-bold text-gray-500 uppercase text-right whitespace-nowrap">작업</th>
                 </tr>
             </thead>
             <tbody className="divide-y divide-gray-100">
                 {galleries.map(item => (
                     <tr key={item.id} className="hover:bg-gray-50">
-                        <td className="p-4">
+                        <td className="p-4 whitespace-nowrap">
                             <div className="w-16 h-12 bg-gray-100 rounded overflow-hidden">
                                 <img src={item.images?.[0] || item.imageUrl} alt="" className="w-full h-full object-cover"/>
                             </div>
                         </td>
-                        <td className="p-4 font-medium text-gray-900">{item.title}</td>
-                        <td className="p-4 text-gray-500 text-sm">{item.category}</td>
-                        <td className="p-4 text-gray-500 text-sm">{item.eventDate ? new Date(item.eventDate).toISOString().split('T')[0] : '-'}</td>
-                        <td className="p-4 text-right">
+                        <td className="p-4 font-medium text-gray-900 line-clamp-1">{item.title}</td>
+                        <td className="p-4 text-gray-500 text-sm whitespace-nowrap">{item.category}</td>
+                        <td className="p-4 text-gray-500 text-sm whitespace-nowrap">{item.eventDate ? new Date(item.eventDate).toLocaleDateString() : '-'}</td>
+                        <td className="p-4 text-right whitespace-nowrap">
                             <button 
                                 onClick={() => handleDelete(item.id)}
                                 className="p-2 text-red-500 hover:bg-red-50 rounded"

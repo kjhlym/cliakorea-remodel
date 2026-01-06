@@ -104,10 +104,10 @@ export default function CreateGalleryPage() {
         >
           <ChevronLeft className="w-5 h-5 text-gray-500" />
         </Link>
-        <h1 className="text-2xl font-black text-gray-900">새 사진 등록</h1>
+        <h1 className="text-xl md:text-2xl font-black text-gray-900">새 사진 등록</h1>
       </div>
 
-      <div className="bg-white rounded-xl border border-gray-200 shadow-sm p-8">
+      <div className="bg-white rounded-xl border border-gray-200 shadow-sm p-4 md:p-8">
         <form onSubmit={handleSubmit} className="space-y-6">
           {/* Image Upload */}
           <div>
@@ -128,7 +128,7 @@ export default function CreateGalleryPage() {
             
             {/* Preview Grid */}
             {previews.length > 0 && (
-                <div className="grid grid-cols-4 gap-4 mt-6">
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-6">
                     {previews.map((src, idx) => (
                         <div key={idx} className="group relative aspect-square bg-gray-100 rounded-lg overflow-hidden border border-gray-200">
                             <img src={src} alt="" className="w-full h-full object-cover" />

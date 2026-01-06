@@ -90,12 +90,12 @@ export default function ResourcesPage() {
 
       <main className="flex-grow">
         {/* 상단 섹션 */}
-        <section className="py-20 bg-white border-b border-gray-100 relative overflow-hidden">
+        <section className="py-12 md:py-20 bg-white border-b border-gray-100 relative overflow-hidden">
           <div className="absolute inset-0 bg-blue-50/50" />
           <div className="container mx-auto px-4 text-center relative z-10">
-            <h1 className="text-4xl md:text-5xl font-black text-gray-900 mb-6">교육 자료실</h1>
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto font-medium">
-              성장을 돕는 CLIA의 전문 지식과 실용적인 <br />
+            <h1 className="text-3xl md:text-5xl font-black text-gray-900 mb-4 md:mb-6">교육 자료실</h1>
+            <p className="text-base md:text-xl text-gray-600 max-w-2xl mx-auto font-medium break-keep">
+              성장을 돕는 CLIA의 전문 지식과 실용적인 <br className="hidden md:block" />
               교육 프로그램 자료를 자유롭게 이용해 보세요.
             </p>
           </div>
@@ -104,12 +104,12 @@ export default function ResourcesPage() {
         {/* 탭 네비게이션 */}
         <div className="sticky top-[72px] z-30 bg-white/90 backdrop-blur-md border-b border-gray-200 shadow-sm">
           <div className="container mx-auto px-4">
-            <div className="flex justify-center gap-2 py-4">
+            <div className="flex overflow-x-auto no-scrollbar justify-start md:justify-center gap-2 py-4 px-4 md:px-0 -mx-4 md:mx-0 touch-pan-x">
               {tabs.map((tab) => (
                 <button
                   key={tab.id}
                   onClick={() => setActiveTab(tab.id)}
-                  className={`flex items-center gap-2 px-6 py-3 rounded-full text-base font-bold transition-all duration-200 ${
+                  className={`flex items-center gap-2 px-4 py-2.5 md:px-6 md:py-3 rounded-full text-sm md:text-base font-bold transition-all duration-200 whitespace-nowrap flex-shrink-0 ${
                     activeTab === tab.id
                       ? "bg-gray-900 text-white shadow-lg scale-105"
                       : "bg-gray-100 text-gray-500 hover:bg-gray-200 hover:text-gray-900"
@@ -125,15 +125,15 @@ export default function ResourcesPage() {
 
         {/* 콘텐츠 영역 */}
         <section className="py-16 container mx-auto px-4 min-h-[600px]">
-          <div className="max-w-5xl mx-auto text-center mb-12">
-            <div className="inline-flex items-center p-1 bg-gray-100 rounded-2xl">
-              <div className="relative">
+          <div className="max-w-5xl mx-auto text-center mb-8 md:mb-12">
+            <div className="inline-flex items-center p-1 bg-gray-100 rounded-2xl w-full md:w-auto">
+              <div className="relative w-full">
                 <input 
                   type="text" 
                   placeholder="자료 제목 검색..." 
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="pl-12 pr-6 py-3 bg-white border-none rounded-xl focus:outline-none shadow-sm text-sm w-80 font-medium"
+                  className="pl-12 pr-6 py-3 bg-white border-none rounded-xl focus:outline-none shadow-sm text-sm w-full md:w-80 font-medium"
                 />
                 <Search className="w-5 h-5 text-gray-400 absolute left-4 top-1/2 -translate-y-1/2" />
               </div>
@@ -185,23 +185,28 @@ export default function ResourcesPage() {
                         <div className="col-span-2 text-center md:block hidden">등록일</div>
                       </div>
                       {resources.map((item, idx) => (
-                        <div key={item.id} className="grid grid-cols-12 p-5 hover:bg-gray-50 transition-colors border-b border-gray-100 last:border-0 items-center">
+                        <div key={item.id} className="grid grid-cols-12 p-4 md:p-5 hover:bg-gray-50 transition-colors border-b border-gray-100 last:border-0 items-center">
                           <div className="col-span-2 text-center text-gray-400 font-medium md:block hidden">{total - ((page - 1) * limit) - idx}</div>
-                          <div className="col-span-12 md:col-span-8 px-4 flex items-center gap-4 group cursor-pointer" onClick={() => handleDownload(item.attachments)}>
+                          <div className="col-span-12 md:col-span-8 px-0 md:px-4 flex items-center gap-3 md:gap-4 group cursor-pointer" onClick={() => handleDownload(item.attachments)}>
                             <div className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0 bg-blue-50 text-blue-500">
                               <FileText className="w-5 h-5" />
                             </div>
-                            <div>
-                              <span className="font-bold text-gray-900 group-hover:text-blue-600 transition-colors flex items-center gap-2">
-                                {item.title}
-                              </span>
+                            <div className="min-w-0 flex-grow">
+                              <div className="flex items-center justify-between mb-1 md:mb-0">
+                                <span className="font-bold text-gray-900 group-hover:text-blue-600 transition-colors line-clamp-1 text-sm md:text-base">
+                                  {item.title}
+                                </span>
+                                <span className="text-xs text-gray-400 font-medium md:hidden shrink-0 ml-2">
+                                  {new Date(item.createdAt).toLocaleDateString()}
+                                </span>
+                              </div>
                               <div className="flex items-center gap-3 mt-0.5 text-xs text-gray-400 font-medium">
                                 <span>{item.author}</span>
                                 <span className="w-px h-2 bg-gray-200" />
                                 <span>조회 {item.viewCount}</span>
                               </div>
                             </div>
-                            <Download className="w-4 h-4 ml-auto opacity-0 group-hover:opacity-100 transition-opacity text-blue-500" />
+                            <Download className="w-4 h-4 ml-auto opacity-0 group-hover:opacity-100 transition-opacity text-blue-500 hidden md:block" />
                           </div>
                           <div className="col-span-2 text-center text-gray-400 text-sm font-medium md:block hidden">
                             {new Date(item.createdAt).toLocaleDateString()}
@@ -222,27 +227,27 @@ export default function ResourcesPage() {
                       </h3>
                       <p className="text-sm text-gray-500 font-medium">총 <span className="font-bold text-gray-900">{total}</span>개의 자료</p>
                     </div>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 md:gap-8">
+                    <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4 lg:gap-8">
                       {resources.map((item, idx) => (
-                        <div key={item.id} className="bg-white rounded-3xl overflow-hidden border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-500 hover:-translate-y-1 group">
+                        <div key={item.id} className="bg-white rounded-2xl md:rounded-3xl overflow-hidden border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-500 hover:-translate-y-1 group">
                           <div className={`aspect-[3/4] ${item.imageUrl ? 'bg-gray-50' : getBookColor(idx)} flex items-center justify-center relative overflow-hidden`}>
                              {item.imageUrl ? (
                                <img src={item.imageUrl} alt={item.title} className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-700" />
                              ) : (
                                activeTab === "books" ? (
-                                 <Book className="w-16 h-16 opacity-30 group-hover:scale-110 group-hover:rotate-6 transition-all duration-700" />
+                                 <Book className="w-12 h-12 md:w-16 md:h-16 opacity-30 group-hover:scale-110 group-hover:rotate-6 transition-all duration-700" />
                                ) : (
-                                 <Box className="w-16 h-16 opacity-30 group-hover:scale-110 group-hover:rotate-6 transition-all duration-700" />
+                                 <Box className="w-12 h-12 md:w-16 md:h-16 opacity-30 group-hover:scale-110 group-hover:rotate-6 transition-all duration-700" />
                                )
                              )}
                           </div>
-                          <div className="px-8 py-6">
+                          <div className="px-3 py-4 md:px-8 md:py-6">
                             <div className="max-w-[180px] mx-auto text-center">
-                              <h4 className="font-black text-base md:text-lg text-gray-900 mb-0 line-clamp-2 min-h-[3rem] leading-tight group-hover:text-blue-600 transition-colors cursor-pointer" onClick={() => handleDownload(item.attachments)}>
+                              <h4 className="font-black text-xs md:text-lg text-gray-900 mb-0 line-clamp-2 md:min-h-[3rem] leading-tight group-hover:text-blue-600 transition-colors cursor-pointer" onClick={() => handleDownload(item.attachments)}>
                                 {item.title}
                               </h4>
-                              <div className="flex justify-center border-t border-gray-100 pt-1">
-                                <span className="text-xs md:text-sm text-gray-400 font-bold tracking-tight">
+                              <div className="flex justify-center border-t border-gray-100 pt-1 mt-2 md:mt-0">
+                                <span className="text-[10px] md:text-sm text-gray-400 font-bold tracking-tight">
                                   {new Date(item.createdAt).toISOString().split('T')[0]}
                                 </span>
                               </div>

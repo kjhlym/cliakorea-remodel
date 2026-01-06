@@ -55,11 +55,11 @@ export default function AdminFreeBoardPage() {
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-black text-gray-900">자유게시판 관리</h1>
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <h1 className="text-xl md:text-2xl font-black text-gray-900">자유게시판 관리</h1>
         <Link
           href="/admin/free/create"
-          className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg font-bold hover:bg-blue-700 transition-colors"
+          className="flex items-center justify-center gap-2 px-6 py-2.5 md:py-2 bg-blue-600 text-white rounded-xl md:rounded-lg font-bold hover:bg-blue-700 transition-colors text-sm md:text-base"
         >
           <Plus className="w-4 h-4" />
           게시글 등록
@@ -73,28 +73,62 @@ export default function AdminFreeBoardPage() {
           </div>
         ) : (
           <>
-            <table className="w-full text-left">
+
+            {/* 모바일 카드 뷰 */}
+            <div className="md:hidden divide-y divide-gray-100">
+              {posts.map((post) => (
+                <div key={post.id} className="p-4 bg-white flex flex-col gap-2">
+                   <div className="flex justify-between items-start">
+                      <h3 className="font-bold text-gray-900 text-base line-clamp-2">{post.title}</h3>
+                      <div className="flex gap-1 shrink-0 ml-2">
+                        <Link
+                          href={`/admin/free/${post.id}/edit`}
+                          className="p-1.5 text-blue-600 hover:bg-blue-50 rounded-lg"
+                        >
+                          <Edit className="w-4 h-4" />
+                        </Link>
+                        <button
+                          onClick={() => handleDelete(post.id)}
+                          className="p-1.5 text-red-500 hover:bg-red-50 rounded-lg"
+                        >
+                          <Trash2 className="w-4 h-4" />
+                        </button>
+                      </div>
+                   </div>
+                   <div className="flex items-center justify-between text-xs text-gray-500">
+                      <div className="flex gap-2">
+                        <span>{post.authorName || '익명'}</span>
+                        <span>•</span>
+                        <span>{new Date(post.createdAt).toLocaleDateString()}</span>
+                      </div>
+                      <span>조회수 {post.viewCount}</span>
+                   </div>
+                </div>
+              ))}
+            </div>
+
+            <table className="w-full text-left hidden md:table">
               <thead className="bg-gray-50 border-b border-gray-100">
                 <tr>
-                  <th className="p-4 text-xs font-bold text-gray-500 uppercase">제목</th>
-                  <th className="p-4 text-xs font-bold text-gray-500 uppercase">작성자</th>
-                  <th className="p-4 text-xs font-bold text-gray-500 uppercase">조회수</th>
-                  <th className="p-4 text-xs font-bold text-gray-500 uppercase">작성일</th>
-                  <th className="p-4 text-xs font-bold text-gray-500 uppercase text-right">작업</th>
+                  <th className="p-4 text-xs font-bold text-gray-500 uppercase whitespace-nowrap">제목</th>
+                  <th className="p-4 text-xs font-bold text-gray-500 uppercase whitespace-nowrap">작성자</th>
+                  <th className="p-4 text-xs font-bold text-gray-500 uppercase whitespace-nowrap">조회수</th>
+                  <th className="p-4 text-xs font-bold text-gray-500 uppercase whitespace-nowrap">작성일</th>
+                  <th className="p-4 text-xs font-bold text-gray-500 uppercase text-right whitespace-nowrap">작업</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-100">
                 {posts.map((post) => (
                   <tr key={post.id} className="hover:bg-gray-50 transition-colors">
                     <td className="p-4">
-                      <div className="font-bold text-gray-900">{post.title}</div>
+                      <div className="font-bold text-gray-900 line-clamp-1">{post.title}</div>
                     </td>
-                    <td className="p-4 text-sm text-gray-600 font-medium">{post.authorName || '익명'}</td>
-                    <td className="p-4 text-sm text-gray-500">{post.viewCount}</td>
-                    <td className="p-4 text-sm text-gray-500">
+                    <td className="p-4 text-sm text-gray-600 font-medium whitespace-nowrap">{post.authorName || '익명'}</td>
+                    <td className="p-4 text-sm text-gray-500 whitespace-nowrap">{post.viewCount}</td>
+                    <td className="p-4 text-sm text-gray-500 whitespace-nowrap">
                       {new Date(post.createdAt).toLocaleDateString()}
                     </td>
-                    <td className="p-4 text-right space-x-2">
+                    <td className="p-4 text-right space-x-2 whitespace-nowrap">
                       <Link
                         href={`/admin/free/${post.id}/edit`}
                         className="inline-flex p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"

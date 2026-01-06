@@ -3,6 +3,7 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Calendar, Award, Users, BookOpen } from "lucide-react";
+import { useState, useEffect } from "react";
 
 export default function ActivitiesPage() {
   const activities = [
@@ -137,28 +138,56 @@ export default function ActivitiesPage() {
     },
   ];
 
+  const [stats, setStats] = useState({
+    instructorCount: "2,000+",
+    programCount: "50+",
+    partnerCount: "15+",
+    historyYears: "16년",
+  });
+
+  useEffect(() => {
+    const fetchStats = async () => {
+      try {
+        const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001';
+        const res = await fetch(`${apiUrl}/statistics`, { cache: 'no-store' });
+        if (res.ok) {
+          const data = await res.json();
+          setStats({
+            instructorCount: data.instructorCount || "2,000+",
+            programCount: data.programCount || "50+",
+            partnerCount: data.partnerCount || "15+",
+            historyYears: data.historyYears || "16년",
+          });
+        }
+      } catch (error) {
+        console.error("Failed to fetch statistics:", error);
+      }
+    };
+    fetchStats();
+  }, []);
+
   const achievements = [
     {
       icon: Users,
-      number: "2,000+",
+      number: stats.instructorCount,
       label: "강사 파견 (누적)",
       color: "from-blue-500 to-blue-600",
     },
     {
       icon: BookOpen,
-      number: "50+",
+      number: stats.programCount,
       label: "교육 프로그램",
       color: "from-indigo-500 to-indigo-600",
     },
     {
       icon: Award,
-      number: "15+",
+      number: stats.partnerCount,
       label: "주요 협약 기관",
       color: "from-purple-500 to-purple-600",
     },
     {
       icon: Calendar,
-      number: "16년",
+      number: stats.historyYears,
       label: "교육 역사",
       color: "from-pink-500 to-pink-600",
     },
