@@ -24,7 +24,7 @@ async function bootstrap() {
     origin: [
       "http://localhost:3000",
       "https://cliakorea-frontend.vercel.app",
-      "https://*.railway.app",
+      /^https:\/\/.*\.railway\.app$/, // 모든 railway.app 서브도메인 허용
       "https://cliakorea.kr",
       process.env.FRONTEND_URL,
     ].filter(Boolean), // undefined 값 제거
