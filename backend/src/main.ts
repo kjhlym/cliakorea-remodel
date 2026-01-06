@@ -1,28 +1,32 @@
-import { ValidationPipe } from '@nestjs/common';
-import { NestFactory } from '@nestjs/core';
-import { NestExpressApplication } from '@nestjs/platform-express';
-import { join } from 'path';
-import { AppModule } from './app.module';
+import { ValidationPipe } from "@nestjs/common";
+import { NestFactory } from "@nestjs/core";
+import { NestExpressApplication } from "@nestjs/platform-express";
+import { join } from "path";
+import { AppModule } from "./app.module";
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
-  
-  app.useGlobalPipes(new ValidationPipe({
-    whitelist: true,
-    transform: true,
-  }));
-  
+
+  app.useGlobalPipes(
+    new ValidationPipe({
+      whitelist: true,
+      transform: true,
+    })
+  );
+
   // 정적 파일 서빙 설정
-  app.useStaticAssets(join(process.cwd(), 'uploads'), {
-    prefix: '/uploads/',
+  app.useStaticAssets(join(process.cwd(), "uploads"), {
+    prefix: "/uploads/",
   });
-  
+
   // CORS 설정 - 개발 환경에서 localhost:3000 허용
   app.enableCors({
     origin: [
-      'http://localhost:3000',
-      'https://cliakorea-frontend.vercel.app',
-      process.env.FRONTEND_URL
+      "http://localhost:3000",
+      "https://cliakorea-frontend.vercel.app",
+      "https://*.railway.app",
+      "https://cliakorea.kr",
+      process.env.FRONTEND_URL,
     ].filter(Boolean), // undefined 값 제거
     credentials: true,
   });
@@ -37,4 +41,3 @@ async function bootstrap() {
 }
 
 bootstrap();
-
