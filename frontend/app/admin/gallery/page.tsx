@@ -76,70 +76,49 @@ export default function AdminGalleryPage() {
       </div>
 
       <div className="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
-        {/* 모바일 카드 뷰 */}
-        <div className="md:hidden divide-y divide-gray-100">
-            {galleries.map(item => (
-                <div key={item.id} className="p-4 bg-white flex gap-4">
-                   <div className="w-20 h-20 bg-gray-100 rounded-lg overflow-hidden shrink-0">
-                      <img src={item.images?.[0] || item.imageUrl} alt="" className="w-full h-full object-cover"/>
-                   </div>
-                   <div className="flex-grow min-w-0 flex flex-col justify-between">
-                      <div>
-                         <div className="flex justify-between items-start">
-                           <span className="text-[10px] bg-gray-100 text-gray-500 px-2 py-0.5 rounded-full font-bold">{item.category}</span>
-                           <button 
-                             onClick={() => handleDelete(item.id)}
-                             className="text-red-500 hover:bg-red-50 p-1 rounded-lg"
-                           >
-                             <Trash2 className="w-4 h-4"/>
-                           </button>
-                         </div>
-                         <h3 className="font-bold text-gray-900 mt-1 truncate">{item.title}</h3>
-                      </div>
-                      <div className="text-xs text-gray-400">
-                        {item.eventDate ? new Date(item.eventDate).toLocaleDateString() : '-'}
-                      </div>
-                   </div>
+        {/* 갤러리 그리드 뷰 (통합) */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 p-6">
+          {galleries.map((item) => (
+            <div key={item.id} className="bg-white rounded-3xl border border-gray-100 shadow-sm hover:shadow-xl transition-all group flex flex-col overflow-hidden">
+              <div className="relative aspect-[4/3] bg-gray-100 overflow-hidden">
+                <img 
+                  src={item.images?.[0] || item.imageUrl || '/images/no-image.png'} 
+                  alt={item.title} 
+                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                />
+                <div className="absolute top-4 left-4">
+                  <span className="px-3 py-1 bg-white/90 backdrop-blur-sm rounded-full text-[10px] font-black uppercase tracking-wider text-gray-700 shadow-sm">
+                    {item.category}
+                  </span>
                 </div>
-            ))}
+              </div>
+              
+              <div className="p-5 flex-grow flex flex-col justify-between">
+                <div>
+                  <h3 className="font-bold text-gray-900 mb-2 line-clamp-2 leading-snug">{item.title}</h3>
+                  <p className="text-xs text-gray-400 font-medium flex items-center gap-1">
+                    <span>{item.eventDate ? new Date(item.eventDate).toLocaleDateString() : '-'}</span>
+                  </p>
+                </div>
+                
+                <div className="mt-4 pt-4 border-t border-gray-50 flex justify-end">
+                   <button 
+                     onClick={() => handleDelete(item.id)}
+                     className="p-2 text-gray-400 hover:text-red-500 hover:bg-red-50 rounded-xl transition-all"
+                     title="삭제"
+                   >
+                     <Trash2 className="w-5 h-5" />
+                   </button>
+                </div>
+              </div>
+            </div>
+          ))}
+          {!loading && galleries.length === 0 && (
+             <div className="col-span-full py-20 text-center text-gray-400 font-medium">
+               등록된 갤러리가 없습니다.
+             </div>
+          )}
         </div>
-
-        <table className="w-full text-left hidden md:table">
-            <thead className="bg-gray-50 border-b border-gray-100">
-                <tr>
-                    <th className="p-4 text-xs font-bold text-gray-500 uppercase whitespace-nowrap">이미지</th>
-                    <th className="p-4 text-xs font-bold text-gray-500 uppercase whitespace-nowrap">제목</th>
-                    <th className="p-4 text-xs font-bold text-gray-500 uppercase whitespace-nowrap">분류</th>
-                    <th className="p-4 text-xs font-bold text-gray-500 uppercase whitespace-nowrap">행사일</th>
-                    <th className="p-4 text-xs font-bold text-gray-500 uppercase text-right whitespace-nowrap">작업</th>
-                </tr>
-            </thead>
-            <tbody className="divide-y divide-gray-100">
-                {galleries.map(item => (
-                    <tr key={item.id} className="hover:bg-gray-50">
-                        <td className="p-4 whitespace-nowrap">
-                            <div className="w-16 h-12 bg-gray-100 rounded overflow-hidden">
-                                <img src={item.images?.[0] || item.imageUrl} alt="" className="w-full h-full object-cover"/>
-                            </div>
-                        </td>
-                        <td className="p-4 font-medium text-gray-900 line-clamp-1">{item.title}</td>
-                        <td className="p-4 text-gray-500 text-sm whitespace-nowrap">{item.category}</td>
-                        <td className="p-4 text-gray-500 text-sm whitespace-nowrap">{item.eventDate ? new Date(item.eventDate).toLocaleDateString() : '-'}</td>
-                        <td className="p-4 text-right whitespace-nowrap">
-                            <button 
-                                onClick={() => handleDelete(item.id)}
-                                className="p-2 text-red-500 hover:bg-red-50 rounded"
-                            >
-                                <Trash2 className="w-4 h-4"/>
-                            </button>
-                        </td>
-                    </tr>
-                ))}
-            </tbody>
-        </table>
-        {!loading && galleries.length === 0 && (
-            <div className="p-10 text-center text-gray-400">등록된 갤러리가 없습니다.</div>
-        )}
       </div>
     </div>
   );

@@ -325,7 +325,7 @@ export default function PopupManager() {
                     <label className="block text-sm font-bold text-gray-700 mb-2">팝업 이미지</label>
                     <div className="space-y-3">
                       {formData.imageUrl && (
-                        <div className="relative rounded-2xl overflow-hidden border border-gray-100 aspect-video bg-gray-50">
+                        <div className="relative rounded-2xl overflow-hidden border border-gray-300 aspect-video bg-gray-100 shadow-inner">
                           <img src={formData.imageUrl} alt="공지 이미지" className="w-full h-full object-contain" />
                           <button 
                             type="button"
@@ -420,8 +420,8 @@ export default function PopupManager() {
                           key={preset.id}
                           type="button"
                           onClick={() => setFormData({ ...formData, imageUrl: preset.url })}
-                          className={`relative aspect-square rounded-2xl overflow-hidden border-2 transition-all ${
-                            formData.imageUrl === preset.url ? 'border-blue-600 ring-2 ring-blue-100' : 'border-gray-100 hover:border-gray-200'
+                          className={`relative aspect-square rounded-2xl overflow-hidden border-2 transition-all shadow-sm ${
+                            formData.imageUrl === preset.url ? 'border-blue-600 ring-4 ring-blue-50' : 'border-gray-200 hover:border-gray-400'
                           }`}
                         >
                           <img src={preset.url} alt={preset.label} className="w-full h-full object-cover" />
@@ -475,7 +475,7 @@ export default function PopupManager() {
                 <div className="sticky top-0">
                   <h3 className="text-xs font-black text-gray-400 mb-6 uppercase tracking-wider">실시간 미리보기 (Live Preview)</h3>
                   
-                  <div className="relative w-full max-w-[340px] mx-auto bg-white rounded-[2rem] shadow-xl overflow-hidden border border-gray-100 scale-90 origin-top">
+                  <div className="relative w-full max-w-[340px] mx-auto bg-white rounded-[2.5rem] shadow-2xl overflow-hidden border-[5px] border-gray-800 scale-90 origin-top">
                     <div className="relative min-h-[180px] bg-white">
                       {formData.type === 'HTML' ? (
                         <div 
@@ -485,7 +485,7 @@ export default function PopupManager() {
                       ) : (
                         <div className="relative aspect-[4/5]">
                           {formData.imageUrl ? (
-                            <img src={formData.imageUrl} alt="미리보기" className="w-full h-full object-cover" />
+                            <img src={formData.imageUrl} alt="미리보기" className="w-full h-full object-cover border border-gray-200" />
                           ) : (
                             <div className="w-full h-full flex items-center justify-center p-8 text-center text-gray-200 bg-gray-50">
                               <ImageIcon className="w-12 h-12" />

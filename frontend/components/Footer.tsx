@@ -3,9 +3,11 @@
 import Link from "next/link";
 import { useState } from "react";
 import { ChevronDown } from "lucide-react";
+import { useAuth } from "@/lib/context/AuthContext";
 
 export default function Footer() {
   const [openSections, setOpenSections] = useState<string[]>([]);
+  const { openLoginModal } = useAuth();
 
   const toggleSection = (title: string) => {
     setOpenSections((prev) =>
@@ -21,7 +23,7 @@ export default function Footer() {
     <div className="flex flex-col items-center text-center border-b md:border-none border-gray-800 last:border-none py-4 md:py-0">
       <button 
         onClick={() => toggleSection(title)}
-        className="flex items-center justify-center gap-2 text-base md:text-lg font-bold mb-2 md:mb-4 w-full md:w-auto md:pointer-events-none hover:text-blue-400 md:hover:text-white transition-colors"
+        className="flex items-center justify-center gap-2 text-sm md:text-base font-bold mb-1 md:mb-2 w-full md:w-auto md:pointer-events-none hover:text-blue-400 md:hover:text-white transition-colors"
       >
         {title}
         <ChevronDown 
@@ -43,9 +45,9 @@ export default function Footer() {
   );
 
   return (
-    <footer className="bg-gray-900 text-white py-8 md:py-12 text-sm md:text-base">
+    <footer className="bg-gray-900 text-white py-6 md:py-8 text-xs md:text-sm">
       <div className="container mx-auto px-4">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-0 md:gap-8 mb-6 md:mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-0 md:gap-8 mb-4 md:mb-6">
           
           <FooterSection title="연락처">
             <div className="space-y-2">
@@ -60,6 +62,11 @@ export default function Footer() {
               <p>
                 <a href="tel:010-5465-7745" className="hover:text-white">
                   010-5465-7745
+                </a>
+              </p>
+              <p>
+                <a href="tel:010-5465-7745" className="hover:text-white">
+                 Email: info@cliakorea.kr
                 </a>
               </p>
             </div>
@@ -77,7 +84,7 @@ export default function Footer() {
               </p>
               <Link 
                 href="/about/location" 
-                className="inline-block mt-1 md:mt-2 text-xs md:text-sm text-blue-400 hover:text-blue-300 underline"
+                className="inline-block mt-0.5 md:mt-1 text-[10px] md:text-xs text-blue-400 hover:text-blue-300 underline"
               >
                 지도 보기 &rarr;
               </Link>
@@ -101,13 +108,22 @@ export default function Footer() {
                   게시판
                 </Link>
               </li>
+              <li>
+                <button 
+                  onClick={openLoginModal}
+                  className="hover:text-white transition-colors"
+                >
+                  Admin
+                </button>
+              </li>
             </ul>
           </FooterSection>
 
         </div>
 
         {/* 저작권 */}
-        <div className="border-t border-gray-800 pt-8 text-center text-gray-400">
+        <div className="border-t border-gray-800 pt-4 text-center text-gray-400 text-[10px] md:text-xs">
+          <p className="mb-1">사업자 등록번호: 209-82-67774</p>
           <p>© 2025 어린이리더십강사협회 (CLIA). All rights reserved.</p>
         </div>
       </div>

@@ -4,6 +4,16 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Award, Heart, Shield, Target, Users } from "lucide-react";
 import CTASection from "@/components/CTASection";
+import SubNav from "@/components/SubNav";
+
+const aboutNavItems = [
+  { name: "협회개요", href: "/about" },
+  { name: "인사말", href: "/about/greeting" },
+  { name: "사명과 미션", href: "/about/mission" },
+  { name: "활동과 발자취", href: "/about/activities" },
+  { name: "찾아오시는 길", href: "/about/location" },
+];
+
 
 const values = [
   {
@@ -36,39 +46,42 @@ export default function AboutPage() {
 
       <main className="flex-grow">
         {/* 히어로 섹션 */}
-        <section className="py-24 bg-gray-900 relative overflow-hidden">
+        {/* 히어로 섹션 */}
+        <section className="py-10 md:py-20 bg-gray-900 relative overflow-hidden">
           <div className="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]" />
           <div className="container mx-auto px-4 relative z-10 text-center">
-            <h1 className="text-4xl md:text-6xl font-black text-white mb-8">
+            <h1 className="text-2xl md:text-5xl font-black text-white mb-4 md:mb-6 break-keep">
               미래의 리더를 키우는 <br />
               <span className="text-blue-500">가장 당당한 발걸음</span>
             </h1>
-            <p className="text-xl text-gray-400 max-w-3xl mx-auto leading-relaxed">
+            <p className="text-sm md:text-xl text-gray-400 max-w-3xl mx-auto leading-relaxed break-keep">
               CLIA 어린이 리더십 강사협회는 미래 세대가 자신의 잠재력을 발견하고, <br className="hidden md:block" />
               세상을 긍정적으로 변화시키는 리더로 성장할 수 있도록 돕는 전문 교육 기관입니다.
             </p>
           </div>
         </section>
 
+        <SubNav items={aboutNavItems} />
+
         {/* 협회 철학 */}
-        <section className="py-24 container mx-auto px-4">
-          <div className="grid md:grid-cols-2 gap-16 items-center max-w-5xl mx-auto">
-            <div className="relative">
-              <div className="aspect-square rounded-[3rem] overflow-hidden shadow-2xl">
+        <section className="py-10 md:py-24 container mx-auto px-4">
+          <div className="grid md:grid-cols-2 gap-8 md:gap-16 items-center max-w-5xl mx-auto">
+            <div className="relative mb-8 md:mb-0">
+              <div className="aspect-square rounded-[2rem] md:rounded-[3rem] overflow-hidden shadow-2xl">
                 <img 
                   src="/images/about-vision.png" 
                   alt="협회 비전" 
                   className="w-full h-full object-cover"
                 />
               </div>
-              <div className="absolute -bottom-10 -right-10 w-48 h-48 bg-blue-600 rounded-[2rem] flex flex-col items-center justify-center text-white shadow-2xl p-6 text-center">
-                <span className="text-4xl font-black mb-1">10+</span>
-                <span className="text-sm font-bold opacity-80">Years of <br />Excellence</span>
+              <div className="absolute -bottom-6 -right-6 md:-bottom-10 md:-right-10 w-32 h-32 md:w-48 md:h-48 bg-blue-600 rounded-[1.5rem] md:rounded-[2rem] flex flex-col items-center justify-center text-white shadow-2xl p-4 md:p-6 text-center">
+                <span className="text-2xl md:text-4xl font-black mb-1">10+</span>
+                <span className="text-xs md:text-sm font-bold opacity-80">Years of <br />Excellence</span>
               </div>
             </div>
             <div>
-              <h2 className="text-3xl font-black text-gray-900 mb-6">우리의 소명</h2>
-              <p className="text-lg text-gray-600 leading-relaxed mb-8">
+              <h2 className="text-2xl md:text-3xl font-black text-gray-900 mb-4 md:mb-6 break-keep">우리의 소명</h2>
+              <p className="text-sm md:text-lg text-gray-600 leading-relaxed mb-6 md:mb-8 text-justify md:text-left break-keep">
                 아이들은 태어날 때부터 각기 다른 모양의 리더십 씨앗을 가지고 태어납니다. 
                 우리의 역할은 그 씨앗이 올바른 양분과 환경 속에서 찬란하게 꽃피울 수 있도록 
                 전문적인 지도와 따뜻한 격려를 제공하는 것입니다.
@@ -92,11 +105,11 @@ export default function AboutPage() {
         </section>
 
         {/* 핵심 가치 */}
-        <section className="py-24 bg-gray-50">
+        <section className="py-10 md:py-24 bg-gray-50">
           <div className="container mx-auto px-4">
-            <div className="text-center mb-16">
-              <h3 className="text-blue-600 font-black uppercase tracking-widest text-sm mb-3">Core Values</h3>
-              <h2 className="text-3xl md:text-4xl font-black text-gray-900">CLIA가 추구하는 세 가지 가치</h2>
+            <div className="text-center mb-8 md:mb-16">
+              <h3 className="text-blue-600 font-black uppercase tracking-widest text-xs md:text-sm mb-2 md:mb-3">Core Values</h3>
+              <h2 className="text-2xl md:text-4xl font-black text-gray-900 break-keep">CLIA가 추구하는 세 가지 가치</h2>
             </div>
             <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
               {values.map((v) => (

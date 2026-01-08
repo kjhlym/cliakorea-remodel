@@ -3,11 +3,25 @@
 import useSWR from 'swr';
 import { Users, FileText, MessageSquare, CreditCard, ArrowUpRight } from 'lucide-react';
 
-const fetcher = (url: string) => fetch(url).then(r => r.json());
+import { useAuth } from '@/lib/context/AuthContext';
+
+const fetcher = async ([url, token]: [string, string | null]) => {
+  const headers: HeadersInit = {};
+  if (token) headers['Authorization'] = `Bearer ${token}`;
+  const res = await fetch(url, { headers });
+  return res.json();
+};
 
 export default function AdminDashboard() {
+  const { token } = useAuth();
+  
   const { data, error } = useSWR(
-    `${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001'}/admin/stats`,
+    token ? [`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001'}/admin/stats`, token] : null,
+    fetcher
+  );
+  
+  const { data: popups } = useSWR(
+    token ? [`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001'}/popups`, token] : null,
     fetcher
   );
 
@@ -15,11 +29,14 @@ export default function AdminDashboard() {
   if (!data) return <div className="p-8 text-gray-500">로딩 중...</div>;
 
   const { stats, recentApplications, recentConsultations } = data;
+  // popups가 배열인지 확인 후 filter
+  const activePopupsCount = Array.isArray(popups) ? popups.filter((p: any) => p.isActive).length : 0;
 
   const statCards = [
     { label: '전체 회원', value: stats.totalUsers, icon: <Users className="w-6 h-6 text-blue-500" />, color: 'bg-blue-50' },
     { label: '신청 건수', value: stats.totalApplications, icon: <FileText className="w-6 h-6 text-orange-500" />, color: 'bg-orange-50' },
     { label: '상담 건수', value: stats.totalConsultations, icon: <MessageSquare className="w-6 h-6 text-green-500" />, color: 'bg-green-50' },
+    { label: '진행중 팝업', value: activePopupsCount, icon: <CreditCard className="w-6 h-6 text-purple-500" />, color: 'bg-purple-50' },
   ];
 
   return (
@@ -30,7 +47,7 @@ export default function AdminDashboard() {
       </div>
 
       {/* 통계 카드 */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         {statCards.map((card) => (
           <div key={card.label} className="bg-white p-6 rounded-3xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
             <div className="flex items-center justify-between mb-4">

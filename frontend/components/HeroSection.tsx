@@ -18,7 +18,7 @@ const carouselImages = [
     subtitle: "세계로 뻗어나가는 당당한 리더를 꿈꿉니다.",
   },
   {
-    src: "/images/main-banner-03.png",
+    src: "/images/main-banner-03-new.png",
     alt: "어린이 리더십 강사협회 메인 배너 3",
     title: "전문 강사 커뮤니티",
     subtitle: "최고의 강사진과 함께하는 성장의 발판이 되어드립니다.",
@@ -96,26 +96,21 @@ export default function HeroSection() {
           <span className="inline-block px-3 py-0.5 mb-3 bg-blue-600/80 text-white text-xs font-bold uppercase tracking-widest rounded-full backdrop-blur-sm">
             Children Leadership Instructor Association
           </span>
-          <h1 className="text-3xl md:text-4xl lg:text-5xl font-extrabold text-white mb-4 leading-tight drop-shadow-lg">
+          <h1 className="text-2xl md:text-4xl lg:text-5xl font-extrabold text-white mb-4 leading-tight drop-shadow-lg break-keep">
             {carouselImages[currentIndex].title}
           </h1>
-          <p className="text-base md:text-lg text-gray-100 mb-6 font-medium drop-shadow-md">
+          <p className="text-sm md:text-lg text-gray-100 mb-6 font-medium drop-shadow-md break-keep">
             {carouselImages[currentIndex].subtitle}
           </p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <a
               href="/programs"
-              className="group relative px-7 py-2.5 bg-white text-blue-900 rounded-full font-bold text-base hover:bg-blue-50 transition-all duration-300 shadow-xl overflow-hidden"
+              className="group relative px-5 py-2 md:px-7 md:py-2.5 bg-white text-blue-900 rounded-full font-bold text-sm md:text-base hover:bg-blue-50 transition-all duration-300 shadow-xl overflow-hidden"
             >
               <span className="relative z-10">프로그램 구경하기</span>
               <div className="absolute inset-0 bg-blue-100/50 transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-500" />
             </a>
-            <a
-              href="/instructor-training"
-              className="px-7 py-2.5 bg-transparent border-2 border-white/80 text-white rounded-full font-bold text-base hover:bg-white/10 transition-all duration-300 backdrop-blur-sm"
-            >
-              강사 지원 안내
-            </a>
+           
           </div>
         </div>
       </div>

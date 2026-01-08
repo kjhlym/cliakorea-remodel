@@ -3,6 +3,15 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { MapPin, Phone, Mail, Clock, Navigation } from "lucide-react";
+import SubNav from "@/components/SubNav";
+
+const aboutNavItems = [
+  { name: "협회개요", href: "/about" },
+  { name: "인사말", href: "/about/greeting" },
+  { name: "사명과 미션", href: "/about/mission" },
+  { name: "활동과 발자취", href: "/about/activities" },
+  { name: "찾아오시는 길", href: "/about/location" },
+];
 
 // Google Maps iframe에서는 좌표보다 주소 쿼리를 직접 사용하는 것이 정확하므로
 // 표면적 텍스트용 상수는 유지합니다.
@@ -17,19 +26,21 @@ export default function LocationPage() {
 
       <main className="flex-grow">
         {/* 헤더 섹션 */}
-        <section className="py-24 bg-gradient-to-br from-emerald-50 via-white to-teal-50">
+        <section className="py-10 md:py-20 bg-gradient-to-br from-emerald-50 via-white to-teal-50">
           <div className="container mx-auto px-4 text-center">
-            <h1 className="text-5xl md:text-6xl font-black text-gray-900 mb-6">
+            <h1 className="text-2xl md:text-5xl font-black text-gray-900 mb-4 md:mb-6">
               찾아오시는 길
             </h1>
-            <p className="text-xl text-gray-500 max-w-2xl mx-auto">
+            <p className="text-sm md:text-xl text-gray-500 max-w-2xl mx-auto break-keep">
               어린이리더십강사협회로 오시는 방법을 안내해 드립니다
             </p>
           </div>
         </section>
 
+        <SubNav items={aboutNavItems} />
+
         {/* 연락처 정보 */}
-        <section className="py-24 container mx-auto px-4">
+        <section className="py-10 md:py-24 container mx-auto px-4">
           <div className="max-w-6xl mx-auto">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
               <div className="bg-white rounded-2xl shadow-lg border border-gray-100 p-6 text-center hover:shadow-xl transition-all">
@@ -86,7 +97,7 @@ export default function LocationPage() {
               </div>
 
               <div className="p-8">
-                <div className="w-full h-[400px] bg-gray-100 rounded-2xl mb-6 relative overflow-hidden">
+                <div className="w-full h-[400px] bg-gray-100 rounded-2xl relative overflow-hidden">
                   <iframe
                     title="어린이리더십강사협회 위치"
                     className="w-full h-full border-0"
@@ -94,17 +105,6 @@ export default function LocationPage() {
                     allowFullScreen
                     src={`https://www.google.com/maps?q=서울+성북구+길음동+1276&output=embed`}
                   />
-                </div>
-
-                <div className="flex justify-center">
-                  <a
-                    href={`https://map.kakao.com/link/search/${LOCATION.address}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="px-8 py-4 bg-[#FAE100] text-[#371D1E] rounded-2xl font-black hover:shadow-xl transition-all shadow-md flex items-center gap-2"
-                  >
-                    카카오맵에서 크게 보기
-                  </a>
                 </div>
               </div>
             </div>

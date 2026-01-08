@@ -67,83 +67,62 @@ export default function AdminNoticesPage() {
       </div>
 
       <div className="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
-        {/* 모바일 카드 뷰 */}
-        <div className="md:hidden divide-y divide-gray-100">
+        {/* 공지사항 그리드 뷰 (통합) */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 p-6">
           {notices.map((notice) => (
-            <div key={notice.id} className="p-4 bg-white flex flex-col gap-2">
-               <div className="flex justify-between items-start">
-                  <h3 className="font-bold text-gray-900 text-base">{notice.title}</h3>
-                  <div className="flex gap-1 shrink-0 ml-2">
-                    <Link
-                      href={`/admin/notices/${notice.id}/edit`}
-                      className="p-1.5 text-blue-600 hover:bg-blue-50 rounded-lg"
-                    >
-                      <Edit className="w-4 h-4" />
-                    </Link>
-                    <button
-                      onClick={() => handleDelete(notice.id)}
-                      className="p-1.5 text-red-500 hover:bg-red-50 rounded-lg"
-                    >
-                      <Trash2 className="w-4 h-4" />
-                    </button>
+            <div key={notice.id} className="bg-white rounded-3xl border border-gray-100 shadow-sm hover:shadow-lg transition-all group flex flex-col overflow-hidden hover:-translate-y-1 duration-300">
+              <div className={`h-2 w-full ${notice.category === 'notice' ? 'bg-red-500' : 'bg-gray-200'}`} />
+              
+              <div className="p-6 flex-grow flex flex-col justify-between">
+                <div>
+                  <div className="flex justify-between items-start mb-4">
+                     <span className={`px-2.5 py-1 rounded-lg text-[11px] font-black uppercase tracking-wider ${
+                       notice.category === 'notice' ? 'bg-red-50 text-red-600' : 'bg-gray-100 text-gray-500'
+                     }`}>
+                       {notice.category === 'notice' ? '공지' : '일반'}
+                     </span>
+                     <span className="text-xs font-bold text-gray-400 flex items-center gap-1">
+                        <Search className="w-3 h-3" />
+                        {notice.viewCount}
+                     </span>
                   </div>
-               </div>
-               <div className="flex items-center justify-between text-xs text-gray-500">
-                  <div className="flex gap-2">
-                    <span>{notice.authorName || '관리자'}</span>
-                    <span>•</span>
+                  
+                  <h3 className="font-bold text-gray-900 text-lg mb-3 line-clamp-2 leading-snug min-h-[3.5rem]">
+                    {notice.title}
+                  </h3>
+                  
+                  <div className="text-xs text-gray-500 font-medium flex items-center gap-2 mb-6">
+                    <span className="bg-gray-50 px-2 py-1 rounded-md">{notice.authorName || '관리자'}</span>
+                    <span className="text-gray-300">|</span>
                     <span>{new Date(notice.createdAt).toLocaleDateString()}</span>
                   </div>
-                  <span>조회수 {notice.viewCount}</span>
-               </div>
+                </div>
+                
+                <div className="pt-4 border-t border-gray-50 flex gap-2">
+                   <Link 
+                     href={`/admin/notices/${notice.id}/edit`}
+                     className="flex-1 flex items-center justify-center gap-2 py-2.5 bg-blue-50 text-blue-600 rounded-xl font-bold text-sm hover:bg-blue-100 transition-colors"
+                   >
+                     <Edit className="w-4 h-4" />
+                     수정
+                   </Link>
+                   <button 
+                     onClick={() => handleDelete(notice.id)}
+                     className="p-2.5 text-red-400 hover:text-red-600 hover:bg-red-50 rounded-xl transition-colors"
+                     title="삭제"
+                   >
+                     <Trash2 className="w-4 h-4" />
+                   </button>
+                </div>
+              </div>
             </div>
           ))}
+          {!loading && notices.length === 0 && (
+             <div className="col-span-full py-20 text-center text-gray-400 font-medium">
+               등록된 공지사항이 없습니다.
+             </div>
+          )}
         </div>
-
-        <table className="w-full text-left hidden md:table">
-          <thead className="bg-gray-50 border-b border-gray-100">
-            <tr>
-              <th className="p-4 text-xs font-bold text-gray-500 uppercase whitespace-nowrap">제목</th>
-              <th className="p-4 text-xs font-bold text-gray-500 uppercase whitespace-nowrap">작성자</th>
-              <th className="p-4 text-xs font-bold text-gray-500 uppercase whitespace-nowrap">조회수</th>
-              <th className="p-4 text-xs font-bold text-gray-500 uppercase whitespace-nowrap">작성일</th>
-              <th className="p-4 text-xs font-bold text-gray-500 uppercase text-right whitespace-nowrap">작업</th>
-            </tr>
-          </thead>
-          <tbody className="divide-y divide-gray-100">
-            {notices.map((notice) => (
-              <tr key={notice.id} className="hover:bg-gray-50 transition-colors">
-                <td className="p-4">
-                  <div className="font-bold text-gray-900 line-clamp-1">{notice.title}</div>
-                </td>
-                <td className="p-4 text-sm text-gray-600 font-medium whitespace-nowrap">{notice.authorName || '관리자'}</td>
-                <td className="p-4 text-sm text-gray-500 whitespace-nowrap">{notice.viewCount}</td>
-                <td className="p-4 text-sm text-gray-500 whitespace-nowrap">
-                  {new Date(notice.createdAt).toLocaleDateString()}
-                </td>
-                <td className="p-4 text-right space-x-2 whitespace-nowrap">
-                  <Link
-                    href={`/admin/notices/${notice.id}/edit`}
-                    className="inline-flex p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
-                  >
-                    <Edit className="w-4 h-4" />
-                  </Link>
-                  <button
-                    onClick={() => handleDelete(notice.id)}
-                    className="p-2 text-red-500 hover:bg-red-50 rounded-lg transition-colors"
-                  >
-                    <Trash2 className="w-4 h-4" />
-                  </button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-        {!loading && notices.length === 0 && (
-          <div className="p-20 text-center text-gray-400 font-medium">
-            등록된 공지사항이 없습니다.
-          </div>
-        )}
       </div>
     </div>
   );
