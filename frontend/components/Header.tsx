@@ -45,7 +45,7 @@ export default function Header() {
               >
                 <Link
                   href={item.href}
-                  className="text-gray-600 hover:text-blue-600 font-bold text-sm tracking-tight transition-colors flex items-center gap-1"
+                  className="text-gray-600 hover:text-blue-600 font-bold text-xs tracking-tight transition-colors flex items-center gap-1"
                 >
                   {item.name}
                   {item.submenu && <ChevronDown className="w-4 h-4 opacity-50" />}
