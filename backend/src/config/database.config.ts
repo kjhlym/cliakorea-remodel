@@ -6,7 +6,7 @@ export const databaseConfig = (): TypeOrmModuleOptions => {
 
   // Neon DATABASE_URL 지원 (postgresql://user:pass@host/db?sslmode=require)
   const databaseUrl = process.env.DATABASE_URL;
-
+console.log('ssssss', isProduction, databaseUrl)
   if (isProduction && databaseUrl) {
     // Neon 연결 문자열 사용
     return {
@@ -23,6 +23,8 @@ export const databaseConfig = (): TypeOrmModuleOptions => {
     };
   }
 
+
+  console.log('ssssss')
   // 기존 개별 설정 (로컬 개발용)
   return {
     type: "postgres",
