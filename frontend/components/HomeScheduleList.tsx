@@ -164,10 +164,10 @@ export default function HomeScheduleList() {
               
             </div>
             <div className="flex flex-col items-end gap-0.5">
-              <p className="text-base md:text-2xl font-black text-blue-600 hover:underline tracking-tighter">
+              <p className="text-base md:text-xl font-black text-blue-600 hover:underline tracking-tighter">
                 070-4384-7849
               </p>
-              <p className="text-base md:text-2xl font-black text-blue-600 hover:underline tracking-tighter">
+              <p className="text-base md:text-xl font-black text-blue-600 hover:underline tracking-tighter">
                 010-5465-7745
               </p>
             </div>
