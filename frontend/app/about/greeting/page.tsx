@@ -3,6 +3,15 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Heart, Users, Award } from "lucide-react";
+import SubNav from "@/components/SubNav";
+
+const aboutNavItems = [
+  { name: "협회개요", href: "/about" },
+  { name: "인사말", href: "/about/greeting" },
+  { name: "사명과 미션", href: "/about/mission" },
+  { name: "활동과 발자취", href: "/about/activities" },
+  { name: "찾아오시는 길", href: "/about/location" },
+];
 
 export default function GreetingPage() {
   return (
@@ -11,36 +20,38 @@ export default function GreetingPage() {
 
       <main className="flex-grow">
         {/* 헤더 섹션 */}
-        <section className="py-24 bg-gradient-to-br from-blue-50 via-white to-indigo-50">
+        <section className="py-10 md:py-20 bg-gradient-to-br from-blue-50 via-white to-indigo-50">
           <div className="container mx-auto px-4 text-center">
-            <h1 className="text-5xl md:text-6xl font-black text-gray-900 mb-6">
+            <h1 className="text-2xl md:text-5xl font-black text-gray-900 mb-4 md:mb-6">
               인사말
             </h1>
-            <p className="text-xl text-gray-500 max-w-2xl mx-auto">
+            <p className="text-sm md:text-xl text-gray-500 max-w-2xl mx-auto break-keep">
               어린이리더십강사협회를 찾아주신 여러분을 환영합니다
             </p>
           </div>
         </section>
 
+        <SubNav items={aboutNavItems} />
+
         {/* 인사말 내용 */}
-        <section className="py-24 container mx-auto px-4">
+        <section className="py-10 md:py-24 container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
             {/* 회장 인사 */}
-            <div className="bg-white rounded-3xl shadow-xl border border-gray-100 p-12 mb-12">
-              <div className="flex flex-col md:flex-row gap-8 items-center mb-8">
-                <div className="w-32 h-32 bg-gradient-to-br from-blue-100 to-indigo-100 rounded-full flex items-center justify-center shrink-0">
-                  <Users className="w-16 h-16 text-blue-600" />
+            <div className="bg-white rounded-3xl shadow-xl border border-gray-100 p-6 md:p-12 mb-8 md:mb-12">
+              <div className="flex flex-col md:flex-row gap-6 md:gap-8 items-center mb-6 md:mb-8">
+                <div className="w-24 h-24 md:w-32 md:h-32 bg-gradient-to-br from-blue-100 to-indigo-100 rounded-full flex items-center justify-center shrink-0">
+                  <Users className="w-12 h-12 md:w-16 md:h-16 text-blue-600" />
                 </div>
                 <div>
-                  <h2 className="text-3xl font-black text-gray-900 mb-2">
+                  <h2 className="text-2xl md:text-3xl font-black text-gray-900 mb-1 md:mb-2 text-center md:text-left">
                     협회장 인사말
                   </h2>
-                  <p className="text-gray-500">어린이리더십강사협회 회장</p>
+                  <p className="text-sm md:text-base text-gray-500 text-center md:text-left">어린이리더십강사협회 회장</p>
                 </div>
               </div>
 
-              <div className="space-y-6 text-gray-700 leading-relaxed">
-                <p className="text-lg">
+              <div className="space-y-4 md:space-y-6 text-gray-700 leading-relaxed text-sm md:text-base text-justify">
+                <p className="text-base md:text-lg font-bold">
                   안녕하십니까, 어린이리더십강사협회 회장입니다.
                 </p>
                 <p>
@@ -59,7 +70,7 @@ export default function GreetingPage() {
                   강사들의 전문성 제고를 위해 최선을 다하겠습니다. 
                   여러분의 많은 관심과 참여를 부탁드립니다.
                 </p>
-                <p className="text-lg font-bold text-gray-900 mt-8">
+                <p className="text-base md:text-lg font-bold text-gray-900 mt-6 md:mt-8">
                   감사합니다.
                 </p>
               </div>

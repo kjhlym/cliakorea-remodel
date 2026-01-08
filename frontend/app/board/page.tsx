@@ -5,6 +5,14 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Link from "next/link";
 import { Search, PenSquare, ChevronRight, Eye, Clock, MessageSquare, Loader2 } from "lucide-react";
+import SubNav from "@/components/SubNav";
+
+const boardNavItems = [
+  { name: "전체글", href: "/board" },
+  { name: "공지사항", href: "/notice" },
+  { name: "갤러리", href: "/board/gallery" },
+  { name: "협회교육일정", href: "/board/schedule" },
+];
 
 interface Post {
   id: string;
@@ -19,12 +27,15 @@ interface Post {
 const CATEGORY_MAP: Record<string, string> = {
   "전체": "all",
   "공지사항": "notice",
-  "자료실": "education"
+  "자유게시판": "free",
+  "갤러리": "gallery"
 };
 
 const CATEGORY_REVERSE_MAP: Record<string, string> = {
   "notice": "공지사항",
-  "education": "자료실"
+  "free": "자유게시판",
+  "gallery": "갤러리",
+  "news": "협회활동"
 };
 
 export default function BoardPage() {
@@ -67,6 +78,7 @@ export default function BoardPage() {
   return (
     <div className="min-h-screen flex flex-col bg-white">
       <Header />
+      <SubNav items={boardNavItems} />
 
       <main className="flex-grow">
         <div className="container mx-auto px-4 py-16">
@@ -91,20 +103,6 @@ export default function BoardPage() {
               </div>
             </div>
 
-            {/* 카테고리 탭 */}
-            <div className="flex gap-2 p-1 bg-gray-50 rounded-2xl mb-8 w-full overflow-x-auto no-scrollbar touch-pan-x">
-              {Object.keys(CATEGORY_MAP).map((tab) => (
-                <button
-                  key={tab}
-                  onClick={() => handleTabChange(tab)}
-                  className={`flex-shrink-0 px-4 md:px-6 py-2 rounded-xl text-sm font-bold transition-all whitespace-nowrap ${
-                    tab === activeTab ? "bg-white text-blue-600 shadow-sm" : "text-gray-500 hover:text-gray-900"
-                  }`}
-                >
-                  {tab}
-                </button>
-              ))}
-            </div>
 
             {/* 게시글 목록 */}
             <div className="border-t border-gray-100 min-h-[400px]">

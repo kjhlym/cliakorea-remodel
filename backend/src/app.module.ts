@@ -16,7 +16,6 @@ import { RefundRequest } from './entities/refund-request.entity';
 import { Schedule } from './entities/schedule.entity';
 import { Popup } from './entities/popup.entity';
 import { Gallery } from './entities/gallery.entity';
-import { Resource } from './entities/resource.entity';
 import { Statistics } from './entities/statistics.entity';
 import { BoardModule } from './modules/board/board.module';
 import { ApplicationModule } from './modules/application/application.module';
@@ -31,7 +30,6 @@ import { ScheduleModule } from './modules/schedule/schedule.module';
 import { PopupModule } from './modules/popup/popup.module';
 import { AdminModule } from './modules/admin/admin.module';
 import { GalleryModule } from './modules/gallery/gallery.module';
-import { ResourceModule } from './modules/resource/resource.module';
 import { StatisticsModule } from './modules/statistics/statistics.module';
 import { APP_INTERCEPTOR } from '@nestjs/core';
 import { AuditInterceptor } from './modules/auth/audit.interceptor';
@@ -43,7 +41,7 @@ import { AuditInterceptor } from './modules/auth/audit.interceptor';
       envFilePath: '.env',
     }),
     TypeOrmModule.forRoot(databaseConfig()),
-    TypeOrmModule.forFeature([User, Board, Application, Consultation, AuditLog, PricingPlan, Payment, CreditTransaction, RefundRequest, Schedule, Popup, Gallery, Resource, Statistics]),
+    TypeOrmModule.forFeature([User, Board, Application, Consultation, AuditLog, PricingPlan, Payment, CreditTransaction, RefundRequest, Schedule, Popup, Gallery, Statistics]),
     AuthModule,
     UsersModule,
     FilesModule,
@@ -57,7 +55,6 @@ import { AuditInterceptor } from './modules/auth/audit.interceptor';
     AdminModule,
     PopupModule,
     GalleryModule,
-    ResourceModule,
     StatisticsModule,
   ],
   controllers: [AppController],

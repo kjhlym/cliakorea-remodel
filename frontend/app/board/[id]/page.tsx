@@ -20,8 +20,8 @@ interface BoardDetail {
 const CATEGORY_REVERSE_MAP: Record<string, string> = {
   "notice": "공지사항",
   "news": "협회활동",
-  "education": "자료실",
-  "general": "자유게시판"
+  "free": "자유게시판",
+  "gallery": "갤러리"
 };
 
 export default function BoardDetailPage() {

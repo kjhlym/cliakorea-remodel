@@ -15,7 +15,7 @@ function ProgramsContent() {
 
   useEffect(() => {
     const tab = searchParams.get("tab");
-    const validTabs = ["children", "youth", "special"];
+    const validTabs = ["children", "youth", "parent", "special"];
     if (tab && validTabs.includes(tab)) {
       setActiveTab(tab);
     }
@@ -24,6 +24,7 @@ function ProgramsContent() {
   const tabs = [
     { id: "children", label: "어린이 리더십" },
     { id: "youth", label: "청소년 리더십" },
+    { id: "parent", label: "부모 리더십" },
     { id: "special", label: "환경 리더" },
   ];
 
@@ -97,6 +98,26 @@ function ProgramsContent() {
       image: "/images/program-youth.png"
     },
 
+    parent: {
+      title: "부모 리더십 프로그램",
+      subtitle: "행복한 부모가 되는 부모 리더십",
+      description: "부모 스스로가 변화하고 성장하여, 자녀와 따뜻한 소통을 나누는 행복한 가정을 만드는 리더십 교육입니다.\n\n[교육 대상]\n• 초, 중, 고등학생 자녀를 둔 학부모\n• 어린이집, 유치원 재원 자녀를 둔 부모\n• 관공서 및 각 기업 등의 자녀를 둔 부모\n• 좋은 부모를 꿈꾸는 예비부모",
+      features: [],
+      tableData: {
+        headers: ["구분", "주제", "시간", "비고"],
+        rows: [
+          ["부모교육", "자녀의 연령에 따른 부모교육", "2H", "강연 및 워크샵"],
+          ["리더십", "행복한 부모가 되는 부모리더십", "2H", "강연 및 워크샵"],
+          ["리더십", "21세기 글로벌 리더를 만드는 부모 리더십", "2H", "강연 및 워크샵"],
+          ["리더십", "자녀와의 따뜻한 소통을 만드는 리더십", "2H", "강연 및 워크샵"],
+          ["리더십", "성격유형으로 알아보는 부모자녀 관계 리더십", "2H", "강연 및 워크샵"]
+        ]
+      },
+      color: "indigo",
+      icon: <Heart className="w-12 h-12 text-indigo-600" />,
+      image: "/images/program-parent.png"
+    },
+
     special: {
       title: "환경 리더 프로그램",
       subtitle: "생각을 넘어 행동하는 환경리더 되기",
@@ -126,12 +147,12 @@ function ProgramsContent() {
       
       <main className="flex-grow">
         {/* 상단 히어로 */}
-        <div className="bg-gradient-to-r from-slate-900 to-slate-800 text-white py-20 relative overflow-hidden">
+        <div className="bg-gradient-to-r from-slate-900 to-slate-800 text-white py-10 md:py-20 relative overflow-hidden">
           <div className="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]" />
           <div className="container mx-auto px-4 relative z-10 text-center">
-            <h1 className="text-4xl md:text-5xl font-black mb-6 animate-fade-in">교육 프로그램</h1>
-            <p className="text-xl text-slate-200 max-w-2xl mx-auto font-medium">
-              CLIA만의 차별화된 교육 철학을 담은 <br className="md:hidden" />
+            <h1 className="text-2xl md:text-5xl font-black mb-4 md:mb-6 animate-fade-in break-keep">교육 프로그램</h1>
+            <p className="text-sm md:text-xl text-slate-200 max-w-2xl mx-auto font-medium break-keep">
+              CLIA만의 차별화된 교육 철학을 담은 <br className="hidden md:block" />
               생애 주기별 맞춤 리더십 프로그램을 만나보세요.
             </p>
           </div>
@@ -140,14 +161,14 @@ function ProgramsContent() {
         {/* 탭 네비게이션 */}
         <div className="sticky top-[72px] z-40 bg-white/90 backdrop-blur-md border-b border-gray-200 shadow-sm">
           <div className="container mx-auto px-4">
-            <div className="flex overflow-x-auto no-scrollbar justify-start md:justify-center gap-2 py-4">
+            <div className="flex justify-between items-center px-0 md:px-0 py-2 md:py-4 gap-1 md:gap-2">
               {tabs.map((tab) => (
                 <button
                   key={tab.id}
                   onClick={() => setActiveTab(tab.id)}
-                  className={`px-6 py-2.5 rounded-full text-sm md:text-base font-bold whitespace-nowrap transition-all duration-300 ${
+                  className={`flex-1 px-1 py-2 md:px-6 md:py-2.5 rounded-full text-[11px] md:text-base font-black md:font-bold whitespace-nowrap transition-all duration-300 ${
                     activeTab === tab.id
-                      ? "bg-blue-600 text-white shadow-md scale-105"
+                      ? "bg-blue-600 text-white shadow-md scale-100 md:scale-105"
                       : "bg-gray-100 text-gray-500 hover:bg-gray-200 hover:text-gray-900"
                   }`}
                 >
@@ -174,19 +195,20 @@ function ProgramsContent() {
                   </div>
                </div>
                <div className="w-full md:w-1/2 text-left">
-                  <div className="flex items-center gap-4 mb-6">
-                     <div className={`p-3 rounded-xl bg-${activeContent.color}-100`}>
+                  <div className="flex items-center gap-4 mb-4 md:mb-6">
+                     <div className={`p-2 md:p-3 rounded-xl bg-${activeContent.color}-100`}>
                        {activeContent.icon}
                      </div>
-                     <span className={`px-4 py-1.5 rounded-full bg-${activeContent.color}-50 text-${activeContent.color}-600 font-bold text-sm tracking-widest uppercase border border-${activeContent.color}-100`}>
+                     <span className={`px-3 py-1 md:px-4 md:py-1.5 rounded-full bg-${activeContent.color}-50 text-${activeContent.color}-600 font-bold text-xs md:text-sm tracking-widest uppercase border border-${activeContent.color}-100`}>
                         {tabs.find(t => t.id === activeTab)?.label}
                      </span>
                   </div>
-                  <h2 className="text-3xl md:text-4xl lg:text-5xl font-black text-gray-900 mb-6 leading-tight">
+                  
+                  <h2 className="text-2xl md:text-4xl lg:text-5xl font-black text-gray-900 mb-4 md:mb-6 leading-tight break-keep">
                     {activeContent.title}
                   </h2>
-                  <p className={`text-xl font-bold text-${activeContent.color}-600 mb-6`}>{activeContent.subtitle}</p>
-                  <p className="text-gray-600 text-lg leading-relaxed">
+                  <p className={`text-sm md:text-xl font-bold text-${activeContent.color}-600 mb-4 md:mb-6 break-keep`}>{activeContent.subtitle}</p>
+                  <p className="text-gray-600 text-sm md:text-lg leading-relaxed break-keep whitespace-pre-line">
                     {activeContent.description}
                   </p>
                </div>
@@ -216,17 +238,51 @@ function ProgramsContent() {
 
             {/* 특징 카드 그리드 OR 테이블 */}
             {(activeContent as any).tableData ? (
-              <div className="mb-16 overflow-hidden rounded-3xl border border-gray-200 shadow-xl bg-white">
-                <div className="overflow-x-auto">
-                  <table className="w-full text-left border-collapse min-w-[800px]">
-                    <thead>
-                      <tr className={`bg-${activeContent.color}-50 text-${activeContent.color}-900`}>
-                        {(activeContent as any).tableData.headers.map((header: string, idx: number) => (
-                          <th key={idx} className="p-4 md:p-5 text-sm md:text-lg font-black border-b border-gray-200 whitespace-nowrap text-center">
-                            {header}
-                          </th>
-                        ))}
-                      </tr>
+              <div className="mb-16">
+                {/* 모바일 뷰 (카드 형태) */}
+                <div className="block md:hidden space-y-4">
+                  {(activeContent as any).tableData.rows.map((row: string[], rowIdx: number) => (
+                    <div key={rowIdx} className="bg-white rounded-2xl border border-gray-100 shadow-lg p-6 hover:shadow-xl transition-shadow">
+                      <div className="flex items-center gap-2 mb-4">
+                        <span className={`px-3 py-1 rounded-lg bg-${activeContent.color}-50 text-${activeContent.color}-700 font-bold text-xs`}>
+                          {row[0]}차시
+                        </span>
+                        <h4 className="font-bold text-gray-900 text-lg">{row[3]}</h4>
+                      </div>
+                      <div className="space-y-3">
+                         <div>
+                            <span className="text-xs font-bold text-gray-400 block mb-1">대주제</span>
+                            <p className="text-sm font-medium text-gray-700">{row[1]}</p>
+                         </div>
+                         {(activeContent as any).tableData.headers[2] && (
+                           <div>
+                              <span className="text-xs font-bold text-gray-400 block mb-1">{(activeContent as any).tableData.headers[2]}</span>
+                              <p className="text-sm font-medium text-gray-700 whitespace-pre-line">{row[2]}</p>
+                           </div>
+                         )}
+                         {(activeContent as any).tableData.headers[4] && (
+                           <div>
+                              <span className="text-xs font-bold text-gray-400 block mb-1">{(activeContent as any).tableData.headers[4]}</span>
+                              <p className="text-sm font-medium text-gray-700 whitespace-pre-line">{row[4]}</p>
+                           </div>
+                         )}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                {/* 데스크탑 뷰 (테이블 형태) */}
+                <div className="hidden md:block overflow-hidden rounded-3xl border border-gray-200 shadow-xl bg-white">
+                  <div className="overflow-x-auto">
+                    <table className="w-full text-left border-collapse min-w-[800px]">
+                      <thead>
+                        <tr className={`bg-${activeContent.color}-50 text-${activeContent.color}-900`}>
+                          {(activeContent as any).tableData.headers.map((header: string, idx: number) => (
+                            <th key={idx} className="p-4 md:p-5 text-sm md:text-lg font-black border-b border-gray-200 whitespace-nowrap text-center">
+                              {header}
+                            </th>
+                          ))}
+                        </tr>
                     </thead>
                     <tbody className="divide-y divide-gray-100">
                       {(activeContent as any).tableData.rows.map((row: string[], rowIdx: number) => (
@@ -243,6 +299,7 @@ function ProgramsContent() {
                     </tbody>
                   </table>
                 </div>
+              </div>
               </div>
             ) : (
               <div className="grid md:grid-cols-2 gap-8 mb-16">

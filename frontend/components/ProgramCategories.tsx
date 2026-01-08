@@ -60,25 +60,24 @@ const programCategories = [
 
 export default function ProgramCategories({ standalone = true }: { standalone?: boolean }) {
   const content = (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 gap-6">
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 gap-4 md:gap-6">
       {programCategories.map((program) => (
         <Link
           key={program.id}
           href={program.href}
-          className="group relative bg-white rounded-3xl p-6 shadow-sm hover:shadow-xl transition-all duration-500 border border-gray-100 flex flex-col items-start text-left"
+          className="group relative bg-white rounded-3xl p-5 md:p-6 shadow-sm hover:shadow-xl transition-all duration-500 border border-gray-100 flex flex-col items-start text-left"
         >
-          {/* 아이콘 컨테이너 */}
-          <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${program.gradient} text-white flex items-center justify-center mb-5 shadow-lg group-hover:scale-110 transition-transform duration-500`}>
-            {program.icon}
+          <div className="flex items-center gap-4 mb-3 md:mb-5">
+            {/* 아이콘 컨테이너 */}
+            <div className={`w-10 h-10 md:w-12 md:h-12 rounded-xl bg-gradient-to-br ${program.gradient} text-white flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-500 flex-shrink-0`}>
+              <div className="scale-90 md:scale-100">{program.icon}</div>
+            </div>       
+
+            <h4 className="text-lg md:text-xl font-black text-gray-900 group-hover:text-blue-600 transition-colors leading-tight">
+              {program.name}
+            </h4>
           </div>
-          
-          <span className="text-[10px] font-bold text-gray-400 mb-1 uppercase tracking-tight">
-            {program.englishName}
-          </span>
-          <h4 className="text-lg font-black text-gray-900 mb-3 group-hover:text-blue-600 transition-colors leading-tight">
-            {program.name}
-          </h4>
-          <p className="text-gray-500 text-xs leading-relaxed mb-6">
+          <p className="text-gray-500 text-xs md:text-sm leading-relaxed mb-4 md:mb-6 break-keep">
             {program.description}
           </p>
           
@@ -100,13 +99,13 @@ export default function ProgramCategories({ standalone = true }: { standalone?: 
   if (!standalone) return content;
 
   return (
-    <section className="py-24 bg-gray-50 overflow-hidden">
+    <section className="py-10 md:py-24 bg-gray-50 overflow-hidden">
       <div className="container mx-auto px-4 lg:px-20">
-        <div className="text-center max-w-3xl mx-auto mb-16">
-          <h2 className="text-sm font-bold text-blue-600 tracking-widest uppercase mb-3">
+        <div className="text-center max-w-3xl mx-auto mb-8 md:mb-16">
+          <h2 className="text-xs md:text-sm font-bold text-blue-600 tracking-widest uppercase mb-2 md:mb-3">
             Our Programs
           </h2>
-          <h3 className="text-3xl md:text-4xl font-extrabold text-gray-900 mb-6">
+          <h3 className="text-2xl md:text-4xl font-extrabold text-gray-900 mb-4 md:mb-6 break-keep">
             성장을 위한 맞춤형 리더십 과정
           </h3>
           <div className="h-1 w-20 bg-blue-600 mx-auto rounded-full" />

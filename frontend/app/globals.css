@@ -32,6 +32,19 @@ html {
   animation: fadeIn 1s ease-out forwards;
 }
 
+/* 로고 흔들기 효과 (Wiggle/Wave) */
+@keyframes wave {
+  0% { transform: rotate(0deg); }
+  25% { transform: rotate(-2deg); }
+  75% { transform: rotate(2deg); }
+  100% { transform: rotate(0deg); }
+}
+
+.animate-wave {
+  animation: wave 4s ease-in-out infinite;
+  transform-origin: center bottom; /* 꼬리가 흔들리는 느낌보다는 오뚜기처럼? or just center */
+}
+
 /* 추가적인 프리미엄 스타일 */
 .backdrop-blur-md {
   backdrop-filter: blur(12px);

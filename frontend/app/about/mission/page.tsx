@@ -3,6 +3,15 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Target, Lightbulb, TrendingUp, Shield } from "lucide-react";
+import SubNav from "@/components/SubNav";
+
+const aboutNavItems = [
+  { name: "협회개요", href: "/about" },
+  { name: "인사말", href: "/about/greeting" },
+  { name: "사명과 미션", href: "/about/mission" },
+  { name: "활동과 발자취", href: "/about/activities" },
+  { name: "찾아오시는 길", href: "/about/location" },
+];
 
 export default function MissionPage() {
   return (
@@ -11,29 +20,31 @@ export default function MissionPage() {
 
       <main className="flex-grow">
         {/* 헤더 섹션 */}
-        <section className="py-24 bg-gradient-to-br from-indigo-50 via-white to-purple-50">
+        <section className="py-10 md:py-20 bg-gradient-to-br from-indigo-50 via-white to-purple-50">
           <div className="container mx-auto px-4 text-center">
-            <h1 className="text-5xl md:text-6xl font-black text-gray-900 mb-6">
+            <h1 className="text-2xl md:text-5xl font-black text-gray-900 mb-4 md:mb-6">
               사명과 미션
             </h1>
-            <p className="text-xl text-gray-500 max-w-2xl mx-auto">
+            <p className="text-sm md:text-xl text-gray-500 max-w-2xl mx-auto break-keep">
               미래의 글로벌 리더를 양성하는 어린이리더십강사협회
             </p>
           </div>
         </section>
 
+        <SubNav items={aboutNavItems} />
+
         {/* 사명 */}
-        <section className="py-24 bg-gradient-to-br from-blue-600 to-indigo-600 text-white">
+        <section className="py-10 md:py-24 bg-gradient-to-br from-blue-600 to-indigo-600 text-white">
           <div className="container mx-auto px-4">
             <div className="max-w-4xl mx-auto text-center">
-              <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/20 rounded-full text-sm font-bold mb-6">
+              <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/20 rounded-full text-xs md:text-sm font-bold mb-4 md:mb-6">
                 <Target className="w-4 h-4" />
                 Our Mission
               </div>
-              <h2 className="text-4xl md:text-5xl font-black mb-8">
+              <h2 className="text-2xl md:text-5xl font-black mb-6 md:mb-8">
                 우리의 사명
               </h2>
-              <p className="text-xl md:text-xl leading-relaxed opacity-90 text-justify md:text-center whitespace-pre-line">
+              <p className="text-sm md:text-xl leading-relaxed opacity-90 text-justify md:text-center whitespace-pre-line break-keep">
                 새로운 미래의 주역으로 활약할 청소년들에게 리더로서의 자질과 품성을 개발하고, 
                 창의적인 생각과 자율적인 행동을 통해 민주사회의 일원으로 성장하는 것을 돕는다. 
                 또한 청소년들이 긍정과 소통의 힘을 발휘하여 글로벌 리더로서 비전을 실현하는데 
@@ -44,9 +55,9 @@ export default function MissionPage() {
         </section>
 
         {/* 핵심 미션 */}
-        <section className="py-24 container mx-auto px-4">
+        <section className="py-10 md:py-24 container mx-auto px-4">
           <div className="max-w-6xl mx-auto">
-            <h2 className="text-4xl font-black text-center text-gray-900 mb-16">
+            <h2 className="text-2xl md:text-4xl font-black text-center text-gray-900 mb-8 md:mb-16">
               핵심 가치
             </h2>
 

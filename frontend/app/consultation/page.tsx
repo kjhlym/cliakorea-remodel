@@ -50,10 +50,11 @@ export default function ConsultationPage() {
 
       <main className="flex-grow">
         {/* 상단 섹션 */}
-        <section className="py-24 bg-blue-50">
-          <div className="container mx-auto px-4 text-center">
-            <h1 className="text-4xl md:text-5xl font-black text-gray-900 mb-6">1:1 맞춤 상담</h1>
-            <p className="text-xl text-gray-500 max-w-2xl mx-auto">
+        <section className="py-20 bg-gray-900 relative overflow-hidden">
+          <div className="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]" />
+          <div className="container mx-auto px-4 text-center relative z-10">
+            <h1 className="text-4xl md:text-5xl font-black text-white mb-6">1:1 맞춤 상담</h1>
+            <p className="text-xl text-gray-400 max-w-2xl mx-auto font-medium leading-relaxed">
               교육 프로그램에 대해 궁금한 점이 있으신가요? <br />
               전문 상담사가 직접 답변해 드립니다.
             </p>
@@ -72,7 +73,7 @@ export default function ConsultationPage() {
                   </div>
                   <div>
                     <p className="text-sm font-bold text-gray-400 uppercase tracking-widest mb-1">전화번호</p>
-                    <p className="text-xl font-bold text-gray-900">02-123-4567</p>
+                    <p className="text-xl font-bold text-gray-900">070-4384-7849, 010-5465-7745</p>
                   </div>
                 </div>
                 <div className="flex gap-4">
@@ -90,7 +91,7 @@ export default function ConsultationPage() {
                   </div>
                   <div>
                     <p className="text-sm font-bold text-gray-400 uppercase tracking-widest mb-1">오시는 길</p>
-                    <p className="text-lg font-bold text-gray-900">서울특별시 강남구 테헤란로 123, 4층</p>
+                    <p className="text-lg font-bold text-gray-900">서울시 성북구 길음동 1276 길음삼부컨버니언아파트 상가 102동 지층 53호</p>
                   </div>
                 </div>
               </div>

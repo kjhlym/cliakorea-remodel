@@ -4,9 +4,30 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Calendar, Award, Users, BookOpen } from "lucide-react";
 import { useState, useEffect } from "react";
+import SubNav from "@/components/SubNav";
+
+const aboutNavItems = [
+  { name: "협회개요", href: "/about" },
+  { name: "인사말", href: "/about/greeting" },
+  { name: "사명과 미션", href: "/about/mission" },
+  { name: "활동과 발자취", href: "/about/activities" },
+  { name: "찾아오시는 길", href: "/about/location" },
+];
 
 export default function ActivitiesPage() {
   const activities = [
+   {
+      year: "2025",
+      events: [
+        { month: "", title: "학교로 차자아가는 리더쉽 교육", description: "경기도 교육청" },
+      ],
+    },
+   {
+      year: "2024",
+      events: [
+        { month: "", title: "펜빌딩 교구제작", description: "" },
+      ],
+    },
     {
       year: "2023",
       events: [
@@ -199,9 +220,9 @@ export default function ActivitiesPage() {
 
       <main className="flex-grow">
         {/* 헤더 섹션 */}
-        <section className="py-24 bg-gradient-to-br from-purple-50 via-white to-pink-50">
+        <section className="py-20 bg-gradient-to-br from-purple-50 via-white to-pink-50">
           <div className="container mx-auto px-4 text-center">
-            <h1 className="text-5xl md:text-6xl font-black text-gray-900 mb-6">
+            <h1 className="text-4xl md:text-5xl font-black text-gray-900 mb-6">
               활동과 발자취
             </h1>
             <p className="text-xl text-gray-500 max-w-2xl mx-auto">
@@ -209,6 +230,8 @@ export default function ActivitiesPage() {
             </p>
           </div>
         </section>
+
+        <SubNav items={aboutNavItems} />
 
         {/* 주요 성과 */}
         <section className="py-24 container mx-auto px-4">

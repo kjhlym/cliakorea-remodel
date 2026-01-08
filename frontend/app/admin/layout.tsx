@@ -46,7 +46,6 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     { icon: <FileText className="w-5 h-5" />, label: "공지사항 관리", href: "/admin/notices" },
     { icon: <ImageIcon className="w-5 h-5" />, label: "팝업 관리", href: "/admin/popups" },
     { icon: <ImageIcon className="w-5 h-5" />, label: "갤러리 관리", href: "/admin/gallery" },
-    { icon: <FileText className="w-5 h-5" />, label: "자료실 관리", href: "/admin/resources" },
     { icon: <Settings className="w-5 h-5" />, label: "교육 일정", href: "/admin/schedules" },
     { icon: <BarChart3 className="w-5 h-5" />, label: "통계 수치 관리", href: "/admin/statistics" },
     { icon: <Users className="w-5 h-5" />, label: "회원 관리", href: "/admin/users" },
