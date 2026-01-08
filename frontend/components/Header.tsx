@@ -57,7 +57,7 @@ export default function Header() {
                         <Link
                           key={sub.name}
                           href={sub.href}
-                          className="block px-6 py-2.5 text-sm text-gray-600 hover:bg-blue-50 hover:text-blue-600 font-medium transition-colors"
+                          className="block px-6 py-2.5 text-lg text-gray-600 hover:bg-blue-50 hover:text-blue-600 font-medium transition-colors"
                         >
                           {sub.name}
                         </Link>
