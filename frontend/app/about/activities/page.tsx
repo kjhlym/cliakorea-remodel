@@ -7,7 +7,7 @@ import { useState, useEffect } from "react";
 import SubNav from "@/components/SubNav";
 
 const aboutNavItems = [
-  { name: "협회개요", href: "/about" },
+  { name: "협회소개", href: "/about" },
   { name: "인사말", href: "/about/greeting" },
   { name: "사명과 미션", href: "/about/mission" },
   { name: "활동과 발자취", href: "/about/activities" },
@@ -19,13 +19,15 @@ export default function ActivitiesPage() {
    {
       year: "2025",
       events: [
-        { month: "", title: "학교로 차자아가는 리더쉽 교육", description: "경기도 교육청" },
+        { month: "", title: "학교로 찾아가는 리더십 교육(경기도 교육청)", description: "" },
+        { month: "", title: "펜빌딩 교구제작", description: "" },
       ],
     },
    {
       year: "2024",
       events: [
-        { month: "", title: "펜빌딩 교구제작", description: "" },
+        { month: "", title: "협회원 역량강화 교육 \n (디자인 씽킹 활용법)", description: "" },
+        { month: "", title: "시립성동 청소년 센터 교육봉사\n (너와 나의 리더십 찾기)", description: "" },
       ],
     },
     {
@@ -220,13 +222,14 @@ export default function ActivitiesPage() {
 
       <main className="flex-grow">
         {/* 헤더 섹션 */}
-        <section className="py-20 bg-gradient-to-br from-purple-50 via-white to-pink-50">
-          <div className="container mx-auto px-4 text-center">
-            <h1 className="text-4xl md:text-5xl font-black text-gray-900 mb-6">
+        <section className="py-10 md:py-20 bg-gray-900 relative overflow-hidden">
+          <div className="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]" />
+          <div className="container mx-auto px-4 text-center relative z-10">
+            <h1 className="text-2xl md:text-5xl font-black text-white mb-4 md:mb-6">
               활동과 발자취
             </h1>
-            <p className="text-xl text-gray-500 max-w-2xl mx-auto">
-              어린이 리더십 교육을 위한 끊임없는 열정과 도전
+            <p className="text-sm md:text-xl text-gray-400 max-w-2xl mx-auto break-keep">
+              어린이 리더십 교육을 위한 끔임없는 열정과 도전
             </p>
           </div>
         </section>

@@ -8,7 +8,6 @@ import { Search, PenSquare, ChevronRight, Eye, Clock, MessageSquare, Loader2 } f
 import SubNav from "@/components/SubNav";
 
 const boardNavItems = [
-  { name: "전체글", href: "/board" },
   { name: "공지사항", href: "/notice" },
   { name: "갤러리", href: "/board/gallery" },
   { name: "협회교육일정", href: "/board/schedule" },
@@ -25,17 +24,16 @@ interface Post {
 }
 
 const CATEGORY_MAP: Record<string, string> = {
-  "전체": "all",
-  "공지사항": "notice",
-  "자유게시판": "free",
-  "갤러리": "gallery"
+ 
+  "공지사항": "notice",  
+  "갤러리": "gallery",
+  "협회교육일정": "schedule"
 };
 
 const CATEGORY_REVERSE_MAP: Record<string, string> = {
   "notice": "공지사항",
-  "free": "자유게시판",
   "gallery": "갤러리",
-  "news": "협회활동"
+  "schedule": "협회교육일정"
 };
 
 export default function BoardPage() {
@@ -83,26 +81,6 @@ export default function BoardPage() {
       <main className="flex-grow">
         <div className="container mx-auto px-4 py-16">
           <div className="max-w-5xl mx-auto">
-            {/* 상단 섹션 */}
-            <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-8 md:mb-12">
-              <div>
-                <h1 className="text-3xl md:text-4xl font-black text-gray-900 mb-2 md:mb-3">소통 창구</h1>
-                <p className="text-sm md:text-base text-gray-500 font-medium break-keep">협회의 새로운 소식과 다양한 이야기를 나누는 공간입니다.</p>
-              </div>
-              <div className="flex flex-col-reverse md:flex-row items-stretch md:items-center gap-3 w-full md:w-auto">
-                <div className="relative w-full md:w-auto">
-                  <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
-                  <input
-                    type="text"
-                    placeholder="검색어를 입력하세요"
-                    value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
-                    className="w-full md:w-64 pl-11 pr-4 py-3 bg-gray-50 border-none rounded-2xl text-sm focus:ring-2 focus:ring-blue-600 focus:bg-white transition-all shadow-sm"
-                  />
-                </div>
-              </div>
-            </div>
-
 
             {/* 게시글 목록 */}
             <div className="border-t border-gray-100 min-h-[400px]">
@@ -116,8 +94,8 @@ export default function BoardPage() {
                   <Link
                     key={post.id}
                     href={`/board/${post.id}`}
-                    className={`group block p-5 md:p-6 border-b border-gray-50 hover:bg-gray-50/50 transition-all ${
-                      post.category === "notice" ? "bg-blue-50/30" : ""
+                    className={`group block p-5 md:p-6 border border-gray-200 rounded-xl hover:border-blue-300 hover:bg-gray-50/50 transition-all mb-3 ${
+                      post.category === "notice" ? "bg-blue-50/30 border-blue-200" : "bg-white"
                     }`}
                   >
                     <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
@@ -133,7 +111,7 @@ export default function BoardPage() {
                             {new Date(post.createdAt).toLocaleDateString()}
                           </span>
                         </div>
-                        <h3 className="text-base md:text-lg font-bold text-gray-900 group-hover:text-blue-600 transition-colors line-clamp-2 md:line-clamp-1 break-keep">
+                        <h3 className="text-sm md:text-base font-bold text-gray-900 group-hover:text-blue-600 transition-colors line-clamp-2 md:line-clamp-1 break-keep">
                           {post.title}
                         </h3>
                       </div>

@@ -7,7 +7,7 @@ import CTASection from "@/components/CTASection";
 import SubNav from "@/components/SubNav";
 
 const aboutNavItems = [
-  { name: "협회개요", href: "/about" },
+  { name: "협회소개", href: "/about" },
   { name: "인사말", href: "/about/greeting" },
   { name: "사명과 미션", href: "/about/mission" },
   { name: "활동과 발자취", href: "/about/activities" },
@@ -74,10 +74,7 @@ export default function AboutPage() {
                   className="w-full h-full object-cover"
                 />
               </div>
-              <div className="absolute -bottom-6 -right-6 md:-bottom-10 md:-right-10 w-32 h-32 md:w-48 md:h-48 bg-blue-600 rounded-[1.5rem] md:rounded-[2rem] flex flex-col items-center justify-center text-white shadow-2xl p-4 md:p-6 text-center">
-                <span className="text-2xl md:text-4xl font-black mb-1">10+</span>
-                <span className="text-xs md:text-sm font-bold opacity-80">Years of <br />Excellence</span>
-              </div>
+
             </div>
             <div>
               <h2 className="text-2xl md:text-3xl font-black text-gray-900 mb-4 md:mb-6 break-keep">우리의 소명</h2>
@@ -125,7 +122,7 @@ export default function AboutPage() {
           </div>
         </section>
 
-        <CTASection />
+        {/* <CTASection /> */}
       </main>
 
       <Footer />

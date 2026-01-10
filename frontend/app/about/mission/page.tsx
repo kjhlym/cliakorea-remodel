@@ -6,7 +6,7 @@ import { Target, Lightbulb, TrendingUp, Shield } from "lucide-react";
 import SubNav from "@/components/SubNav";
 
 const aboutNavItems = [
-  { name: "협회개요", href: "/about" },
+  { name: "협회소개", href: "/about" },
   { name: "인사말", href: "/about/greeting" },
   { name: "사명과 미션", href: "/about/mission" },
   { name: "활동과 발자취", href: "/about/activities" },
@@ -20,12 +20,13 @@ export default function MissionPage() {
 
       <main className="flex-grow">
         {/* 헤더 섹션 */}
-        <section className="py-10 md:py-20 bg-gradient-to-br from-indigo-50 via-white to-purple-50">
-          <div className="container mx-auto px-4 text-center">
-            <h1 className="text-2xl md:text-5xl font-black text-gray-900 mb-4 md:mb-6">
+        <section className="py-10 md:py-20 bg-gray-900 relative overflow-hidden">
+          <div className="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]" />
+          <div className="container mx-auto px-4 text-center relative z-10">
+            <h1 className="text-2xl md:text-5xl font-black text-white mb-4 md:mb-6">
               사명과 미션
             </h1>
-            <p className="text-sm md:text-xl text-gray-500 max-w-2xl mx-auto break-keep">
+            <p className="text-sm md:text-xl text-gray-400 max-w-2xl mx-auto break-keep">
               미래의 글로벌 리더를 양성하는 어린이리더십강사협회
             </p>
           </div>
@@ -34,7 +35,7 @@ export default function MissionPage() {
         <SubNav items={aboutNavItems} />
 
         {/* 사명 */}
-        <section className="py-10 md:py-24 bg-gradient-to-br from-blue-600 to-indigo-600 text-white">
+        <section className="py-10 md:py-24 bg-gradient-to-br from-emerald-600 to-teal-600 text-white">
           <div className="container mx-auto px-4">
             <div className="max-w-4xl mx-auto text-center">
               <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/20 rounded-full text-xs md:text-sm font-bold mb-4 md:mb-6">

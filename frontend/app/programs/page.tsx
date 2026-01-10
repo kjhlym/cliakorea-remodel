@@ -15,7 +15,7 @@ function ProgramsContent() {
 
   useEffect(() => {
     const tab = searchParams.get("tab");
-    const validTabs = ["children", "youth", "parent", "special"];
+    const validTabs = ["children", "youth", "parent", "special", "history"];
     if (tab && validTabs.includes(tab)) {
       setActiveTab(tab);
     }
@@ -25,7 +25,8 @@ function ProgramsContent() {
     { id: "children", label: "어린이 리더십" },
     { id: "youth", label: "청소년 리더십" },
     { id: "parent", label: "부모 리더십" },
-    { id: "special", label: "환경 리더" },
+    { id: "special", label: "환경 리더십" },
+    { id: "history", label: "역사리더십" },
   ];
 
   interface ProgramContent {
@@ -134,7 +135,30 @@ function ProgramsContent() {
       },
       color: "green",
       icon: <Lightbulb className="w-12 h-12 text-green-600" />,
-      image: "/images/environment.png"
+      image: "/images/environment-leadership.jpg"
+    },
+
+    history: {
+      title: "역사리더십 프로그램",
+      subtitle: "역사를 통해 배우는 리더의 자질",
+      description: "역사 속 인물과 사건을 통해 리더십의 본질을 이해하고, 현재와 미래를 이끌어갈 통찰력과 판단력을 기릅니다.",
+      features: [], // 테이블 데이터 사용
+      tableData: {
+        headers: ["차시", "대주제", "키워드", "제 목", "기대 효과"],
+        rows: [
+          ["1", "역사와 리더십", "통찰, 성찰", "역사 속 리더를 만나다", "역사적 인물의 리더십 탐구\n리더의 역할과 책임 이해"],
+          ["2", "위기관리", "결단, 용기", "위기 속의 선택", "위기 상황에서의 의사결정\n리더의 판단력 향상"],
+          ["3", "소통과 화합", "공감, 배려", "함께 만드는 역사", "소통의 중요성 이해\n협력과 화합의 리더십"],
+          ["4", "변화와 혁신", "창의성, 도전", "새로운 길을 열다", "변화를 이끄는 리더십\n혁신적 사고 함양"],
+          ["5", "정의와 용기", "정의, 책임", "옳은 것을 위한 용기", "정의로운 리더의 자세\n도덕적 용기 함양"],
+          ["6", "비전과 실천", "목표, 실행력", "꿈을 현실로", "비전 설정과 실천\n목표 달성 능력 향상"],
+          ["7", "글로벌 리더십", "다양성, 포용", "세계를 품는 리더", "글로벌 시민의식\n문화적 다양성 존중"],
+          ["8", "나의 역사 만들기", "성찰, 계획", "나는 역사의 주인공", "자기 성찰과 미래 설계\n리더로서의 다짐"]
+        ]
+      },
+      color: "amber",
+      icon: <BookOpen className="w-12 h-12 text-amber-600" />,
+      image: "/images/history-leadership.jpg"
     },
 
   };
@@ -161,14 +185,14 @@ function ProgramsContent() {
         {/* 탭 네비게이션 */}
         <div className="sticky top-[72px] z-40 bg-white/90 backdrop-blur-md border-b border-gray-200 shadow-sm">
           <div className="container mx-auto px-4">
-            <div className="flex justify-between items-center px-0 md:px-0 py-2 md:py-4 gap-1 md:gap-2">
+            <div className="max-w-4xl mx-auto flex justify-center items-center px-0 md:px-0 py-2 md:py-4 gap-2 md:gap-3">
               {tabs.map((tab) => (
                 <button
                   key={tab.id}
                   onClick={() => setActiveTab(tab.id)}
-                  className={`flex-1 px-1 py-2 md:px-6 md:py-2.5 rounded-full text-[11px] md:text-base font-black md:font-bold whitespace-nowrap transition-all duration-300 ${
+                  className={`px-3 py-2 md:px-5 md:py-2.5 rounded-full text-xs md:text-sm font-bold whitespace-nowrap transition-all duration-300 ${
                     activeTab === tab.id
-                      ? "bg-blue-600 text-white shadow-md scale-100 md:scale-105"
+                      ? "bg-blue-600 text-white shadow-md scale-105"
                       : "bg-gray-100 text-gray-500 hover:bg-gray-200 hover:text-gray-900"
                   }`}
                 >
@@ -204,7 +228,7 @@ function ProgramsContent() {
                      </span>
                   </div>
                   
-                  <h2 className="text-2xl md:text-4xl lg:text-5xl font-black text-gray-900 mb-4 md:mb-6 leading-tight break-keep">
+                  <h2 className="text-xl md:text-2xl lg:text-3xl font-black text-gray-900 mb-4 md:mb-6 leading-tight break-keep">
                     {activeContent.title}
                   </h2>
                   <p className={`text-sm md:text-xl font-bold text-${activeContent.color}-600 mb-4 md:mb-6 break-keep`}>{activeContent.subtitle}</p>
@@ -340,28 +364,23 @@ function ProgramsContent() {
             )}
             
             {/* 하단 배너 */}
-             <div className="bg-gradient-to-br from-gray-900 to-gray-800 rounded-3xl p-10 md:p-16 text-center text-white relative overflow-hidden">
+             <div className="bg-gradient-to-br from-gray-900 to-gray-800 rounded-3xl p-5 md:p-16 text-center text-white relative overflow-hidden">
                <div className="relative z-10">
-                 <h3 className="text-2xl md:text-3xl font-black mb-6">
+                 <h3 className="text-2xl md:text-3xl font-black mb-3">
                    맞춤형 교육 상담이 필요하신가요?
                  </h3>
-                 <p className="text-gray-300 mb-8 max-w-2xl mx-auto">
+                 <p className="text-gray-300 mb-6 max-w-2xl mx-auto">
                    기관의 특성과 상황에 맞는 최적의 교육 프로그램을 제안해 드립니다. <br />
                    1회 특강부터 연차 프로그램까지 유연하게 구성 가능합니다.
                  </p>
                  <div className="flex flex-col sm:flex-row gap-4 justify-center">
                    <Link
                      href="/consultation"
-                     className="px-8 py-3 bg-blue-600 hover:bg-blue-500 rounded-xl font-bold transition-all"
+                     className="px-8 py-1 bg-blue-600 hover:bg-blue-500 rounded-xl font-bold transition-all"
                    >
                      교육 상담 신청하기
                    </Link>
-                   <Link
-                     href="/about/location"
-                     className="px-8 py-3 bg-white/10 hover:bg-white/20 backdrop-blur-sm rounded-xl font-bold transition-all"
-                   >
-                     오시는 길
-                   </Link>
+                  
                  </div>
                </div>
              </div>
@@ -369,7 +388,7 @@ function ProgramsContent() {
           </div>
         </div>
 
-        <CTASection />
+        {/* <CTASection /> */}
       </main>
 
       <Footer />

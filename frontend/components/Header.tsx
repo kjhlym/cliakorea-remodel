@@ -16,7 +16,7 @@ const menuItems: MenuItem[] = [
   { name: "협회소개", href: "/about" },
   { name: "교육프로그램", href: "/programs" },
   { name: "강사양성프로그램", href: "/instructor-training" },
-  { name: "게시판", href: "/board" },
+  { name: "게시판", href: "/notice" },
 ];
 
 export default function Header() {
@@ -45,7 +45,7 @@ export default function Header() {
               >
                 <Link
                   href={item.href}
-                  className="text-gray-600 hover:text-blue-600 font-bold text-sm tracking-tight transition-colors flex items-center gap-1"
+                  className="text-gray-600 hover:text-blue-600 font-bold text-lg tracking-tight transition-colors flex items-center gap-1"
                 >
                   {item.name}
                   {item.submenu && <ChevronDown className="w-4 h-4 opacity-50" />}
@@ -57,7 +57,7 @@ export default function Header() {
                         <Link
                           key={sub.name}
                           href={sub.href}
-                          className="block px-6 py-2.5 text-xl text-gray-600 hover:bg-blue-50 hover:text-blue-600 font-medium transition-colors"
+                          className="block px-6 py-2.5 text-2xl text-gray-600 hover:bg-blue-50 hover:text-blue-600 font-medium transition-colors"
                         >
                           {sub.name}
                         </Link>

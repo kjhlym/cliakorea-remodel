@@ -8,7 +8,7 @@ import Link from "next/link";
 import SubNav from "@/components/SubNav";
 
 const boardNavItems = [
-  { name: "전체글", href: "/board" },
+
   { name: "공지사항", href: "/notice" },
   { name: "갤러리", href: "/board/gallery" },
   { name: "협회교육일정", href: "/board/schedule" },
@@ -70,27 +70,32 @@ export default function NoticePage() {
       <SubNav items={boardNavItems} />
 
       <main className="flex-grow">
-        <section className="bg-gray-900 py-20 relative overflow-hidden">
-          <div className="absolute inset-0 opacity-20 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]" />
-          <div className="container mx-auto px-4 text-center relative z-10 text-white">
-            <h1 className="text-4xl font-black mb-4">공지사항</h1>
-            <p className="text-gray-400 font-medium">CLIA의 새로운 소식과 주요 안내사항을 확인하세요.</p>
-          </div>
-        </section>
-
-        <div className="container mx-auto px-4 py-16">
+        <div className="container mx-auto px-4 py-8">
           <div className="max-w-5xl mx-auto">
-            <div className="flex justify-end mb-8">
-              <form onSubmit={handleSearch} className="relative">
-                <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+            {/* Search Bar */}
+            <div className="bg-gray-50 p-4 border border-gray-200 mb-6">
+              <form onSubmit={handleSearch} className="flex justify-center">
                 <input
                   type="text"
                   placeholder="제목 또는 내용 검색"
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="pl-11 pr-4 py-3 bg-gray-50 border border-gray-100 rounded-full text-sm focus:ring-2 focus:ring-blue-600 focus:bg-white transition-all w-64 md:w-80"
+                  className="px-4 py-2 border border-gray-300 text-sm focus:outline-none focus:border-blue-500 flex-grow max-w-md"
                 />
+                <button
+                  type="submit"
+                  className="px-6 py-2 bg-red-600 text-white text-sm font-bold hover:bg-red-700 transition-colors"
+                >
+                  검색
+                </button>
               </form>
+            </div>
+
+            {/* Total Count */}
+            <div className="flex justify-end mb-4">
+              <span className="text-sm font-bold text-gray-500">
+                총 <span className="text-red-600">{total}</span> 건
+              </span>
             </div>
 
             <div className="bg-white rounded-3xl border border-gray-100 shadow-sm overflow-hidden">
@@ -108,7 +113,7 @@ export default function NoticePage() {
                   <Link 
                     href={`/notice/${notice.id}`}
                     key={notice.id} 
-                    className="grid grid-cols-12 p-5 items-center border-b border-gray-50 hover:bg-blue-50/10 transition-colors group cursor-pointer"
+                    className="grid grid-cols-12 p-5 items-center border-b-2 border-gray-200 hover:bg-blue-50/10 transition-colors group cursor-pointer last:border-b-0"
                   >
                     <div className="col-span-1 text-center hidden md:block font-medium text-gray-400">
                       {total - ((page - 1) * 10) - index}

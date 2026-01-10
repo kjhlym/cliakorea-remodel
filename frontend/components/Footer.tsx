@@ -66,7 +66,7 @@ export default function Footer() {
               </p>
               <p>
                 <a href="tel:010-5465-7745" className="hover:text-white">
-                 Email: info@cliakorea.kr
+                 Email: only.youplus@daum.net
                 </a>
               </p>
             </div>

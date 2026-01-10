@@ -96,7 +96,7 @@ export default function HeroSection() {
           <span className="inline-block px-3 py-0.5 mb-3 bg-blue-600/80 text-white text-xs font-bold uppercase tracking-widest rounded-full backdrop-blur-sm">
             Children Leadership Instructor Association
           </span>
-          <h1 className="text-2xl md:text-4xl lg:text-5xl font-extrabold text-white mb-4 leading-tight drop-shadow-lg break-keep">
+          <h1 className="text-3xl md:text-3xl lg:text-2xl xl:text-3xl font-extrabold text-white mb-4 leading-tight drop-shadow-lg break-keep">
             {carouselImages[currentIndex].title}
           </h1>
           <p className="text-sm md:text-lg text-gray-100 mb-6 font-medium drop-shadow-md break-keep">
@@ -105,7 +105,7 @@ export default function HeroSection() {
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <a
               href="/programs"
-              className="group relative px-5 py-2 md:px-7 md:py-2.5 bg-white text-blue-900 rounded-full font-bold text-sm md:text-base hover:bg-blue-50 transition-all duration-300 shadow-xl overflow-hidden"
+              className="group relative px-4 py-1.5 md:px-5 md:py-2 bg-white text-blue-900 rounded-full font-bold text-xs md:text-sm hover:bg-blue-50 transition-all duration-300 shadow-xl overflow-hidden"
             >
               <span className="relative z-10">프로그램 구경하기</span>
               <div className="absolute inset-0 bg-blue-100/50 transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-500" />

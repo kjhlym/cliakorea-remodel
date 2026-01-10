@@ -8,7 +8,7 @@ import { Search, ChevronLeft, ChevronRight } from "lucide-react";
 import SubNav from "@/components/SubNav";
 
 const boardNavItems = [
-  { name: "전체글", href: "/board" },
+
   { name: "공지사항", href: "/notice" },
   { name: "갤러리", href: "/board/gallery" },
   { name: "협회교육일정", href: "/board/schedule" },
@@ -68,14 +68,6 @@ export default function GalleryPage() {
       <SubNav items={boardNavItems} />
 
       <main className="flex-grow">
-        {/* Title Section */}
-        <section className="py-12 border-b border-gray-100">
-          <div className="container mx-auto px-4 text-center">
-            <h1 className="text-4xl font-black text-gray-900 mb-2">갤러리</h1>
-            <div className="w-10 h-1 bg-black mx-auto mt-4"></div>
-          </div>
-        </section>
-
         <div className="container mx-auto px-4 py-8">
           <div className="max-w-6xl mx-auto">
             {/* Filter Bar */}

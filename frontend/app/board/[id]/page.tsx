@@ -20,7 +20,7 @@ interface BoardDetail {
 const CATEGORY_REVERSE_MAP: Record<string, string> = {
   "notice": "공지사항",
   "news": "협회활동",
-  "free": "자유게시판",
+
   "gallery": "갤러리"
 };
 

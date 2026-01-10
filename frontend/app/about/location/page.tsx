@@ -6,7 +6,7 @@ import { MapPin, Phone, Mail, Clock, Navigation } from "lucide-react";
 import SubNav from "@/components/SubNav";
 
 const aboutNavItems = [
-  { name: "협회개요", href: "/about" },
+  { name: "협회소개", href: "/about" },
   { name: "인사말", href: "/about/greeting" },
   { name: "사명과 미션", href: "/about/mission" },
   { name: "활동과 발자취", href: "/about/activities" },
@@ -26,12 +26,13 @@ export default function LocationPage() {
 
       <main className="flex-grow">
         {/* 헤더 섹션 */}
-        <section className="py-10 md:py-20 bg-gradient-to-br from-emerald-50 via-white to-teal-50">
-          <div className="container mx-auto px-4 text-center">
-            <h1 className="text-2xl md:text-5xl font-black text-gray-900 mb-4 md:mb-6">
+        <section className="py-10 md:py-20 bg-gray-900 relative overflow-hidden">
+          <div className="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]" />
+          <div className="container mx-auto px-4 text-center relative z-10">
+            <h1 className="text-2xl md:text-5xl font-black text-white mb-4 md:mb-6">
               찾아오시는 길
             </h1>
-            <p className="text-sm md:text-xl text-gray-500 max-w-2xl mx-auto break-keep">
+            <p className="text-sm md:text-xl text-gray-400 max-w-2xl mx-auto break-keep">
               어린이리더십강사협회로 오시는 방법을 안내해 드립니다
             </p>
           </div>
