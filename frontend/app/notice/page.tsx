@@ -73,18 +73,18 @@ export default function NoticePage() {
         <div className="container mx-auto px-4 py-8">
           <div className="max-w-5xl mx-auto">
             {/* Search Bar */}
-            <div className="bg-gray-50 p-4 border border-gray-200 mb-6">
+            <div className="bg-gray-50 p-2 md:p-4 border border-gray-200 mb-6">
               <form onSubmit={handleSearch} className="flex justify-center">
                 <input
                   type="text"
                   placeholder="제목 또는 내용 검색"
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="px-4 py-2 border border-gray-300 text-sm focus:outline-none focus:border-blue-500 flex-grow max-w-md"
+                  className="px-3 py-1.5 md:px-4 md:py-2 border border-gray-300 text-xs md:text-sm focus:outline-none focus:border-blue-500 flex-grow max-w-md"
                 />
                 <button
                   type="submit"
-                  className="px-6 py-2 bg-red-600 text-white text-sm font-bold hover:bg-red-700 transition-colors"
+                  className="px-4 py-1.5 md:px-6 md:py-2 bg-red-600 text-white text-xs md:text-sm font-bold hover:bg-red-700 transition-colors"
                 >
                   검색
                 </button>
@@ -113,24 +113,24 @@ export default function NoticePage() {
                   <Link 
                     href={`/notice/${notice.id}`}
                     key={notice.id} 
-                    className="grid grid-cols-12 p-5 items-center border-b-2 border-gray-200 hover:bg-blue-50/10 transition-colors group cursor-pointer last:border-b-0"
+                    className="grid grid-cols-12 p-3 md:p-5 items-center border-b-2 border-gray-200 hover:bg-blue-50/10 transition-colors group cursor-pointer last:border-b-0"
                   >
                     <div className="col-span-1 text-center hidden md:block font-medium text-gray-400">
                       {total - ((page - 1) * 10) - index}
                     </div>
-                    <div className="col-span-12 md:col-span-8 px-4">
+                    <div className="col-span-12 md:col-span-8 px-2 md:px-4">
                       <div className="flex items-center gap-3">
-                        <h3 className="text-base font-bold text-gray-800 group-hover:text-blue-600 transition-colors line-clamp-1">
+                        <h3 className="text-sm md:text-base font-bold text-gray-800 group-hover:text-blue-600 transition-colors line-clamp-1">
                           {notice.title}
                         </h3>
                       </div>
-                      <div className="flex md:hidden items-center gap-3 mt-2 text-xs text-gray-400">
+                      <div className="flex md:hidden items-center gap-2 mt-1.5 text-[10px] text-gray-400">
                         <span>{notice.authorName || '관리자'}</span>
-                        <span className="w-px h-3 bg-gray-300" />
+                        <span className="w-px h-2 bg-gray-300" />
                         <span>{new Date(notice.createdAt).toLocaleDateString()}</span>
-                        <span className="w-px h-3 bg-gray-300" />
+                        <span className="w-px h-2 bg-gray-300" />
                         <span className="flex items-center gap-1">
-                          <Eye className="w-3 h-3" /> {notice.viewCount}
+                          <Eye className="w-2.5 h-2.5" /> {notice.viewCount}
                         </span>
                       </div>
                     </div>

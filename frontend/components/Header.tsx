@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { useAuth } from "@/lib/context/AuthContext";
-import { User, LogOut, Settings, UserCircle, LogIn, ChevronDown } from "lucide-react";
+import { User, LogOut, Settings, UserCircle, LogIn, ChevronDown, ArrowRight } from "lucide-react";
 
 // 메뉴 데이터 타입 정의
 interface MenuItem {
@@ -133,43 +133,25 @@ export default function Header() {
           </div>
         </div>
 
-        {/* 모바일 메뉴 */}
+        {/* 모바일 메뉴 - 전체 화면 오버레이 스타일 */}
         {isMenuOpen && (
-          <nav className="lg:hidden py-4 border-t border-gray-50 space-y-1 animate-in slide-in-from-top-2 duration-300">
-            {menuItems.map((item) => (
-              <div key={item.name} className="px-2">
+          <nav className="lg:hidden py-6 px-3 space-y-6 animate-in slide-in-from-top-4 duration-300 ease-out border-t border-gray-50 bg-white/95 backdrop-blur-xl">
+            {/* 메인 메뉴 항목들 - 가로 한 줄 배치 */}
+            <div className="flex items-center justify-between gap-0 bg-gray-50 p-1 rounded-2xl">
+              {menuItems.map((item) => (
                 <Link
+                  key={item.name}
                   href={item.href}
-                  className="block py-1.5 text-sm md:text-lg font-bold text-gray-900"
+                  className="flex-grow flex items-center justify-center px-1 py-3 rounded-xl hover:bg-white hover:text-blue-600 hover:shadow-sm transition-all text-center"
                   onClick={() => setIsMenuOpen(false)}
                 >
-                  {item.name}
+                  <span className="text-[12px] font-black text-gray-900 truncate">
+                    {item.name}
+                  </span>
                 </Link>
-                {item.submenu && (
-                  <div className="pl-4 mt-1 space-y-1 border-l-2 border-gray-50 ml-1">
-                    {item.submenu.map((sub) => (
-                      <Link
-                        key={sub.name}
-                        href={sub.href}
-                        className="block py-1 text-sm text-gray-500 font-medium"
-                        onClick={() => setIsMenuOpen(false)}
-                      >
-                        {sub.name}
-                      </Link>
-                    ))}
-                  </div>
-                )}
-              </div>
-            ))}
-            <div className="pt-4 px-2">
-              <Link
-                href="/apply"
-                onClick={() => setIsMenuOpen(false)}
-                className="w-full inline-block text-center py-2.5 md:py-4 bg-blue-600 text-white rounded-2xl text-xs md:text-base font-bold shadow-xl shadow-blue-600/20"
-              >
-                교육신청
-              </Link>
+              ))}
             </div>
+
           </nav>
         )}
       </div>

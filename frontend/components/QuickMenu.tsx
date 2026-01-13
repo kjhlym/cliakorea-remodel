@@ -39,20 +39,20 @@ export default function QuickMenu() {
               <Link
                 key={menu.name}
                 href={menu.href}
-                className={`group relative flex items-center p-8 rounded-3xl ${menu.bgColor} text-white shadow-xl ${menu.hoverBg} transition-all duration-300 transform hover:-translate-y-1`}
+                className={`group relative flex items-center p-6 md:p-8 rounded-3xl ${menu.bgColor} text-white shadow-xl ${menu.hoverBg} transition-all duration-300 transform hover:-translate-y-1`}
               >
                 <div className="flex-grow">
                   <div className="flex items-center gap-3 mb-2">
-                    <div className="p-2 bg-white/20 rounded-lg backdrop-blur-sm">
-                      {menu.icon}
+                    <div className="p-2 bg-white/20 rounded-lg backdrop-blur-sm overflow-hidden">
+                      <div className="scale-90 md:scale-100">{menu.icon}</div>
                     </div>
-                    <h3 className="text-2xl font-bold">{menu.name}</h3>
+                    <h3 className="text-xl md:text-2xl font-bold">{menu.name}</h3>
                   </div>
-                  <p className="text-blue-100 text-lg">{menu.description}</p>
+                  <p className="text-blue-100 text-base md:text-lg">{menu.description}</p>
                 </div>
                 
-                <div className="ml-4 w-12 h-12 rounded-full bg-white/10 flex items-center justify-center group-hover:bg-white/20 transition-colors">
-                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div className="ml-4 w-10 h-10 md:w-12 md:h-12 rounded-full bg-white/10 flex items-center justify-center group-hover:bg-white/20 transition-colors flex-shrink-0">
+                  <svg className="w-5 h-5 md:w-6 md:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
                   </svg>
                 </div>

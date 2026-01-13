@@ -120,7 +120,7 @@ function ProgramsContent() {
     },
 
     special: {
-      title: "환경 리더 프로그램",
+      title: "환경 리더십 프로그램",
       subtitle: "생각을 넘어 행동하는 환경리더 되기",
       description: "환경 위기를 인식하고, 일상 속 지속 가능한 실천 능력을 함양하여 지구를 지키는 리더로 성장합니다.",
       features: [], // 테이블 데이터 사용
@@ -185,12 +185,12 @@ function ProgramsContent() {
         {/* 탭 네비게이션 */}
         <div className="sticky top-[72px] z-40 bg-white/90 backdrop-blur-md border-b border-gray-200 shadow-sm">
           <div className="container mx-auto px-4">
-            <div className="max-w-4xl mx-auto flex justify-center items-center px-0 md:px-0 py-2 md:py-4 gap-2 md:gap-3">
+            <div className="max-w-4xl mx-auto flex justify-center items-center px-1 py-3 md:py-4 gap-1 md:gap-3">
               {tabs.map((tab) => (
                 <button
                   key={tab.id}
                   onClick={() => setActiveTab(tab.id)}
-                  className={`px-3 py-2 md:px-5 md:py-2.5 rounded-full text-xs md:text-sm font-bold whitespace-nowrap transition-all duration-300 ${
+                  className={`px-2 py-2 md:px-5 md:py-2.5 rounded-full text-[10px] md:text-sm font-bold whitespace-nowrap transition-all duration-300 ${
                     activeTab === tab.id
                       ? "bg-blue-600 text-white shadow-md scale-105"
                       : "bg-gray-100 text-gray-500 hover:bg-gray-200 hover:text-gray-900"

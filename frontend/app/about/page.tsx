@@ -51,7 +51,9 @@ export default function AboutPage() {
           <div className="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]" />
           <div className="container mx-auto px-4 relative z-10 text-center">
             <h1 className="text-2xl md:text-5xl font-black text-white mb-4 md:mb-6 break-keep">
-              미래의 리더를 키우는 <br />
+              미래의 리더를 키우는              
+            </h1>
+            <h1 className="text-2xl md:text-5xl font-black text-white mb-4 md:mb-6 break-keep">
               <span className="text-blue-500">가장 당당한 발걸음</span>
             </h1>
             <p className="text-sm md:text-xl text-gray-400 max-w-3xl mx-auto leading-relaxed break-keep">
@@ -111,10 +113,12 @@ export default function AboutPage() {
             <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
               {values.map((v) => (
                 <div key={v.title} className="bg-white p-10 rounded-[2.5rem] shadow-sm hover:shadow-xl transition-all duration-300">
-                  <div className={`w-16 h-16 ${v.bgColor} ${v.color} rounded-2xl flex items-center justify-center mb-8`}>
-                    {v.icon}
+                  <div className="flex items-center gap-4 mb-6">
+                    <div className={`w-14 h-14 shrink-0 ${v.bgColor} ${v.color} rounded-2xl flex items-center justify-center`}>
+                      {v.icon}                    
+                    </div>
+                    <h4 className="text-xl font-bold text-gray-900">{v.title}</h4>
                   </div>
-                  <h4 className="text-xl font-bold text-gray-900 mb-4">{v.title}</h4>
                   <p className="text-gray-500 leading-relaxed">{v.description}</p>
                 </div>
               ))}
