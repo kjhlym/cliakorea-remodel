@@ -65,15 +65,15 @@ export default function ProgramCategories({ standalone = true }: { standalone?: 
         <Link
           key={program.id}
           href={program.href}
-          className="group relative bg-white rounded-3xl p-5 md:p-6 shadow-sm hover:shadow-xl transition-all duration-500 border border-gray-100 flex flex-col items-start text-left"
+          className="group relative bg-white rounded-3xl p-4 md:p-6 shadow-sm hover:shadow-xl transition-all duration-500 border border-gray-100 flex flex-col items-start text-left"
         >
           <div className="flex items-center gap-4 mb-3 md:mb-5">
             {/* 아이콘 컨테이너 */}
-            <div className={`w-10 h-10 md:w-12 md:h-12 rounded-xl bg-gradient-to-br ${program.gradient} text-white flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-500 flex-shrink-0`}>
-              <div className="scale-90 md:scale-100">{program.icon}</div>
+            <div className={`w-9 h-9 md:w-12 md:h-12 rounded-xl bg-gradient-to-br ${program.gradient} text-white flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-500 flex-shrink-0`}>
+              <div className="scale-[0.85] md:scale-100">{program.icon}</div>
             </div>       
 
-            <h4 className="text-lg md:text-xl font-black text-gray-900 group-hover:text-blue-600 transition-colors leading-tight">
+            <h4 className="text-base md:text-xl font-black text-gray-900 group-hover:text-blue-600 transition-colors leading-tight">
               {program.name}
             </h4>
           </div>
@@ -100,15 +100,15 @@ export default function ProgramCategories({ standalone = true }: { standalone?: 
         className="group relative bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-700 hover:to-blue-600 text-white rounded-2xl p-6 transition-all shadow-lg hover:shadow-xl overflow-hidden"
       >
         <div className="flex items-center justify-between relative z-10">
-          <div className="flex items-start gap-4">
-            <div className="bg-white/20 rounded-xl p-3 backdrop-blur-sm">
-              <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <div className="flex items-start gap-3 md:gap-4">
+            <div className="bg-white/20 rounded-xl p-2.5 md:p-3 backdrop-blur-sm">
+              <svg className="w-6 h-6 md:w-7 md:h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
               </svg>
             </div>
             <div>
-              <h5 className="text-xl font-black mb-1">교육 신청</h5>
-              <p className="text-sm text-blue-100 font-medium">협회의 다양한 교육 프로그램을 신청하세요.</p>
+              <h5 className="text-lg md:text-xl font-black mb-0.5 md:mb-1">교육 신청</h5>
+              <p className="text-xs md:text-sm text-blue-100 font-medium">협회의 다양한 교육 프로그램을 신청하세요.</p>
             </div>
           </div>
           <svg className="w-8 h-8 group-hover:translate-x-1 transition-transform flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -124,15 +124,15 @@ export default function ProgramCategories({ standalone = true }: { standalone?: 
         className="group relative bg-gradient-to-r from-purple-600 to-purple-500 hover:from-purple-700 hover:to-purple-600 text-white rounded-2xl p-6 transition-all shadow-lg hover:shadow-xl overflow-hidden"
       >
         <div className="flex items-center justify-between relative z-10">
-          <div className="flex items-start gap-4">
-            <div className="bg-white/20 rounded-xl p-3 backdrop-blur-sm">
-              <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <div className="flex items-start gap-3 md:gap-4">
+            <div className="bg-white/20 rounded-xl p-2.5 md:p-3 backdrop-blur-sm">
+              <svg className="w-6 h-6 md:w-7 md:h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
               </svg>
             </div>
             <div>
-              <h5 className="text-xl font-black mb-1">온라인 상담</h5>
-              <p className="text-sm text-purple-100 font-medium">궁금하신 점을 전문가에게 물어보세요.</p>
+              <h5 className="text-lg md:text-xl font-black mb-0.5 md:mb-1">온라인 상담</h5>
+              <p className="text-xs md:text-sm text-purple-100 font-medium">궁금하신 점을 전문가에게 물어보세요.</p>
             </div>
           </div>
           <svg className="w-8 h-8 group-hover:translate-x-1 transition-transform flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">

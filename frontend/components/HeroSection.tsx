@@ -59,7 +59,7 @@ export default function HeroSection() {
 
   return (
     <section 
-      className="relative w-full h-[56vh] min-h-[420px] overflow-hidden bg-gray-900 group"
+      className="relative w-full h-[45vh] md:h-[56vh] min-h-[380px] md:min-h-[420px] overflow-hidden bg-gray-900 group"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
     >
@@ -93,24 +93,23 @@ export default function HeroSection() {
           className="max-w-4xl backdrop-blur-md bg-white/10 p-5 md:p-8 rounded-2xl border border-white/20 shadow-2xl animate-fade-in"
           key={currentIndex} // 인덱스 변경 시 리렌더링으로 애니메이션 유도
         >
-          <span className="inline-block px-3 py-0.5 mb-3 bg-blue-600/80 text-white text-xs font-bold uppercase tracking-widest rounded-full backdrop-blur-sm">
+          <span className="inline-block px-3 py-0.5 mb-2 md:mb-3 bg-blue-600/80 text-white text-[10px] md:text-xs font-bold uppercase tracking-widest rounded-full backdrop-blur-sm">
             Children Leadership Instructor Association
           </span>
-          <h1 className="text-4xl md:text-4xl lg:text-4xl xl:text-4xl font-extrabold text-white mb-4 leading-tight drop-shadow-lg break-keep">
+          <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-4xl xl:text-4xl font-extrabold text-white mb-3 md:mb-4 leading-tight drop-shadow-lg break-keep">
             {carouselImages[currentIndex].title}
           </h1>
-          <p className="text-sm md:text-lg text-gray-100 mb-6 font-medium drop-shadow-md break-keep">
+          <p className="text-xs sm:text-sm md:text-lg text-gray-100 mb-5 md:mb-6 font-medium drop-shadow-md break-keep">
             {carouselImages[currentIndex].subtitle}
           </p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <a
               href="/programs"
-              className="group relative px-4 py-1.5 md:px-5 md:py-2 bg-white text-blue-900 rounded-full font-bold text-xs md:text-sm hover:bg-blue-50 transition-all duration-300 shadow-xl overflow-hidden"
+              className="group relative px-6 py-2.5 md:px-5 md:py-2 bg-white text-blue-900 rounded-full font-bold text-sm hover:bg-blue-50 transition-all duration-300 shadow-xl overflow-hidden"
             >
               <span className="relative z-10">프로그램 구경하기</span>
               <div className="absolute inset-0 bg-blue-100/50 transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-500" />
             </a>
-           
           </div>
         </div>
       </div>

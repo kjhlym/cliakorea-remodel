@@ -137,7 +137,7 @@ export default function Header() {
         {isMenuOpen && (
           <nav className="lg:hidden py-6 px-3 space-y-6 animate-in slide-in-from-top-4 duration-300 ease-out border-t border-gray-50 bg-white/95 backdrop-blur-xl">
             {/* 메인 메뉴 항목들 - 가로 한 줄 배치 */}
-            <div className="flex items-center justify-between gap-1 bg-gray-50 p-1.5 rounded-2xl">
+            <div className="flex items-center justify-between gap-0 bg-gray-50 p-1 rounded-2xl">
               {menuItems.map((item) => (
                 <Link
                   key={item.name}
@@ -145,7 +145,7 @@ export default function Header() {
                   className="flex-grow flex items-center justify-center px-1 py-3 rounded-xl hover:bg-white hover:text-blue-600 hover:shadow-sm transition-all text-center"
                   onClick={() => setIsMenuOpen(false)}
                 >
-                  <span className="text-[11px] font-black text-gray-900 truncate">
+                  <span className="text-[12px] font-black text-gray-900 truncate">
                     {item.name}
                   </span>
                 </Link>

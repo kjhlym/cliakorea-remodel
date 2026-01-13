@@ -20,8 +20,9 @@ export default function CalendarView() {
   const [schedules, setSchedules] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState(false);
 
-  // 툴팁 상태 관리
+  // 툴팁 및 모달 상태 관리
   const [tooltip, setTooltip] = useState<{ x: number; y: number; data: any } | null>(null);
+  const [selectedSchedule, setSelectedSchedule] = useState<any | null>(null);
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -84,16 +85,24 @@ export default function CalendarView() {
   const todayStr = new Date().toISOString().split('T')[0];
 
   const handleMouseEnter = (e: React.MouseEvent, data: any) => {
-    const rect = e.currentTarget.getBoundingClientRect();
-    setTooltip({
-      x: rect.right + 10,
-      y: rect.top,
-      data
-    });
+    // 테스크톱(호버 가능 장치)에서만 툴팁 표시
+    if (window.matchMedia("(hover: hover)").matches) {
+      const rect = e.currentTarget.getBoundingClientRect();
+      setTooltip({
+        x: rect.right + 10,
+        y: rect.top,
+        data
+      });
+    }
   };
 
   const handleMouseLeave = () => {
     setTooltip(null);
+  };
+
+  const handleScheduleClick = (schedule: any) => {
+    setSelectedSchedule(schedule);
+    setTooltip(null); // 클릭 시 툴팁은 닫음
   };
 
   return (
@@ -181,6 +190,7 @@ export default function CalendarView() {
                                             className="text-[10px] md:text-sm text-gray-600 bg-gray-50 px-0.5 py-0.5 md:p-1 rounded border border-gray-100 truncate cursor-pointer hover:bg-blue-50 hover:border-blue-200 hover:text-blue-600 transition-colors"
                                             onMouseEnter={(e) => handleMouseEnter(e, schedule)}
                                             onMouseLeave={handleMouseLeave}
+                                            onClick={() => handleScheduleClick(schedule)}
                                         >
                                             <span className="md:hidden block truncate">{schedule.title}</span>
                                             <span className="hidden md:block truncate">{schedule.title}</span>
@@ -203,7 +213,7 @@ export default function CalendarView() {
       {/* 툴팁 컴포넌트 (Portal) */}
       {mounted && tooltip && createPortal(
         <div 
-          className="fixed z-[99999] bg-gray-900/95 text-white p-4 rounded-xl shadow-2xl border border-gray-700/50 backdrop-blur-sm pointer-events-none animate-in fade-in zoom-in-95 duration-200 w-[280px]"
+          className="fixed z-[99999] bg-gray-900/95 text-white p-4 rounded-xl shadow-2xl border border-gray-700/50 backdrop-blur-sm pointer-events-none animate-in fade-in zoom-in-95 duration-200 w-[280px] hidden md:block"
           style={{ 
             left: tooltip.x, 
             top: tooltip.y,
@@ -234,12 +244,60 @@ export default function CalendarView() {
                 {tooltip.data.description}
               </p>
             )}
-            {!tooltip.data.description && (
-              <p className="text-xs text-gray-500 italic pt-1">
-                상세 내용이 없습니다.
-              </p>
-            )}
           </div>
+        </div>,
+        document.body
+      )}
+
+      {/* 모바일용 상세 모달 */}
+      {mounted && selectedSchedule && createPortal(
+        <div className="fixed inset-0 z-[100000] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in fade-in duration-200">
+           <div 
+            className="bg-white w-full max-w-sm rounded-3xl shadow-2xl overflow-hidden animate-in zoom-in-95 slide-in-from-bottom-10 duration-300"
+            onClick={(e) => e.stopPropagation()}
+           >
+              <div className={`p-6 ${selectedSchedule.type === 'EDUCATION' ? 'bg-blue-600' : 'bg-purple-600'} text-white`}>
+                <div className="flex justify-between items-start mb-4">
+                  <span className="px-3 py-1 bg-white/20 rounded-full text-xs font-bold backdrop-blur-md">
+                    {selectedSchedule.type || '일정'}
+                  </span>
+                  <button 
+                    onClick={() => setSelectedSchedule(null)}
+                    className="p-1 hover:bg-white/20 rounded-full transition-colors"
+                  >
+                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                  </button>
+                </div>
+                <h3 className="text-xl font-black leading-tight break-keep">
+                  {selectedSchedule.title}
+                </h3>
+                <p className="mt-2 text-white/80 text-sm font-medium">
+                  {new Date(selectedSchedule.startDate).toLocaleDateString('ko-KR', { year: 'numeric', month: 'long', day: 'numeric' })}
+                </p>
+              </div>
+              
+              <div className="p-6 bg-white">
+                <div className="mb-6">
+                  <h4 className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">상세 내용</h4>
+                  {selectedSchedule.description ? (
+                    <p className="text-gray-700 text-sm leading-relaxed whitespace-pre-wrap break-keep">
+                      {selectedSchedule.description}
+                    </p>
+                  ) : (
+                    <p className="text-gray-400 text-sm italic">상세 내용이 없습니다.</p>
+                  )}
+                </div>
+                
+                <button
+                  onClick={() => setSelectedSchedule(null)}
+                  className="w-full py-4 bg-gray-100 hover:bg-gray-200 text-gray-900 font-bold rounded-2xl transition-all"
+                >
+                  닫기
+                </button>
+              </div>
+           </div>
         </div>,
         document.body
       )}
