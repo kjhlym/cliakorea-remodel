@@ -144,7 +144,7 @@ export default function InstructorTrainingPage() {
                 투명하고 신뢰할 수 있는 자격증 발급을 보장합니다.
               </p>
               <div className="inline-flex items-center gap-2 px-6 py-3 bg-white border border-gray-300 rounded-full font-bold text-sm md:text-base text-gray-700 shadow-sm">
-                <span>사업자 등록번호 : 209-82-67774</span>
+                <span>사업자 등록번호 : 209-82-67773</span>
               </div>
             </div>
         </section>      

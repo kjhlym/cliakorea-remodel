@@ -96,7 +96,7 @@ export default function HeroSection() {
           <span className="inline-block px-3 py-0.5 mb-3 bg-blue-600/80 text-white text-xs font-bold uppercase tracking-widest rounded-full backdrop-blur-sm">
             Children Leadership Instructor Association
           </span>
-          <h1 className="text-3xl md:text-3xl lg:text-2xl xl:text-3xl font-extrabold text-white mb-4 leading-tight drop-shadow-lg break-keep">
+          <h1 className="text-4xl md:text-4xl lg:text-4xl xl:text-4xl font-extrabold text-white mb-4 leading-tight drop-shadow-lg break-keep">
             {carouselImages[currentIndex].title}
           </h1>
           <p className="text-sm md:text-lg text-gray-100 mb-6 font-medium drop-shadow-md break-keep">

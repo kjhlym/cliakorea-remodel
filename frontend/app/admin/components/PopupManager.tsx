@@ -475,17 +475,17 @@ export default function PopupManager() {
                 <div className="sticky top-0">
                   <h3 className="text-xs font-black text-gray-400 mb-6 uppercase tracking-wider">실시간 미리보기 (Live Preview)</h3>
                   
-                  <div className="relative w-full max-w-[340px] mx-auto bg-white rounded-[2.5rem] shadow-2xl overflow-hidden border-[5px] border-gray-800 scale-90 origin-top">
-                    <div className="relative min-h-[180px] bg-white">
+                  <div className="relative w-full max-w-[218px] mx-auto bg-white rounded-[2.5rem] shadow-2xl overflow-hidden border border-black scale-90 origin-top">
+                    <div className="relative min-h-[100px] bg-white">
                       {formData.type === 'HTML' ? (
                         <div 
                           className="w-full h-full p-6 prose prose-sm text-sm"
                           dangerouslySetInnerHTML={{ __html: formData.content || '<p style="color:#999;text-align:center;padding:40px;">내용을 입력해주세요.</p>' }}
                         />
                       ) : (
-                        <div className="relative aspect-[4/5]">
+                        <div className="relative aspect-[10/11] bg-gray-100">
                           {formData.imageUrl ? (
-                            <img src={formData.imageUrl} alt="미리보기" className="w-full h-full object-cover border border-gray-200" />
+                            <img src={formData.imageUrl} alt="미리보기" className="w-full h-full object-contain border border-gray-200" />
                           ) : (
                             <div className="w-full h-full flex items-center justify-center p-8 text-center text-gray-200 bg-gray-50">
                               <ImageIcon className="w-12 h-12" />
@@ -505,7 +505,7 @@ export default function PopupManager() {
                   </div>
 
                   <div className="mt-8 space-y-4">
-                     <p className="text-[11px] text-gray-400 font-medium text-center italic">실제 팝업 크기는 이보다 조금 더 큽니다.<br/>(가로 너비 450px 기준)</p>
+                     <p className="text-[11px] text-gray-400 font-medium text-center italic">실제 팝업 크기는 이보다 조금 더 큽니다.<br/>(가로 너비 288px 기준)</p>
                   </div>
                 </div>
               </div>

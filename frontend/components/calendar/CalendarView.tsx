@@ -97,35 +97,34 @@ export default function CalendarView() {
   };
 
   return (
-    <div className="w-full max-w-6xl mx-auto p-4">
+    <div className="w-full max-w-6xl mx-auto p-1 md:p-4">
 
 
-      <div className="flex flex-col md:flex-row justify-between items-center mb-6 gap-4">
+      <div className="flex flex-col md:flex-row justify-between items-center mb-2 md:mb-6 gap-2 md:gap-4">
         {/* Navigation */}
-        {/* Navigation */}
-        <div className="flex items-center gap-2 md:gap-4 text-gray-600">
-          <button onClick={prevMonth} className="flex items-center hover:text-blue-600 font-bold text-sm md:text-base">
-            <ChevronLeft className="w-4 h-4 md:w-5 md:h-5" />
+        <div className="flex items-center gap-2 md:gap-4 text-gray-600 w-full md:w-auto justify-between md:justify-start">
+          <button onClick={prevMonth} className="flex items-center hover:text-blue-600 font-bold text-xs md:text-base">
+            <ChevronLeft className="w-3.5 h-3.5 md:w-5 md:h-5" />
             지난달
           </button>
           
-          <div className="flex items-center gap-1 md:gap-2 text-lg md:text-xl font-bold text-gray-800">
-            <div className="border border-gray-300 rounded px-2 md:px-3 py-1 bg-white">
+          <div className="flex items-center gap-1 md:gap-2 text-sm md:text-xl font-bold text-gray-800">
+            <div className="border border-gray-300 rounded px-1 md:px-3 py-0.5 md:py-1 bg-white">
               {year}
             </div>
-            <div className="border border-gray-300 rounded px-2 md:px-3 py-1 bg-white">
+            <div className="border border-gray-300 rounded px-1 md:px-3 py-0.5 md:py-1 bg-white">
               {month}
             </div>
           </div>
 
-          <button onClick={nextMonth} className="flex items-center hover:text-blue-600 font-bold text-sm md:text-base">
+          <button onClick={nextMonth} className="flex items-center hover:text-blue-600 font-bold text-xs md:text-base">
             다음달
-            <ChevronRight className="w-4 h-4 md:w-5 md:h-5" />
+            <ChevronRight className="w-3.5 h-3.5 md:w-5 md:h-5" />
           </button>
         </div>
 
         {/* Today */}
-        <div className="text-gray-500 font-medium">
+        <div className="text-gray-500 font-medium text-[9px] md:text-sm">
           Today : {todayStr}
         </div>
       </div>
@@ -179,7 +178,7 @@ export default function CalendarView() {
                                     {daySchedules?.map(schedule => (
                                         <div 
                                             key={schedule.id}
-                                            className="text-[10px] md:text-xs text-gray-600 bg-gray-50 px-1 py-0.5 md:p-1 rounded border border-gray-100 truncate cursor-pointer hover:bg-blue-50 hover:border-blue-200 hover:text-blue-600 transition-colors"
+                                            className="text-[10px] md:text-sm text-gray-600 bg-gray-50 px-0.5 py-0.5 md:p-1 rounded border border-gray-100 truncate cursor-pointer hover:bg-blue-50 hover:border-blue-200 hover:text-blue-600 transition-colors"
                                             onMouseEnter={(e) => handleMouseEnter(e, schedule)}
                                             onMouseLeave={handleMouseLeave}
                                         >

@@ -71,33 +71,33 @@ export default function GalleryPage() {
         <div className="container mx-auto px-4 py-8">
           <div className="max-w-6xl mx-auto">
             {/* Filter Bar */}
-            <div className="bg-gray-50 p-4 border border-gray-200 mb-6">
-              <div className="flex flex-wrap items-center justify-center gap-2">
+            <div className="bg-gray-50 p-2 md:p-4 border border-gray-200 mb-6">
+              <div className="flex flex-wrap items-center justify-center gap-1.5 md:gap-2">
                 <select
                   value={category}
                   onChange={(e) => setCategory(e.target.value)}
-                  className="px-4 py-2 border border-gray-300 text-sm focus:outline-none focus:border-blue-500 w-32 md:w-40 bg-white"
+                  className="px-1 py-1.5 md:px-4 md:py-2 border border-gray-300 text-[10px] md:text-sm focus:outline-none focus:border-blue-500 w-[30%] md:w-40 bg-white"
                 >
                   <option>전체분류</option>
                   <option>활동</option>
                   <option>행사</option>
                   <option>기타</option>
                 </select>
-                <select className="px-4 py-2 border border-gray-300 text-sm focus:outline-none focus:border-blue-500 w-32 md:w-40 bg-white">
+                <select className="px-1 py-1.5 md:px-4 md:py-2 border border-gray-300 text-[10px] md:text-sm focus:outline-none focus:border-blue-500 w-[22%] md:w-40 bg-white">
                   <option>전체</option>
                   <option>2025</option>
                   <option>2024</option>
                 </select>
                 <input
                   type="text"
-                  placeholder="검색어를 입력해 주세요"
+                  placeholder="검색어"
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="px-4 py-2 border border-gray-300 text-sm focus:outline-none focus:border-blue-500 flex-grow max-w-md"
+                  className="px-2 py-1.5 md:px-4 md:py-2 border border-gray-300 text-xs md:text-sm focus:outline-none focus:border-blue-500 flex-grow min-w-0"
                 />
                 <button
                   onClick={handleSearch}
-                  className="px-6 py-2 bg-red-600 text-white text-sm font-bold hover:bg-red-700 transition-colors"
+                  className="px-3 py-1.5 md:px-6 md:py-2 bg-red-600 text-white text-xs md:text-sm font-bold hover:bg-red-700 transition-colors shrink-0"
                 >
                   검색
                 </button>

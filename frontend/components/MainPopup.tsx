@@ -38,20 +38,20 @@ export default function MainPopup({ id, title, imageUrl, linkUrl, type = 'IMAGE'
   if (!isOpen) return null;
 
   return (
-    <div className="relative w-full max-w-[450px] animate-in fade-in zoom-in-95 duration-500 shrink-0">
-      <div className="bg-white rounded-[2.5rem] shadow-[0_20px_50px_rgba(0,0,0,0.2)] overflow-hidden">
+    <div className="relative w-full max-w-[288px] animate-in fade-in zoom-in-95 duration-500 shrink-0">
+      <div className="bg-white rounded-[2.5rem] shadow-[0_20px_50px_rgba(0,0,0,0.2)] overflow-hidden border border-black">
         {/* 내용 영역 */}
-        <div className="relative min-h-[200px] bg-gray-50">
+        <div className="relative min-h-[112px] bg-gray-50">
           {type === 'HTML' ? (
             <div 
-              className="w-full h-full p-8 overflow-y-auto max-h-[400px] prose prose-sm"
+              className="w-full h-full p-8 overflow-y-auto max-h-[224px] prose prose-sm"
               dangerouslySetInnerHTML={{ __html: content || '' }}
             />
           ) : (
-            <div className="relative aspect-[4/5]">
+            <div className="relative aspect-[10/11] bg-gray-100">
               {imageUrl ? (
-                <a href={linkUrl || '#'} target={linkUrl ? "_blank" : "_self"} rel="noopener noreferrer">
-                  <img src={imageUrl} alt={title} className="w-full h-full object-cover" />
+                <a href={linkUrl || '#'} target={linkUrl ? "_blank" : "_self"} rel="noopener noreferrer" className="block w-full h-full">
+                  <img src={imageUrl} alt={title} className="w-full h-full object-contain" />
                 </a>
               ) : (
                 <div className="w-full h-full flex items-center justify-center p-8 text-center text-gray-300">
@@ -61,12 +61,7 @@ export default function MainPopup({ id, title, imageUrl, linkUrl, type = 'IMAGE'
             </div>
           )}
           
-          <button 
-            onClick={handleClose}
-            className="absolute top-4 right-4 p-2 bg-black/20 hover:bg-black/40 text-white rounded-full transition-all backdrop-blur-sm"
-          >
-            <X className="w-5 h-5" />
-          </button>
+
         </div>
 
         {/* 하단 컨트롤 영역 */}
