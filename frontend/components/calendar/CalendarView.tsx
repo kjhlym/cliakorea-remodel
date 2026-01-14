@@ -84,14 +84,14 @@ export default function CalendarView() {
 
   const todayStr = new Date().toISOString().split('T')[0];
 
-  const handleMouseEnter = (e: React.MouseEvent, data: any) => {
+  const handleMouseEnter = (e: React.MouseEvent, items: any[]) => {
     // 테스크톱(호버 가능 장치)에서만 툴팁 표시
     if (window.matchMedia("(hover: hover)").matches) {
       const rect = e.currentTarget.getBoundingClientRect();
       setTooltip({
         x: rect.right + 10,
         y: rect.top,
-        data
+        data: items
       });
     }
   };
@@ -166,46 +166,56 @@ export default function CalendarView() {
                 const daySchedules = day ? schedulesByDay[day] : [];
 
                 return (
-                    <div 
-                        key={index} 
-                        className={`
-                            min-h-[80px] md:min-h-[120px] p-1 md:p-2 border-r border-b border-gray-200 relative
-                            ${!day ? 'bg-gray-50' : 'bg-white'}
-                        `}
-                    >
-                        {day && (
-                            <>
-                                <span className={`
-                                    text-sm md:text-lg font-bold block mb-1 md:mb-2
-                                    ${isSunday ? 'text-red-600' : ''}
-                                    ${isSaturday ? 'text-blue-600' : ''}
-                                    ${!isSunday && !isSaturday ? 'text-gray-700' : ''}
-                                `}>
-                                    {day}
-                                </span>
-                                <div className="space-y-1">
-                                    {daySchedules?.map(schedule => (
+                        <div 
+                            key={index} 
+                            className={`
+                                h-[80px] md:h-[130px] p-1 md:p-2 border-r border-b border-gray-200 relative overflow-hidden
+                                ${!day ? 'bg-gray-50' : 'bg-white'}
+                                ${daySchedules?.length > 2 ? 'pr-6 md:pr-8' : ''}
+                            `}
+                        >
+                            {day && (
+                                <>
+                                    <span className={`
+                                        text-sm md:text-lg font-bold block mb-1 md:mb-2
+                                        ${isSunday ? 'text-red-600' : ''}
+                                        ${isSaturday ? 'text-blue-600' : ''}
+                                        ${!isSunday && !isSaturday ? 'text-gray-700' : ''}
+                                    `}>
+                                        {day}
+                                    </span>
+                                    <div className="space-y-1">
+                                        {daySchedules?.slice(0, 2).map(schedule => (
+                                            <div 
+                                                key={schedule.id}
+                                                className="text-[10px] md:text-sm text-gray-600 bg-gray-50 px-0.5 py-0.5 md:p-1 rounded border border-gray-100 truncate cursor-pointer hover:bg-blue-50 hover:border-blue-200 hover:text-blue-600 transition-colors"
+                                                onMouseEnter={(e) => handleMouseEnter(e, daySchedules)}
+                                                onMouseLeave={handleMouseLeave}
+                                                onClick={() => handleScheduleClick(schedule)}
+                                            >
+                                                <span className="md:hidden block truncate">{schedule.title}</span>
+                                                <span className="hidden md:block truncate">{schedule.title}</span>
+                                            </div>
+                                        ))}
+                                    </div>
+                                    {daySchedules?.length > 2 && (
                                         <div 
-                                            key={schedule.id}
-                                            className="text-[10px] md:text-sm text-gray-600 bg-gray-50 px-0.5 py-0.5 md:p-1 rounded border border-gray-100 truncate cursor-pointer hover:bg-blue-50 hover:border-blue-200 hover:text-blue-600 transition-colors"
-                                            onMouseEnter={(e) => handleMouseEnter(e, schedule)}
+                                            className="absolute right-1 md:right-2 top-1/2 -translate-y-1/2 bg-gray-100/90 text-gray-400 font-black text-xs md:text-base px-1 py-2 rounded-md cursor-default z-10 flex items-center justify-center hover:bg-gray-200 transition-colors"
+                                            onMouseEnter={(e) => handleMouseEnter(e, daySchedules)}
                                             onMouseLeave={handleMouseLeave}
-                                            onClick={() => handleScheduleClick(schedule)}
                                         >
-                                            <span className="md:hidden block truncate">{schedule.title}</span>
-                                            <span className="hidden md:block truncate">{schedule.title}</span>
+                                            ...
                                         </div>
-                                    ))}
-                                </div>
-                            </>
-                        )}
-                    </div>
+                                    )}
+                                </>
+                            )}
+                        </div>
                 );
             })}
             
             {/* Fill remaining cells to complete the row */}
             {Array.from({ length: (7 - (days.length % 7)) % 7 }).map((_, i) => (
-                 <div key={`empty-${i}`} className="min-h-[80px] md:min-h-[120px] border-r border-b border-gray-200 bg-gray-50"></div>
+                 <div key={`empty-${i}`} className="h-[80px] md:h-[130px] border-r border-b border-gray-200 bg-gray-50"></div>
             ))}
         </div>
       </div>
@@ -223,27 +233,25 @@ export default function CalendarView() {
           {/* 말풍선 화살표 */}
           <div className="absolute top-[20px] -left-2 w-0 h-0 border-t-[6px] border-t-transparent border-r-[8px] border-r-gray-900/95 border-b-[6px] border-b-transparent" />
           
-          <div className="space-y-2">
-            <div className="flex items-center gap-2 mb-1">
-              <span className={`px-2 py-0.5 rounded text-[10px] font-bold ${
-                tooltip.data.type === 'EDUCATION' ? 'bg-blue-500 text-white' : 'bg-purple-500 text-white'
-              }`}>
-                {tooltip.data.type || '일정'}
-              </span>
-              <span className="text-[10px] text-gray-400 font-medium tracking-tight">
-                {new Date(tooltip.data.startDate).toLocaleDateString()}
+          <div className="space-y-3">
+            <div className="flex items-center justify-between border-b border-gray-700/50 pb-2 mb-2">
+               <h4 className="text-[11px] font-bold text-gray-400 uppercase tracking-widest">
+                교육 일정 목록
+              </h4>
+              <span className="text-[10px] text-gray-500 font-medium">
+                {tooltip.data?.length > 0 && new Date(tooltip.data[0].startDate).toLocaleDateString('ko-KR', { month: 'long', day: 'numeric' })}
               </span>
             </div>
             
-            <h4 className="font-bold text-sm text-blue-300 leading-snug">
-              {tooltip.data.title}
-            </h4>
-            
-            {tooltip.data.description && (
-              <p className="text-xs text-gray-200 leading-relaxed font-medium break-keep whitespace-pre-wrap border-t border-gray-700/50 pt-2 mt-2">
-                {tooltip.data.description}
-              </p>
-            )}
+            <div className="space-y-3 max-h-[300px] overflow-y-auto pr-1 custom-scrollbar">
+              {tooltip.data.map((item: any) => (
+                <div key={item.id} className="relative pl-3 border-l-2 border-blue-500/50">
+                  <h5 className="font-bold text-[11px] text-blue-300 leading-snug break-keep">
+                    {item.title}
+                  </h5>
+                </div>
+              ))}
+            </div>
           </div>
         </div>,
         document.body
@@ -256,11 +264,8 @@ export default function CalendarView() {
             className="bg-white w-full max-w-sm rounded-3xl shadow-2xl overflow-hidden animate-in zoom-in-95 slide-in-from-bottom-10 duration-300"
             onClick={(e) => e.stopPropagation()}
            >
-              <div className={`p-6 ${selectedSchedule.type === 'EDUCATION' ? 'bg-blue-600' : 'bg-purple-600'} text-white`}>
-                <div className="flex justify-between items-start mb-4">
-                  <span className="px-3 py-1 bg-white/20 rounded-full text-xs font-bold backdrop-blur-md">
-                    {selectedSchedule.type || '일정'}
-                  </span>
+              <div className="p-6 bg-[#0066CC] text-white">
+                <div className="flex justify-end items-start mb-4">
                   <button 
                     onClick={() => setSelectedSchedule(null)}
                     className="p-1 hover:bg-white/20 rounded-full transition-colors"
