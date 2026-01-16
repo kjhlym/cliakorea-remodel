@@ -109,9 +109,7 @@ export default function CalendarView() {
 
   const handleMoreClick = (e: React.MouseEvent, items: any[]) => {
     e.stopPropagation();
-    if (!window.matchMedia("(hover: hover)").matches) {
-      setSelectedDaySchedules(items);
-    }
+    setSelectedDaySchedules(items);
   };
 
   return (
@@ -194,12 +192,10 @@ export default function CalendarView() {
                                                 onMouseEnter={(e) => handleMouseEnter(e, daySchedules)}
                                                 onMouseLeave={handleMouseLeave}
                                                 onClick={(e) => {
-                                                    // 모바일에서 일정이 여러 개일 경우 클릭 시 전체 목록 표시
-                                                    if (!window.matchMedia("(hover: hover)").matches && daySchedules.length > 1) {
+                                                    // 일정이 여러 개일 경우만 클릭 시 전체 목록 표시
+                                                    if (daySchedules.length > 1) {
                                                         e.stopPropagation();
                                                         setSelectedDaySchedules(daySchedules);
-                                                    } else {
-                                                        handleScheduleClick(schedule);
                                                     }
                                                 }}
                                             >
