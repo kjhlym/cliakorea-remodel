@@ -8,4 +8,6 @@ build/
 .next/
 .vercel/
 .railway/
+backend/uploads/
+backend/dist/
 *.log

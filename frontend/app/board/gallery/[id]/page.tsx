@@ -89,13 +89,13 @@ export default function GalleryDetailPage() {
             </div>
 
             {/* Main Image Viewer */}
-            <div className="bg-gray-100 rounded-2xl overflow-hidden mb-6 shadow-xl ring-1 ring-gray-200">
-                <div className="aspect-[16/10] relative flex items-center justify-center bg-black/95">
+            <div className="mb-6 shadow-2xl rounded-2xl overflow-hidden ring-1 ring-gray-200 bg-gray-50">
+                <div className="relative flex items-center justify-center w-full">
                     <img 
                         key={selectedImageIndex}
                         src={gallery.images?.[selectedImageIndex]} 
                         alt="" 
-                        className="max-h-full max-w-full object-contain animate-in fade-in duration-500"
+                        className="w-full h-auto max-h-[80vh] object-contain animate-in fade-in duration-500"
                     />
                 </div>
             </div>

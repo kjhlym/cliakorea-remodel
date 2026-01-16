@@ -35,7 +35,7 @@ export default function GalleryPage() {
       setLoading(true);
       const query = new URLSearchParams({
         page: page.toString(),
-        limit: "6",
+        limit: "12",
         category: category !== "전체분류" ? category : "",
         search: searchTerm,
       });
@@ -145,9 +145,8 @@ export default function GalleryPage() {
                 </div>
             )}
 
-            {/* Pagination */}
             <div className="mt-10 flex justify-center items-center gap-2">
-              {Array.from({ length: Math.ceil(total / 6) }, (_, i) => i + 1).map((num) => (
+              {Array.from({ length: Math.ceil(total / 12) }, (_, i) => i + 1).map((num) => (
                  <button
                    key={num}
                    onClick={() => setPage(num)}
@@ -170,8 +169,8 @@ export default function GalleryPage() {
                         <ChevronLeft className="w-3 h-3" />
                     </button>
                     <button 
-                        disabled={page >= Math.ceil(total / 6)}
-                        onClick={() => setPage(prev => Math.min(Math.ceil(total / 6), prev + 1))}
+                        disabled={page >= Math.ceil(total / 12)}
+                        onClick={() => setPage(prev => Math.min(Math.ceil(total / 12), prev + 1))}
                         className="p-1 border border-gray-300 hover:bg-gray-50 disabled:opacity-30"
                     >
                         <ChevronRight className="w-3 h-3" />

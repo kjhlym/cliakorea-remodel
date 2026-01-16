@@ -23,6 +23,7 @@ export default function CalendarView() {
   // 툴팁 및 모달 상태 관리
   const [tooltip, setTooltip] = useState<{ x: number; y: number; data: any } | null>(null);
   const [selectedSchedule, setSelectedSchedule] = useState<any | null>(null);
+  const [selectedDaySchedules, setSelectedDaySchedules] = useState<any[] | null>(null);
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -102,7 +103,15 @@ export default function CalendarView() {
 
   const handleScheduleClick = (schedule: any) => {
     setSelectedSchedule(schedule);
-    setTooltip(null); // 클릭 시 툴팁은 닫음
+    setSelectedDaySchedules(null);
+    setTooltip(null);
+  };
+
+  const handleMoreClick = (e: React.MouseEvent, items: any[]) => {
+    e.stopPropagation();
+    if (!window.matchMedia("(hover: hover)").matches) {
+      setSelectedDaySchedules(items);
+    }
   };
 
   return (
@@ -111,24 +120,18 @@ export default function CalendarView() {
 
       <div className="flex flex-col md:flex-row justify-between items-center mb-2 md:mb-6 gap-2 md:gap-4">
         {/* Navigation */}
-        <div className="flex items-center gap-2 md:gap-4 text-gray-600 w-full md:w-auto justify-between md:justify-start">
-          <button onClick={prevMonth} className="flex items-center hover:text-blue-600 font-bold text-xs md:text-base">
-            <ChevronLeft className="w-3.5 h-3.5 md:w-5 md:h-5" />
-            지난달
+        <div className="flex items-center justify-center gap-4 md:gap-8 text-gray-600 w-full md:w-auto">
+          <button onClick={prevMonth} className="p-1 hover:text-blue-600 transition-colors">
+            <ChevronLeft className="w-5 h-5 md:w-6 md:h-6" />
           </button>
           
-          <div className="flex items-center gap-1 md:gap-2 text-sm md:text-xl font-bold text-gray-800">
-            <div className="border border-gray-300 rounded px-1 md:px-3 py-0.5 md:py-1 bg-white">
-              {year}
-            </div>
-            <div className="border border-gray-300 rounded px-1 md:px-3 py-0.5 md:py-1 bg-white">
-              {month}
-            </div>
+          <div className="flex items-center gap-1.5 md:gap-2 text-base md:text-2xl font-black text-gray-900">
+            <span>{year}년</span>
+            <span>{month}월</span>
           </div>
 
-          <button onClick={nextMonth} className="flex items-center hover:text-blue-600 font-bold text-xs md:text-base">
-            다음달
-            <ChevronRight className="w-3.5 h-3.5 md:w-5 md:h-5" />
+          <button onClick={nextMonth} className="p-1 hover:text-blue-600 transition-colors">
+            <ChevronRight className="w-5 h-5 md:w-6 md:h-6" />
           </button>
         </div>
 
@@ -171,7 +174,6 @@ export default function CalendarView() {
                             className={`
                                 h-[80px] md:h-[130px] p-1 md:p-2 border-r border-b border-gray-200 relative overflow-hidden
                                 ${!day ? 'bg-gray-50' : 'bg-white'}
-                                ${daySchedules?.length > 2 ? 'pr-6 md:pr-8' : ''}
                             `}
                         >
                             {day && (
@@ -185,7 +187,7 @@ export default function CalendarView() {
                                         {day}
                                     </span>
                                     <div className="space-y-1">
-                                        {daySchedules?.slice(0, 2).map(schedule => (
+                                        {daySchedules?.slice(0, 1).map(schedule => (
                                             <div 
                                                 key={schedule.id}
                                                 className="text-[10px] md:text-sm text-gray-600 bg-gray-50 px-0.5 py-0.5 md:p-1 rounded border border-gray-100 truncate cursor-pointer hover:bg-blue-50 hover:border-blue-200 hover:text-blue-600 transition-colors"
@@ -193,20 +195,20 @@ export default function CalendarView() {
                                                 onMouseLeave={handleMouseLeave}
                                                 onClick={() => handleScheduleClick(schedule)}
                                             >
-                                                <span className="md:hidden block truncate">{schedule.title}</span>
-                                                <span className="hidden md:block truncate">{schedule.title}</span>
+                                                {schedule.title}
                                             </div>
                                         ))}
+                                        {daySchedules?.length > 1 && (
+                                            <div 
+                                                className="text-[10px] md:text-sm text-gray-400 bg-gray-100/50 px-1 py-0.5 md:p-1 rounded border border-dashed border-gray-200 text-center cursor-pointer hover:bg-gray-200 transition-colors font-black"
+                                                onClick={(e) => handleMoreClick(e, daySchedules)}
+                                                onMouseEnter={(e) => handleMouseEnter(e, daySchedules)}
+                                                onMouseLeave={handleMouseLeave}
+                                            >
+                                                ...
+                                            </div>
+                                        )}
                                     </div>
-                                    {daySchedules?.length > 2 && (
-                                        <div 
-                                            className="absolute right-1 md:right-2 top-1/2 -translate-y-1/2 bg-gray-100/90 text-gray-400 font-black text-xs md:text-base px-1 py-2 rounded-md cursor-default z-10 flex items-center justify-center hover:bg-gray-200 transition-colors"
-                                            onMouseEnter={(e) => handleMouseEnter(e, daySchedules)}
-                                            onMouseLeave={handleMouseLeave}
-                                        >
-                                            ...
-                                        </div>
-                                    )}
                                 </>
                             )}
                         </div>
@@ -257,50 +259,83 @@ export default function CalendarView() {
         document.body
       )}
 
-      {/* 모바일용 상세 모달 */}
+       {/* 모바일용 상세 모달 */}
       {mounted && selectedSchedule && createPortal(
-        <div className="fixed inset-0 z-[100000] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in fade-in duration-200">
+        <div className="fixed inset-0 z-[100000] flex items-center justify-center p-6 bg-black/60 backdrop-blur-sm animate-in fade-in duration-200" onClick={() => setSelectedSchedule(null)}>
            <div 
-            className="bg-white w-full max-w-sm rounded-3xl shadow-2xl overflow-hidden animate-in zoom-in-95 slide-in-from-bottom-10 duration-300"
+            className="bg-white w-full max-w-[280px] rounded-[2rem] shadow-2xl overflow-hidden animate-in zoom-in-95 slide-in-from-bottom-10 duration-300"
             onClick={(e) => e.stopPropagation()}
            >
-              <div className="p-6 bg-[#0066CC] text-white">
-                <div className="flex justify-end items-start mb-4">
+              <div className="p-5 bg-[#0066CC] text-white">
+                <div className="flex justify-end items-start mb-2">
                   <button 
                     onClick={() => setSelectedSchedule(null)}
                     className="p-1 hover:bg-white/20 rounded-full transition-colors"
                   >
-                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M6 18L18 6M6 6l12 12" />
+                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M6 18L18 6M6 6l12 12" />
                     </svg>
                   </button>
                 </div>
-                <h3 className="text-xl font-black leading-tight break-keep">
+                <h3 className="text-lg font-black leading-tight break-keep">
                   {selectedSchedule.title}
                 </h3>
-                <p className="mt-2 text-white/80 text-sm font-medium">
+                <p className="mt-1.5 text-white/70 text-[11px] font-bold">
                   {new Date(selectedSchedule.startDate).toLocaleDateString('ko-KR', { year: 'numeric', month: 'long', day: 'numeric' })}
                 </p>
               </div>
               
-              <div className="p-6 bg-white">
-                <div className="mb-6">
-                  <h4 className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">상세 내용</h4>
+              <div className="p-5 bg-white">
+                <div className="mb-5">
+                  <h4 className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-2 italic">DESCRIPTION</h4>
                   {selectedSchedule.description ? (
-                    <p className="text-gray-700 text-sm leading-relaxed whitespace-pre-wrap break-keep">
+                    <p className="text-gray-700 text-xs leading-relaxed whitespace-pre-wrap break-keep font-medium">
                       {selectedSchedule.description}
                     </p>
                   ) : (
-                    <p className="text-gray-400 text-sm italic">상세 내용이 없습니다.</p>
+                    <p className="text-gray-400 text-xs italic">상세 내용이 없습니다.</p>
                   )}
                 </div>
                 
                 <button
                   onClick={() => setSelectedSchedule(null)}
-                  className="w-full py-4 bg-gray-100 hover:bg-gray-200 text-gray-900 font-bold rounded-2xl transition-all"
+                  className="w-full py-3 bg-gray-50 hover:bg-gray-100 text-gray-900 text-sm font-black rounded-xl border border-gray-100 transition-all"
                 >
-                  닫기
+                  확인
                 </button>
+              </div>
+           </div>
+        </div>,
+        document.body
+      )}
+
+      {/* 모바일용 전체 일정 목록 모달 */}
+      {mounted && selectedDaySchedules && createPortal(
+        <div className="fixed inset-0 z-[100000] flex items-center justify-center p-6 bg-black/40 backdrop-blur-sm animate-in fade-in duration-200" onClick={() => setSelectedDaySchedules(null)}>
+           <div 
+            className="bg-white w-full max-w-[280px] rounded-[2rem] shadow-2xl overflow-hidden animate-in zoom-in-95 slide-in-from-bottom-10 duration-300 flex flex-col max-h-[70vh]"
+            onClick={(e) => e.stopPropagation()}
+           >
+              <div className="p-5 bg-gray-900 text-white flex justify-between items-center">
+                <h3 className="text-sm font-black uppercase tracking-widest italic">Schedule List</h3>
+                <button onClick={() => setSelectedDaySchedules(null)} className="p-1 hover:bg-white/10 rounded-full transition-colors">
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M6 18L18 6M6 6l12 12" /></svg>
+                </button>
+              </div>
+              
+              <div className="p-4 overflow-y-auto flex-grow bg-gray-50">
+                <div className="space-y-2">
+                  {selectedDaySchedules.map((schedule) => (
+                    <div 
+                      key={schedule.id}
+                      onClick={() => handleScheduleClick(schedule)}
+                      className="p-3 bg-white rounded-xl border border-gray-100 shadow-sm active:scale-[0.98] transition-all"
+                    >
+                      <h4 className="text-xs font-black text-gray-800 leading-snug break-keep">{schedule.title}</h4>
+                      <p className="text-[10px] text-gray-400 mt-1 font-bold">상세보기</p>
+                    </div>
+                  ))}
+                </div>
               </div>
            </div>
         </div>,

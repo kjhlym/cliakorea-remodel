@@ -82,7 +82,7 @@ export default function ConsultationPage() {
                   </div>
                   <div>
                     <p className="text-sm font-bold text-gray-400 uppercase tracking-widest mb-1">이메일</p>
-                    <p className="text-xl font-bold text-gray-900">info@cliakorea.kr</p>
+                    <p className="text-xl font-bold text-gray-900">Email: only.youplus@daum.net</p>
                   </div>
                 </div>
                 <div className="flex gap-4">

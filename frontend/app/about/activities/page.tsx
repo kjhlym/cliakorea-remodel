@@ -19,15 +19,15 @@ export default function ActivitiesPage() {
    {
       year: "2025",
       events: [
-        { month: "", title: "학교로 찾아가는 리더십 교육(경기도 교육청)", description: "" },
+        { month: "", title: "학교로 찾아가는 리더십 교육", description: "경기도 교육청" },
         { month: "", title: "펜빌딩 교구제작", description: "" },
       ],
     },
    {
       year: "2024",
       events: [
-        { month: "", title: "협회원 역량강화 교육 \n (디자인 씽킹 활용법)", description: "" },
-        { month: "", title: "시립성동 청소년 센터 교육봉사\n (너와 나의 리더십 찾기)", description: "" },
+        { month: "", title: "협회원 역량강화 교육 ", description: "디자인 씽킹 활용법" },
+        { month: "", title: "시립성동 청소년 센터 교육봉사", description: "너와 나의 리더십 찾기" },
       ],
     },
     {
