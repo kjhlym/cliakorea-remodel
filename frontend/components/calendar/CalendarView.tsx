@@ -87,7 +87,7 @@ export default function CalendarView() {
 
   const handleMouseEnter = (e: React.MouseEvent, items: any[]) => {
     // 테스크톱(호버 가능 장치)에서만 툴팁 표시
-    if (window.matchMedia("(hover: hover)").matches) {
+    if (window.matchMedia("(hover: hover)").matches && items.length > 1) {
       const rect = e.currentTarget.getBoundingClientRect();
       setTooltip({
         x: rect.right + 10,
@@ -193,7 +193,15 @@ export default function CalendarView() {
                                                 className="text-[10px] md:text-sm text-gray-600 bg-gray-50 px-0.5 py-0.5 md:p-1 rounded border border-gray-100 truncate cursor-pointer hover:bg-blue-50 hover:border-blue-200 hover:text-blue-600 transition-colors"
                                                 onMouseEnter={(e) => handleMouseEnter(e, daySchedules)}
                                                 onMouseLeave={handleMouseLeave}
-                                                onClick={() => handleScheduleClick(schedule)}
+                                                onClick={(e) => {
+                                                    // 모바일에서 일정이 여러 개일 경우 클릭 시 전체 목록 표시
+                                                    if (!window.matchMedia("(hover: hover)").matches && daySchedules.length > 1) {
+                                                        e.stopPropagation();
+                                                        setSelectedDaySchedules(daySchedules);
+                                                    } else {
+                                                        handleScheduleClick(schedule);
+                                                    }
+                                                }}
                                             >
                                                 {schedule.title}
                                             </div>
@@ -225,7 +233,7 @@ export default function CalendarView() {
       {/* 툴팁 컴포넌트 (Portal) */}
       {mounted && tooltip && createPortal(
         <div 
-          className="fixed z-[99999] bg-gray-900/95 text-white p-4 rounded-xl shadow-2xl border border-gray-700/50 backdrop-blur-sm pointer-events-none animate-in fade-in zoom-in-95 duration-200 w-[280px] hidden md:block"
+          className="fixed z-[99999] bg-gray-900/95 text-white p-4 rounded-xl shadow-2xl border border-gray-700/50 backdrop-blur-sm pointer-events-none animate-in fade-in zoom-in-95 duration-200 w-[200px] hidden md:block"
           style={{ 
             left: tooltip.x, 
             top: tooltip.y,
@@ -240,9 +248,6 @@ export default function CalendarView() {
                <h4 className="text-[11px] font-bold text-gray-400 uppercase tracking-widest">
                 교육 일정 목록
               </h4>
-              <span className="text-[10px] text-gray-500 font-medium">
-                {tooltip.data?.length > 0 && new Date(tooltip.data[0].startDate).toLocaleDateString('ko-KR', { month: 'long', day: 'numeric' })}
-              </span>
             </div>
             
             <div className="space-y-3 max-h-[300px] overflow-y-auto pr-1 custom-scrollbar">
