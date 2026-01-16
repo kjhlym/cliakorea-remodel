@@ -6,38 +6,16 @@ import { ChevronDown } from "lucide-react";
 import { useAuth } from "@/lib/context/AuthContext";
 
 export default function Footer() {
-  const [openSections, setOpenSections] = useState<string[]>([]);
+  // No state needed for purely static footer
   const { openLoginModal } = useAuth();
 
-  const toggleSection = (title: string) => {
-    setOpenSections((prev) =>
-      prev.includes(title)
-        ? prev.filter((t) => t !== title)
-        : [...prev, title]
-    );
-  };
-
-  const isSectionOpen = (title: string) => openSections.includes(title);
-
   const FooterSection = ({ title, children }: { title: string, children: React.ReactNode }) => (
-    <div className="flex flex-col items-center text-center border-b md:border-none border-gray-800 last:border-none py-4 md:py-0">
-      <button 
-        onClick={() => toggleSection(title)}
-        className="flex items-center justify-center gap-2 text-sm md:text-base font-bold mb-1 md:mb-2 w-full md:w-auto md:pointer-events-none hover:text-blue-400 md:hover:text-white transition-colors"
-      >
+    <div className="flex flex-col items-center text-center md:border-none last:border-none py-2 md:py-0">
+      <div className="text-sm md:text-base font-bold mb-2 w-full md:w-auto text-white">
         {title}
-        <ChevronDown 
-          className={`w-4 h-4 md:hidden transition-transform duration-300 ${isSectionOpen(title) ? "rotate-180" : ""}`} 
-        />
-      </button>
-      <div 
-        className={`space-y-2 text-gray-300 transition-all duration-300 overflow-hidden md:h-auto md:opacity-100 md:visible ${
-          isSectionOpen(title) 
-            ? "max-h-40 opacity-100" 
-            : "max-h-0 opacity-0 md:max-h-none"
-        }`}
-      >
-        <div className="pt-2 md:pt-0">
+      </div>
+      <div className="space-y-2 text-gray-300 transition-all duration-300 md:h-auto md:opacity-100 md:visible">
+        <div className="pt-0 md:pt-0 text-[10px] md:text-sm">
           {children}
         </div>
       </div>
@@ -46,8 +24,8 @@ export default function Footer() {
 
   return (
     <footer className="bg-gray-900 text-white py-6 md:py-8 text-xs md:text-sm">
-      <div className="container mx-auto px-4">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-0 md:gap-8 mb-4 md:mb-6">
+      <div className="container mx-auto px-1 md:px-4">
+        <div className="grid grid-cols-3 gap-2 md:gap-8 mb-4 md:mb-6">
           
           <FooterSection title="연락처">
             <div className="space-y-2">
