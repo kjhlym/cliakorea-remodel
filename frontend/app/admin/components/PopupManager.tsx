@@ -475,7 +475,7 @@ export default function PopupManager() {
                 <div className="sticky top-0">
                   <h3 className="text-xs font-black text-gray-400 mb-6 uppercase tracking-wider">실시간 미리보기 (Live Preview)</h3>
                   
-                  <div className="relative w-full max-w-[218px] mx-auto bg-white rounded-[2.5rem] shadow-2xl overflow-hidden border border-black scale-90 origin-top">
+                  <div className="relative w-full max-w-[218px] mx-auto bg-white rounded-none shadow-[15px_15px_40px_rgba(0,0,0,0.25)] overflow-hidden border-[0.5px] border-black/10 scale-90 origin-top">
                     <div className="relative min-h-[100px] bg-white">
                       {formData.type === 'HTML' ? (
                         <div 
@@ -483,24 +483,24 @@ export default function PopupManager() {
                           dangerouslySetInnerHTML={{ __html: formData.content || '<p style="color:#999;text-align:center;padding:40px;">내용을 입력해주세요.</p>' }}
                         />
                       ) : (
-                        <div className="relative aspect-[10/11] bg-gray-100">
+                        <div className="relative aspect-[1/1.414] bg-gray-100">
                           {formData.imageUrl ? (
-                            <img src={formData.imageUrl} alt="미리보기" className="w-full h-full object-contain border border-gray-200" />
+                            <img src={formData.imageUrl} alt="미리보기" className="w-full h-full object-cover border border-gray-200" />
                           ) : (
                             <div className="w-full h-full flex items-center justify-center p-8 text-center text-gray-200 bg-gray-50">
-                              <ImageIcon className="w-12 h-12" />
+                              <ImageIcon className="w-12 h-16.968" />
                             </div>
                           )}
                         </div>
                       )}
                     </div>
                     
-                    <div className="p-4 flex items-center justify-between border-t border-gray-50 bg-white">
-                      <div className="flex items-center gap-1.5 opacity-40">
-                        <div className="w-3.5 h-3.5 border border-gray-300 rounded-sm"></div>
-                        <span className="text-[10px] font-bold text-gray-500">오늘 하루 보지 않기</span>
+                    <div className="py-1 px-2.5 flex items-center justify-between border-t border-gray-100 bg-white">
+                      <div className="flex items-center gap-1 opacity-40">
+                        <div className="w-1 h-1 border border-gray-300 rounded-none"></div>
+                        <span className="text-[5px] font-bold text-gray-500">오늘 하루 보지 않기</span>
                       </div>
-                      <span className="text-[10px] font-black text-gray-400">닫기</span>
+                      <span className="text-[5px] font-black text-gray-400">닫기</span>
                     </div>
                   </div>
 

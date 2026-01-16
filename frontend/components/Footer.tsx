@@ -123,7 +123,7 @@ export default function Footer() {
 
         {/* 저작권 */}
         <div className="border-t border-gray-800 pt-4 text-center text-gray-400 text-[10px] md:text-xs">
-          <p className="mb-1">사업자 등록번호: 209-82-67774</p>
+          <p className="mb-1">사업자 등록번호: 209-82-67773</p>
           <p>© 2025 어린이리더십강사협회 (CLIA). All rights reserved.</p>
         </div>
       </div>

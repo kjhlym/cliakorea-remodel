@@ -35,17 +35,17 @@ export default function MissionPage() {
         <SubNav items={aboutNavItems} />
 
         {/* 사명 */}
-        <section className="py-10 md:py-24 bg-gradient-to-br from-emerald-600 to-teal-600 text-white">
+        <section className="py-10 md:py-10 bg-white text-black">
           <div className="container mx-auto px-4">
-            <div className="max-w-4xl mx-auto text-center">
-              <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/20 rounded-full text-xs md:text-sm font-bold mb-4 md:mb-6">
+            <div className="max-w-4xl mx-auto text-center p-8 md:p-16 rounded-[2.5rem] border-2 border-emerald-100 bg-emerald-50/30">
+              <div className="inline-flex items-center gap-2 px-4 py-2 bg-emerald-100 rounded-full text-xs md:text-sm font-bold mb-4 md:mb-6 text-emerald-700">
                 <Target className="w-4 h-4" />
                 Our Mission
               </div>
-              <h2 className="text-2xl md:text-5xl font-black mb-6 md:mb-8">
+              <h2 className="text-2xl md:text-5xl font-black mb-6 md:mb-8 text-gray-900">
                 우리의 사명
               </h2>
-              <p className="text-sm md:text-xl leading-relaxed opacity-90 text-justify md:text-center whitespace-pre-line break-keep">
+              <p className="text-sm md:text-xl leading-relaxed text-gray-700 text-justify md:text-center whitespace-pre-line break-keep">
                 새로운 미래의 주역으로 활약할 청소년들에게 리더로서의 자질과 품성을 개발하고, 
                 창의적인 생각과 자율적인 행동을 통해 민주사회의 일원으로 성장하는 것을 돕는다. 
                 또한 청소년들이 긍정과 소통의 힘을 발휘하여 글로벌 리더로서 비전을 실현하는데 
@@ -56,7 +56,7 @@ export default function MissionPage() {
         </section>
 
         {/* 핵심 미션 */}
-        <section className="py-10 md:py-24 container mx-auto px-4">
+        <section className="py-4 md:py-4 container mx-auto px-4">
           <div className="max-w-6xl mx-auto">
             <h2 className="text-2xl md:text-4xl font-black text-center text-gray-900 mb-8 md:mb-16">
               핵심 가치
